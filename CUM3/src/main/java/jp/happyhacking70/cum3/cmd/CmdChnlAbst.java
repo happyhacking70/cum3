@@ -27,10 +27,10 @@ abstract public class CmdChnlAbst extends CmdSeshAbst {
 	 */
 	public CmdChnlAbst(Document doc) throws CumExcpIllegalCmdDoc {
 		super(doc);
-		setChnlName(doc);
+		setChnlNameFromDoc(doc);
 	}
 
-	protected final void setChnlName(Document doc) {
+	protected final void setChnlNameFromDoc(Document doc) {
 		this.chnlName = getChnlNameFromDoc(doc);
 	}
 

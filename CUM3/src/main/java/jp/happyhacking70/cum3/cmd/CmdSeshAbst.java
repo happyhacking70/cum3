@@ -28,11 +28,11 @@ abstract public class CmdSeshAbst extends CmdAbst {
 	 */
 	public CmdSeshAbst(Document doc) throws CumExcpIllegalCmdDoc {
 		super(doc);
-		setSeshName(doc);
+		setSeshNameFromDoc(doc);
 
 	}
 
-	protected final void setSeshName(Document doc) {
+	protected final void setSeshNameFromDoc(Document doc) {
 		this.seshName = getSeshNameFromDoc(doc);
 	}
 

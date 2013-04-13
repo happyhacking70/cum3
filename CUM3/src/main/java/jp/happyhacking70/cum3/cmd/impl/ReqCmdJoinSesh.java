@@ -1,8 +1,9 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.cmd;
+package jp.happyhacking70.cum3.cmd.impl;
 
+import jp.happyhacking70.cum3.cmd.ReqCmdSeshAudAbst;
 import jp.happyhacking70.cum3.excp.CumExcpIllegalCmdDoc;
 
 import org.w3c.dom.Document;
@@ -11,14 +12,13 @@ import org.w3c.dom.Document;
  * @author happyhacking70@gmail.com
  * 
  */
-abstract public class ReqCmdSeshAudAbst extends CmdSeshAudAbst implements
-		ReqCmdIntf {
+public class ReqCmdJoinSesh extends ReqCmdSeshAudAbst {
 
 	/**
 	 * @param seshName
 	 * @param audName
 	 */
-	public ReqCmdSeshAudAbst(String seshName, String audName) {
+	public ReqCmdJoinSesh(String seshName, String audName) {
 		super(seshName, audName);
 	}
 
@@ -26,13 +26,13 @@ abstract public class ReqCmdSeshAudAbst extends CmdSeshAudAbst implements
 	 * @param doc
 	 * @throws CumExcpIllegalCmdDoc
 	 */
-	public ReqCmdSeshAudAbst(Document doc) throws CumExcpIllegalCmdDoc {
+	public ReqCmdJoinSesh(Document doc) throws CumExcpIllegalCmdDoc {
 		super(doc);
 	}
 
 	@Override
-	protected void setCmdType() {
-		cmdType = CmdTypes.REQ;
+	protected void setActionName() {
+		actionName = "JoinSesh";
 	}
 
 }
