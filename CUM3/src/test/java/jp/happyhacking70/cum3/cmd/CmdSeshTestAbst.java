@@ -1,7 +1,7 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.cmd.impl;
+package jp.happyhacking70.cum3.cmd;
 
 import static org.junit.Assert.assertEquals;
 
@@ -13,9 +13,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import jp.happyhacking70.cum3.cmd.CmdAbst;
 import jp.happyhacking70.cum3.cmd.CmdAbst.CmdTypes;
-import jp.happyhacking70.cum3.cmd.CmdSeshAbst;
+import jp.happyhacking70.cum3.cmd.impl.ReqCmdClsSesh;
 import jp.happyhacking70.cum3.excp.CumExcpIllegalCmdXML;
 import jp.happyhacking70.cum3.excp.CumExcpXMLGenFailed;
 
@@ -29,15 +28,15 @@ import org.xml.sax.SAXException;
  */
 abstract public class CmdSeshTestAbst {
 
-	static final String seshName = "testSession";
+	static final protected String seshName = "testSession";
 
-	abstract CmdAbst getCmdNormal();
+	abstract protected CmdAbst getCmdNormal();
 
-	abstract String getXMLNormal();
+	abstract protected String getXMLNormal();
 
-	abstract String getActionName();
+	abstract protected String getActionName();
 
-	abstract CmdTypes getCmdType();
+	abstract protected CmdTypes getCmdType();
 
 	/**
 	 * Test method for

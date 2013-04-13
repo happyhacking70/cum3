@@ -1,7 +1,7 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.cmd.impl;
+package jp.happyhacking70.cum3.cmd;
 
 import jp.happyhacking70.cum3.cmd.CmdAbst.CmdTypes;
 
@@ -12,7 +12,7 @@ import jp.happyhacking70.cum3.cmd.CmdAbst.CmdTypes;
 abstract public class ReqCmdSeshTestAbst extends CmdSeshTestAbst {
 
 	@Override
-	final CmdTypes getCmdType() {
+	protected final CmdTypes getCmdType() {
 		return CmdTypes.REQ;
 	}
 
