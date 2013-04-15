@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<CUM>
+    <SLIDESHOW NAME="testChannel" INITSLIDE="SLIDE-1"/>
+    <SLIDE NAME="SLIDE-1" PATH="testSlideShow/1.jpg"/>
+    <SLIDE NAME="SLIDE-2" PATH="testSlideShow/2.jpg"/>
+    <SLIDE NAME="SLIDE-3" PATH="testSlideShow/3.jpg"/>
+</CUM>

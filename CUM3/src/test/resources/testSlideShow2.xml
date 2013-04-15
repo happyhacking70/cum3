@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<CUM>
+    <SLIDESHOW NAME="testSlide2" INITSLIDE="SLIDE-2-1"/>
+    <SLIDE NAME="SLIDE-2-1" PATH="testSlideShow/2-1.gif"/>
+    <SLIDE NAME="SLIDE-2-2" PATH="testSlideShow/2-2.gif"/>
+    <SLIDE NAME="SLIDE-2-3" PATH="testSlideShow/2-3.gif"/>
+    <SLIDE NAME="SLIDE-2-4" PATH="testSlideShow/2-4.gif"/>
+    <SLIDE NAME="SLIDE-2-5" PATH="testSlideShow/2-5.gif"/>
+    <SLIDE NAME="SLIDE-2-6" PATH="testSlideShow/2-6.gif"/>
+</CUM>

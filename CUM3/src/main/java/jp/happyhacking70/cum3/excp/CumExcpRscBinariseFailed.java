@@ -1,7 +1,7 @@
 /**
  * 
  */
-package jp.happyhacking70.cum2.excp;
+package jp.happyhacking70.cum3.excp;
 
 import java.io.IOException;
 
