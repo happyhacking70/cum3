@@ -83,9 +83,8 @@ public interface SeshPrestrIntf {
 
 	/**
 	 * <UL>
-	 * <LI><B>send command to all <U>session</U> audiences<B></LI>
+	 * <LI><B>send command to all <U>channel</U> audiences<B></LI>
 	 * </UL>
-	 * 
 	 * 
 	 * @param cmd
 	 * @throws CumExcpChnlNotEixt

@@ -3,7 +3,7 @@
  */
 package jp.happyhacking70.cum3.presSvr.audLyr;
 
-import jp.happyhacking70.cum3.cmd.CmdChnlAbst;
+import jp.happyhacking70.cum3.cmd.CmdAbst;
 
 /**
  * @author happyhacking70@gmail.com
@@ -16,6 +16,6 @@ public interface AudIntf {
 	 */
 	String getAudName();
 
-	public void sendCmd(CmdChnlAbst cmd);
+	public void sendCmd(CmdAbst cmd);
 
 }

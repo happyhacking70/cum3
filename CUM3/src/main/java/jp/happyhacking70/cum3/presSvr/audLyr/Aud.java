@@ -3,7 +3,7 @@
  */
 package jp.happyhacking70.cum3.presSvr.audLyr;
 
-import jp.happyhacking70.cum3.cmd.CmdChnlAbst;
+import jp.happyhacking70.cum3.cmd.CmdAbst;
 import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf;
 
 /**
@@ -27,7 +27,7 @@ public class Aud implements AudIntf {
 	/**
 	 * @param cmd
 	 */
-	synchronized public void sendCmd(CmdChnlAbst cmd) {
+	synchronized public void sendCmd(CmdAbst cmd) {
 		sender.sendCmd(cmd);
 	}
 

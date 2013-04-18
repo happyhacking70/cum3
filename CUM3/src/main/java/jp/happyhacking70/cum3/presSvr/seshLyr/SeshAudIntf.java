@@ -8,6 +8,7 @@ import jp.happyhacking70.cum3.cmd.impl.NtfyCmdJoinChnl;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdJoinSesh;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdLvChnl;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdLvSesh;
+import jp.happyhacking70.cum3.cmd.impl.NtfyCmdRegChnl;
 import jp.happyhacking70.cum3.excp.CumExcpAudExists;
 import jp.happyhacking70.cum3.excp.CumExcpAudNotExist;
 import jp.happyhacking70.cum3.excp.CumExcpChnlNotEixt;
@@ -24,9 +25,12 @@ public interface SeshAudIntf {
 	 * <UL>
 	 * <LI><B>add audience to session</B></LI>
 	 * <LI><B>send NtfyCmdJoinSesh to <U>presenter</U></B></LI>
+	 * <LI><B>send NtfyCmdRegChnl to <U>audience</U> for all existing
+	 * channels</B></LI>
 	 * </UL>
 	 * 
 	 * @see NtfyCmdJoinSesh
+	 * @see NtfyCmdRegChnl
 	 * 
 	 * @param audName
 	 * @param sender
@@ -38,9 +42,14 @@ public interface SeshAudIntf {
 	/**
 	 * <UL>
 	 * <LI><B>remove audience from session</B></LI>
+	 * <LI><B>let audience leave from all the channel which audience is still
+	 * joining</B></LI>
+	 * <LI><B>send NtfyCmdLvChnl to <U>presenter</U> for all channels which
+	 * audience left in the process before</B></LI>
 	 * <LI><B>send NtfyCmdLvSesh to <U>presenter</U></B></LI>
 	 * </UL>
 	 * 
+	 * @see NtfyCmdLvChnl
 	 * @see NtfyCmdLvSesh
 	 * 
 	 * @param audName

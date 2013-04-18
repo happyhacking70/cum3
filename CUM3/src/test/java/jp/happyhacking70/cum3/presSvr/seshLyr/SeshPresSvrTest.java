@@ -64,13 +64,13 @@ public class SeshPresSvrTest {
 	public void testRegChnl_OK() throws CumExcpChnlExists, CumExcpRscExists,
 			CumExcptNullRsces, CumExcpRscNull, CumExcpChnlNotEixt,
 			CumExcpAudNotExist {
-		DummySender sender = new DummySender();
-		SeshPresSvr sesh = new SeshPresSvr(seshName, sender);
+		DummySender senderForPresenter = new DummySender();
+		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPresenter);
 		sesh.regChnl(chnlName, new ArrayList<ChnlRscIntf>());
 
 		// NtfyCmdRegChnl cmd = (NtfyCmdRegChnl) sender
 		// .getCmdSent(NtfyCmdRegChnl.class);
-		NtfyCmdRegChnl cmd = (NtfyCmdRegChnl) sender.pollCmd();
+		NtfyCmdRegChnl cmd = (NtfyCmdRegChnl) senderForPresenter.pollCmd();
 		//
 		assertEquals(cmd.getActionName(), "RegChnl");
 		assertEquals(cmd.getChnlName(), chnlName);
