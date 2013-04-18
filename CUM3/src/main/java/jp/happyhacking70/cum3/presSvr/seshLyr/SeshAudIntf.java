@@ -42,10 +42,12 @@ public interface SeshAudIntf {
 	/**
 	 * <UL>
 	 * <LI><B>remove audience from session</B></LI>
-	 * <LI><B>let audience leave from all the channel which audience is still
+	 * <LI><B>let audience leave from all the channels which audience is still
 	 * joining</B></LI>
-	 * <LI><B>send NtfyCmdLvChnl to <U>presenter</U> for all channels which
-	 * audience left in the process before</B></LI>
+	 * <LI><B>no need to send NtfyCmdLvChnl to <U>presenter</U> because
+	 * presenter takes care of it</B></LI>
+	 * <LI><B>no need to send NtfyCmdLvChnl to <U>audience</U> because audience
+	 * takes care of it</B></LI>
 	 * <LI><B>send NtfyCmdLvSesh to <U>presenter</U></B></LI>
 	 * </UL>
 	 * 

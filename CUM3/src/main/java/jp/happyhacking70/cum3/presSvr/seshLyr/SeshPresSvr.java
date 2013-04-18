@@ -263,7 +263,9 @@ public class SeshPresSvr implements SeshAudIntf, SeshPrestrIntf {
 
 			try {
 				// remove audience from all channels
-				sender.sendCmd(chnl.lvChnl(aud));
+				// no need to send NtfyCmdLvChnl to presenter because presenter
+				// takes care of it
+				chnl.lvChnl(aud);
 			} catch (CumExcpAudNotExist e) {
 				// Just fine. Audience may have rejected some channel
 			}
@@ -280,6 +282,8 @@ public class SeshPresSvr implements SeshAudIntf, SeshPrestrIntf {
 	 */
 	synchronized public void clsSesh() {
 		NtfyCmdClsSesh cmd = new NtfyCmdClsSesh(seshName);
+
+		// send NtfyCmdClsSesh to all session audiences
 		for (AudIntf aud : auds.values()) {
 			aud.sendCmd(cmd);
 		}

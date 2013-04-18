@@ -26,9 +26,14 @@ public interface SeshPrestrIntf {
 	/**
 	 * <UL>
 	 * <LI><B>send NtfyCmdClsSesh to all <U>session</U> audiences<B></LI>
+	 * <LI><B>no need to send NtfyCmdClsChnl to presenter because presenter
+	 * takes care of closing channels when session is closed</B></LI>
+	 * <LI><B>no need to send NtfyCmdClsChnl to audiences because audience takes
+	 * care of closing channels when session is closed</B></LI>
 	 * </UL>
 	 * 
 	 * @see NtfyCmdClsSesh
+	 * @see NtfyCmdClsChnl
 	 * 
 	 */
 	public void clsSesh();
