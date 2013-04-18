@@ -13,13 +13,15 @@ import jp.happyhacking70.cum3.excp.CumExcpRscNull;
 import jp.happyhacking70.cum3.excp.CumExcpSeshExists;
 import jp.happyhacking70.cum3.excp.CumExcpSeshNotExist;
 import jp.happyhacking70.cum3.excp.CumExcptNullRsces;
+import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf;
 
 /**
  * @author happyhacking70@gmail.com
  * 
  */
 public interface SeshMgrPrestrIntf {
-	public void regSesh(String seshName) throws CumExcpSeshExists;
+	public void regSesh(String seshName, CmdSenderIntf sender)
+			throws CumExcpSeshExists;
 
 	public void regChnl(String seshName, String chnlName,
 			ArrayList<ChnlRscIntf> chnlRsces) throws CumExcpSeshNotExist,

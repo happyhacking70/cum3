@@ -14,20 +14,22 @@ import jp.happyhacking70.cum3.excp.CumExcpRscNull;
 import jp.happyhacking70.cum3.excp.CumExcpSeshExists;
 import jp.happyhacking70.cum3.excp.CumExcpSeshNotExist;
 import jp.happyhacking70.cum3.excp.CumExcptNullRsces;
+import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf;
 
 /**
  * @author happyhacking70@gmail.com
  * 
  */
 public class SeshMgrPresSvr implements SeshMgrAudIntf, SeshMgrPrestrIntf {
-	protected ConcurrentHashMap<String, PresSvrSesh> seshes = new ConcurrentHashMap<String, PresSvrSesh>();
+	protected ConcurrentHashMap<String, SeshPresSvr> seshes = new ConcurrentHashMap<String, SeshPresSvr>();
 
-	synchronized public void regSesh(String seshName) throws CumExcpSeshExists {
+	synchronized public void regSesh(String seshName, CmdSenderIntf sender)
+			throws CumExcpSeshExists {
 		if (seshes.containsKey(seshName) == true) {
 			throw new CumExcpSeshExists(seshName);
 		}
 
-		seshes.put(seshName, new PresSvrSesh(seshName));
+		seshes.put(seshName, new SeshPresSvr(seshName, sender));
 
 	}
 
@@ -41,7 +43,7 @@ public class SeshMgrPresSvr implements SeshMgrAudIntf, SeshMgrPrestrIntf {
 			CumExcpChnlExists, CumExcpRscExists, CumExcptNullRsces,
 			CumExcpRscNull {
 
-		PresSvrSesh sesh = seshes.get(seshName);
+		SeshPresSvr sesh = seshes.get(seshName);
 
 		// if (sesh == null) {
 		// throw new CumExcpSeshNotExist(seshName);

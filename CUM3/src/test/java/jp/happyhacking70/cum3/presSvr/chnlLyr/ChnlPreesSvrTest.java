@@ -15,7 +15,7 @@ import javax.imageio.ImageIO;
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscImg;
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
 import jp.happyhacking70.cum3.cmd.impl.ReqCmdClsChnl;
-import jp.happyhacking70.cum3.cmd.impl.ReqCmdJoinSesh;
+import jp.happyhacking70.cum3.cmd.impl.ReqCmdRegChnl;
 import jp.happyhacking70.cum3.comLyr.DummySender;
 import jp.happyhacking70.cum3.excp.CumExcpAudExists;
 import jp.happyhacking70.cum3.excp.CumExcpAudNotExist;
@@ -35,6 +35,7 @@ import org.junit.Test;
  * 
  */
 public class ChnlPreesSvrTest {
+	protected static final String seshName = "testSession";
 	protected static final String chnlName = "testChannel";
 	protected static final String audName = "testAudience";
 	protected CmdSenderIntf sender = new DummySender();
@@ -60,7 +61,7 @@ public class ChnlPreesSvrTest {
 	public void testChnlPresSvr_NullRsces() throws CumExcpRscExists,
 			CumExcptNullRsces, CumExcpRscNull {
 
-		new ChnlPresSvr(chnlName, null);
+		new ChnlPresSvr(seshName, chnlName, null);
 	}
 
 	/**
@@ -80,7 +81,7 @@ public class ChnlPreesSvrTest {
 		rsces.add(null);
 		rsces.add(new ChnlRscImg("rscB", null));
 
-		new ChnlPresSvr(chnlName, rsces);
+		new ChnlPresSvr(seshName, chnlName, rsces);
 	}
 
 	/**
@@ -99,7 +100,7 @@ public class ChnlPreesSvrTest {
 		rsces.add(new ChnlRscImg("rscA", null));
 		rsces.add(new ChnlRscImg("rscA", null));
 
-		new ChnlPresSvr(chnlName, rsces);
+		new ChnlPresSvr(seshName, chnlName, rsces);
 	}
 
 	/**
@@ -118,7 +119,7 @@ public class ChnlPreesSvrTest {
 		rsces.add(new ChnlRscImg("rscA", null));
 		rsces.add(new ChnlRscImg("rscB", null));
 
-		new ChnlPresSvr(chnlName, rsces);
+		new ChnlPresSvr(seshName, chnlName, rsces);
 	}
 
 	/**
@@ -135,7 +136,7 @@ public class ChnlPreesSvrTest {
 			CumExcptNullRsces, CumExcpRscNull {
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 
-		new ChnlPresSvr(chnlName, rsces);
+		new ChnlPresSvr(seshName, chnlName, rsces);
 	}
 
 	/**
@@ -154,7 +155,7 @@ public class ChnlPreesSvrTest {
 			CumExcptNullRsces, CumExcpRscNull, CumExcpAudExists,
 			CumExcpAudNotExist {
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
-		ChnlPresSvr chnl = new ChnlPresSvr(chnlName, rsces);
+		ChnlPresSvr chnl = new ChnlPresSvr(seshName, chnlName, rsces);
 
 		chnl.sendChnlCmd(new ReqCmdClsChnl("testSession", chnlName), aud);
 	}
@@ -175,7 +176,7 @@ public class ChnlPreesSvrTest {
 			CumExcptNullRsces, CumExcpRscNull, CumExcpAudExists,
 			CumExcpAudNotExist {
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
-		ChnlPresSvr chnl = new ChnlPresSvr(chnlName, rsces);
+		ChnlPresSvr chnl = new ChnlPresSvr(seshName, chnlName, rsces);
 		chnl.joinChnl(aud);
 		chnl.sendChnlCmd(new ReqCmdClsChnl("testSession", chnlName), aud);
 	}
@@ -196,11 +197,11 @@ public class ChnlPreesSvrTest {
 			CumExcptNullRsces, CumExcpRscNull, CumExcpAudExists,
 			CumExcpAudNotExist {
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
-		ChnlPresSvr chnl = new ChnlPresSvr(chnlName, rsces);
+		ChnlPresSvr chnl = new ChnlPresSvr(seshName, chnlName, rsces);
 		chnl.joinChnl(aud);
 		chnl.joinChnl(new Aud("testAudience2", sender));
 
-		chnl.sendChnlCmd(new ReqCmdJoinSesh("testSession", "testAud"));
+		chnl.sendChnlCmd(new ReqCmdRegChnl("testSession", "testChannel"));
 	}
 
 	/**
@@ -218,9 +219,9 @@ public class ChnlPreesSvrTest {
 			CumExcpRscNull, CumExcpAudExists {
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 
-		ChnlPresSvr chnl = new ChnlPresSvr(chnlName, rsces);
+		ChnlPresSvr chnl = new ChnlPresSvr(seshName, chnlName, rsces);
 		chnl.joinChnl(aud);
-		chnl.clsChnl("testSession");
+		chnl.clsChnl();
 	}
 
 	/**
@@ -243,7 +244,7 @@ public class ChnlPreesSvrTest {
 
 		ChnlRscIntf r = new ChnlRscImg("rscA", bImg);
 		rsces.add(r);
-		ChnlPresSvr chnl = new ChnlPresSvr(chnlName, rsces);
+		ChnlPresSvr chnl = new ChnlPresSvr(seshName, chnlName, rsces);
 
 		assertEquals(chnl.getRsc("rscA"), r);
 	}
@@ -269,7 +270,7 @@ public class ChnlPreesSvrTest {
 
 		ChnlRscIntf r = new ChnlRscImg("rscA", bImg);
 		rsces.add(r);
-		ChnlPresSvr chnl = new ChnlPresSvr(chnlName, rsces);
+		ChnlPresSvr chnl = new ChnlPresSvr(seshName, chnlName, rsces);
 
 		chnl.getRsc("rscB");
 	}
@@ -289,7 +290,7 @@ public class ChnlPreesSvrTest {
 			CumExcpRscNull, CumExcpAudExists {
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 
-		ChnlPresSvr chnl = new ChnlPresSvr(chnlName, rsces);
+		ChnlPresSvr chnl = new ChnlPresSvr(seshName, chnlName, rsces);
 		chnl.joinChnl(aud);
 	}
 
@@ -309,7 +310,7 @@ public class ChnlPreesSvrTest {
 
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 
-		ChnlPresSvr chnl = new ChnlPresSvr(chnlName, rsces);
+		ChnlPresSvr chnl = new ChnlPresSvr(seshName, chnlName, rsces);
 		chnl.joinChnl(aud);
 		chnl.joinChnl(aud);
 	}
@@ -330,7 +331,7 @@ public class ChnlPreesSvrTest {
 			CumExcpRscNull, CumExcpAudExists, CumExcpAudNotExist {
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 
-		ChnlPresSvr chnl = new ChnlPresSvr(chnlName, rsces);
+		ChnlPresSvr chnl = new ChnlPresSvr(seshName, chnlName, rsces);
 		chnl.joinChnl(aud);
 		chnl.lvChnl(aud);
 	}
@@ -351,7 +352,7 @@ public class ChnlPreesSvrTest {
 			CumExcpRscNull, CumExcpAudExists, CumExcpAudNotExist {
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 
-		ChnlPresSvr chnl = new ChnlPresSvr(chnlName, rsces);
+		ChnlPresSvr chnl = new ChnlPresSvr(seshName, chnlName, rsces);
 
 		chnl.lvChnl(aud);
 	}

@@ -3,7 +3,7 @@
  */
 package jp.happyhacking70.cum3.presSvr.chnlLyr;
 
-import jp.happyhacking70.cum3.cmd.CmdAbst;
+import jp.happyhacking70.cum3.cmd.CmdChnlAbst;
 import jp.happyhacking70.cum3.excp.CumExcpAudNotExist;
 import jp.happyhacking70.cum3.presSvr.audLyr.AudIntf;
 
@@ -13,10 +13,25 @@ import jp.happyhacking70.cum3.presSvr.audLyr.AudIntf;
  */
 public interface ChnlPrestrIntf {
 
-	public void sendChnlCmd(CmdAbst cmd, AudIntf aud) throws CumExcpAudNotExist;
+	/**
+	 * @param cmd
+	 * @param aud
+	 * @throws CumExcpAudNotExist
+	 */
+	public void sendChnlCmd(CmdChnlAbst cmd, AudIntf aud)
+			throws CumExcpAudNotExist;
 
-	public void sendChnlCmd(CmdAbst cmd) throws CumExcpAudNotExist;
+	/**
+	 * @param cmd
+	 * @throws CumExcpAudNotExist
+	 */
+	public void sendChnlCmd(CmdChnlAbst cmd) throws CumExcpAudNotExist;
 
-	public void clsChnl(String seshName);
+	/**
+	 * Notify chnl-close should be sent to all audiences. Since session does not
+	 * maintain which audience is joining channel, channel should tell all
+	 * audiences that channel should be closed.
+	 */
+	public void clsChnl();
 
 }

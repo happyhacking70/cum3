@@ -3,8 +3,7 @@
  */
 package jp.happyhacking70.cum3.presSvr.audLyr;
 
-import jp.happyhacking70.cum3.cmd.CmdAbst;
-import jp.happyhacking70.cum3.cmd.impl.ReqCmdClsChnl;
+import jp.happyhacking70.cum3.cmd.CmdChnlAbst;
 import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf;
 
 /**
@@ -25,15 +24,10 @@ public class Aud implements AudIntf {
 		return audName;
 	}
 
-	public void clsChnl(String seshName, String chnlName) {
-		ReqCmdClsChnl cmd = new ReqCmdClsChnl(seshName, chnlName);
-		sender.sendCmd(cmd);
-	}
-
 	/**
 	 * @param cmd
 	 */
-	public void sendCmd(CmdAbst cmd) {
+	synchronized public void sendCmd(CmdChnlAbst cmd) {
 		sender.sendCmd(cmd);
 	}
 
