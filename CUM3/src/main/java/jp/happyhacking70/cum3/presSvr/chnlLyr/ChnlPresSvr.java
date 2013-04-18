@@ -21,6 +21,15 @@ import jp.happyhacking70.cum3.excp.CumExcptNullRsces;
 import jp.happyhacking70.cum3.presSvr.audLyr.AudIntf;
 
 /**
+ * Channel in Presentation Server<BR>
+ * Maintains:
+ * <UL>
+ * <LI>name of session which this channel belongs to</LI>
+ * <LI>name of this channel</LI>
+ * <LI>channel resources</LI>
+ * <LI>audiences</LI>
+ * </UL>
+ * 
  * @author happyhacking70@gmail.com
  * 
  */
@@ -30,6 +39,14 @@ public class ChnlPresSvr implements ChnlAudIntf, ChnlPrestrIntf {
 	protected ConcurrentHashMap<String, ChnlRscIntf> rsces = new ConcurrentHashMap<String, ChnlRscIntf>();
 	protected ConcurrentHashMap<String, AudIntf> auds = new ConcurrentHashMap<String, AudIntf>();
 
+	/**
+	 * @param seshName
+	 * @param chnlName
+	 * @param rsces
+	 * @throws CumExcpRscExists
+	 * @throws CumExcptNullRsces
+	 * @throws CumExcpRscNull
+	 */
 	public ChnlPresSvr(String seshName, String chnlName,
 			ArrayList<ChnlRscIntf> rsces) throws CumExcpRscExists,
 			CumExcptNullRsces, CumExcpRscNull {
@@ -39,6 +56,14 @@ public class ChnlPresSvr implements ChnlAudIntf, ChnlPrestrIntf {
 		addRsces(rsces);
 	}
 
+	/**
+	 * add resources
+	 * 
+	 * @param rsces
+	 * @throws CumExcpRscExists
+	 * @throws CumExcptNullRsces
+	 * @throws CumExcpRscNull
+	 */
 	protected void addRsces(ArrayList<ChnlRscIntf> rsces)
 			throws CumExcpRscExists, CumExcptNullRsces, CumExcpRscNull {
 
@@ -50,6 +75,13 @@ public class ChnlPresSvr implements ChnlAudIntf, ChnlPrestrIntf {
 		}
 	}
 
+	/**
+	 * add resource
+	 * 
+	 * @param rsc
+	 * @throws CumExcpRscExists
+	 * @throws CumExcpRscNull
+	 */
 	protected void addRsc(ChnlRscIntf rsc) throws CumExcpRscExists,
 			CumExcpRscNull {
 		if (rsc == null) {
@@ -62,6 +94,14 @@ public class ChnlPresSvr implements ChnlAudIntf, ChnlPrestrIntf {
 		rsces.put(rsc.getName(), rsc);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * jp.happyhacking70.cum3.presSvr.chnlLyr.ChnlPrestrIntf#sendChnlCmd(jp.
+	 * happyhacking70.cum3.cmd.CmdChnlAbst,
+	 * jp.happyhacking70.cum3.presSvr.audLyr.AudIntf)
+	 */
 	synchronized public void sendChnlCmd(CmdChnlAbst cmd, AudIntf aud)
 			throws CumExcpAudNotExist {
 
@@ -71,6 +111,13 @@ public class ChnlPresSvr implements ChnlAudIntf, ChnlPrestrIntf {
 		aud.sendCmd(cmd);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * jp.happyhacking70.cum3.presSvr.chnlLyr.ChnlPrestrIntf#sendChnlCmd(jp.
+	 * happyhacking70.cum3.cmd.CmdChnlAbst)
+	 */
 	synchronized public void sendChnlCmd(CmdChnlAbst cmd)
 			throws CumExcpAudNotExist {
 		for (AudIntf aud : auds.values()) {
@@ -90,6 +137,13 @@ public class ChnlPresSvr implements ChnlAudIntf, ChnlPrestrIntf {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * jp.happyhacking70.cum3.presSvr.chnlLyr.ChnlAudIntf#getRsc(java.lang.String
+	 * )
+	 */
 	synchronized public ChnlRscIntf getRsc(String rscName)
 			throws CumExcpRscNotExist {
 		ChnlRscIntf rsc = rsces.get(rscName);
@@ -101,6 +155,13 @@ public class ChnlPresSvr implements ChnlAudIntf, ChnlPrestrIntf {
 		return rsc;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * jp.happyhacking70.cum3.presSvr.chnlLyr.ChnlAudIntf#joinChnl(jp.happyhacking70
+	 * .cum3.presSvr.audLyr.AudIntf)
+	 */
 	synchronized public NtfyCmdJoinChnl joinChnl(AudIntf aud)
 			throws CumExcpAudExists {
 		if (auds.containsKey(aud.getAudName())) {
@@ -113,6 +174,13 @@ public class ChnlPresSvr implements ChnlAudIntf, ChnlPrestrIntf {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * jp.happyhacking70.cum3.presSvr.chnlLyr.ChnlAudIntf#lvChnl(jp.happyhacking70
+	 * .cum3.presSvr.audLyr.AudIntf)
+	 */
 	synchronized public NtfyCmdLvChnl lvChnl(AudIntf aud)
 			throws CumExcpAudNotExist {
 		if (auds.containsKey(aud.getAudName()) == false) {
@@ -124,10 +192,13 @@ public class ChnlPresSvr implements ChnlAudIntf, ChnlPrestrIntf {
 
 	}
 
-	/**
-	 * @return
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * jp.happyhacking70.cum3.presSvr.chnlLyr.ChnlPrestrIntf#getNtfyRegChnlCmd()
 	 */
-	public CmdChnlAbst getNtfyRegChnlCmd() {
+	public NtfyCmdRegChnl getNtfyCmdRegChnl() {
 		NtfyCmdRegChnl cmd = new NtfyCmdRegChnl(seshName, chnlName,
 				new ArrayList<ChnlRscIntf>(rsces.values()));
 		return cmd;

@@ -21,23 +21,36 @@ import jp.happyhacking70.cum3.presSvr.audLyr.AudIntf;
 public interface ChnlAudIntf {
 
 	/**
-	 * 
+	 * <UL>
+	 * <LI><B>add audience to channel</B></LI>
+	 * <LI><B>return NtfyCmdJoinChnl so that session can sent it to
+	 * presenter</B></LI>
+	 * </UL>
 	 * 
 	 * @param aud
-	 * @return
+	 * @return NtfyCmdJoinChnl
 	 * @throws CumExcpAudExists
 	 */
 	public NtfyCmdJoinChnl joinChnl(AudIntf aud) throws CumExcpAudExists;
 
 	/**
+	 * <UL>
+	 * <LI><B>remove audience from channel</B></LI>
+	 * <LI><B>return NtfyCmdLvChnl so that session can sent it to presenter</B></LI>
+	 * </UL>
+	 * 
 	 * @param aud
+	 * @return NtfyCmdLvChnl
 	 * @throws CumExcpAudNotExist
 	 */
 	public NtfyCmdLvChnl lvChnl(AudIntf aud) throws CumExcpAudNotExist;
 
 	/**
+	 * get channel resource
+	 * 
+	 * 
 	 * @param rscName
-	 * @return
+	 * @return ChnlRscIntf
 	 * @throws CumExcpRscNotExist
 	 */
 	public ChnlRscIntf getRsc(String rscName) throws CumExcpRscNotExist;

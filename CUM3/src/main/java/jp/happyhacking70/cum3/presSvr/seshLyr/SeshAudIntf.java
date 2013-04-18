@@ -7,6 +7,7 @@ import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdJoinChnl;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdJoinSesh;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdLvChnl;
+import jp.happyhacking70.cum3.cmd.impl.NtfyCmdLvSesh;
 import jp.happyhacking70.cum3.excp.CumExcpAudExists;
 import jp.happyhacking70.cum3.excp.CumExcpAudNotExist;
 import jp.happyhacking70.cum3.excp.CumExcpChnlNotEixt;

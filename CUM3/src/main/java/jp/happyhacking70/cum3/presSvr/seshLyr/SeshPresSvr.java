@@ -20,6 +20,7 @@ import jp.happyhacking70.cum3.excp.CumExcptNullRsces;
 import jp.happyhacking70.cum3.presSvr.audLyr.Aud;
 import jp.happyhacking70.cum3.presSvr.audLyr.AudIntf;
 import jp.happyhacking70.cum3.presSvr.chnlLyr.ChnlPresSvr;
+import jp.happyhacking70.cum3.presSvr.chnlLyr.ChnlPrestrIntf;
 import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf;
 
 /**
@@ -167,8 +168,8 @@ public class SeshPresSvr implements SeshAudIntf, SeshPrestrIntf {
 		AudIntf aud = new Aud(audName, sender);
 		auds.put(audName, aud);
 
-		for (ChnlPresSvr chnl : chnls.values()) {
-			aud.sendCmd(chnl.getNtfyRegChnlCmd());
+		for (ChnlPrestrIntf chnl : chnls.values()) {
+			aud.sendCmd(chnl.getNtfyCmdRegChnl());
 		}
 	}
 

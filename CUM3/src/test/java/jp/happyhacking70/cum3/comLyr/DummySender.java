@@ -3,7 +3,7 @@
  */
 package jp.happyhacking70.cum3.comLyr;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import jp.happyhacking70.cum3.cmd.CmdAbst;
 import jp.happyhacking70.cum3.excp.CumExcpXMLGenFailed;
@@ -14,20 +14,21 @@ import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf;
  * 
  */
 public class DummySender implements CmdSenderIntf {
-	HashMap<Class<? extends CmdAbst>, CmdAbst> cmdsSent = new HashMap<Class<? extends CmdAbst>, CmdAbst>();
+
+	ConcurrentLinkedQueue<CmdAbst> cmdsSent = new ConcurrentLinkedQueue<CmdAbst>();
 
 	public void sendCmd(CmdAbst cmd) {
 		try {
 			System.out.println(cmd.toXmlStr());
-			cmdsSent.put(cmd.getClass(), cmd);
+			cmdsSent.offer(cmd);
 
 		} catch (CumExcpXMLGenFailed e) {
 			e.printStackTrace();
 		}
 	}
 
-	public CmdAbst getCmdSent(Class<? extends CmdAbst> cnmdClass) {
-		return cmdsSent.get(cnmdClass);
+	public CmdAbst pollCmd() {
+		return cmdsSent.poll();
 	}
 
 }

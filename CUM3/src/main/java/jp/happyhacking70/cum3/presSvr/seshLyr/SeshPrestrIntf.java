@@ -25,7 +25,7 @@ public interface SeshPrestrIntf {
 
 	/**
 	 * <UL>
-	 * <LI><B>send NtfyCmdClsSesh to all <U>session<U> audiences<B></LI>
+	 * <LI><B>send NtfyCmdClsSesh to all <U>session</U> audiences<B></LI>
 	 * </UL>
 	 * 
 	 * @see NtfyCmdClsSesh
@@ -56,7 +56,7 @@ public interface SeshPrestrIntf {
 
 	/**
 	 * <UL>
-	 * <LI><B>send NtfyCmdClsChnl to all <U>channel<U> audiences<B></LI>
+	 * <LI><B>send NtfyCmdClsChnl to all <U>channel</U> audiences<B></LI>
 	 * <LI><B>close channel<B></LI>
 	 * </UL>
 	 * 

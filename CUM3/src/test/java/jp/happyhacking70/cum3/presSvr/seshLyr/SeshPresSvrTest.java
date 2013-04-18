@@ -68,9 +68,9 @@ public class SeshPresSvrTest {
 		SeshPresSvr sesh = new SeshPresSvr(seshName, sender);
 		sesh.regChnl(chnlName, new ArrayList<ChnlRscIntf>());
 
-		NtfyCmdRegChnl cmd = (NtfyCmdRegChnl) sender
-				.getCmdSent(NtfyCmdRegChnl.class);
-
+		// NtfyCmdRegChnl cmd = (NtfyCmdRegChnl) sender
+		// .getCmdSent(NtfyCmdRegChnl.class);
+		NtfyCmdRegChnl cmd = (NtfyCmdRegChnl) sender.pollCmd();
 		//
 		assertEquals(cmd.getActionName(), "RegChnl");
 		assertEquals(cmd.getChnlName(), chnlName);
