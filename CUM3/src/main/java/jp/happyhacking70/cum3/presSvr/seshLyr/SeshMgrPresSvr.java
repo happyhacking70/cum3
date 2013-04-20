@@ -70,7 +70,7 @@ public class SeshMgrPresSvr implements SeshMgrAudIntf, SeshMgrPrestrIntf {
 	 */
 	public void regChnl(String seshName, String chnlName,
 			ArrayList<ChnlRscIntf> chnlRsces) throws CumExcpSeshNotExist,
-			CumExcpChnlExists, CumExcpRscExists, CumExcptNullRsces,
+			CumExcpRscExists, CumExcpChnlExists, CumExcptNullRsces,
 			CumExcpRscNull {
 
 		SeshPresSvr sesh = getSesh(seshName);

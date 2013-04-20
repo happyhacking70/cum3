@@ -493,7 +493,6 @@ public class SeshPresSvrTest {
 			CumExcptNullRsces, CumExcpRscNull, CumExcpAudExists,
 			CumExcpChnlNotEixt, CumExcpAudNotExist {
 
-		System.out.println("LLLLLLLLLLLLLLLLLLLLLLL");
 		DummySender senderForPrestr = new DummySender();
 		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr);
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
