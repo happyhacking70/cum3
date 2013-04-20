@@ -6,9 +6,9 @@ package jp.happyhacking70.cum3.presSvr.chnlLyr;
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdJoinChnl;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdLvChnl;
-import jp.happyhacking70.cum3.excp.CumExcpAudExists;
-import jp.happyhacking70.cum3.excp.CumExcpAudNotExist;
-import jp.happyhacking70.cum3.excp.CumExcpRscNotExist;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudExists;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudNotExist;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNotExist;
 import jp.happyhacking70.cum3.presSvr.audLyr.AudIntf;
 
 /**
@@ -46,8 +46,9 @@ public interface ChnlAudIntf {
 	public NtfyCmdLvChnl lvChnl(AudIntf aud) throws CumExcpAudNotExist;
 
 	/**
-	 * get channel resource
-	 * 
+	 * <UL>
+	 * <LI><B>get channel resource</B></LI>
+	 * </UL>
 	 * 
 	 * @param rscName
 	 * @return ChnlRscIntf
@@ -55,4 +56,13 @@ public interface ChnlAudIntf {
 	 */
 	public ChnlRscIntf getRsc(String rscName) throws CumExcpRscNotExist;
 
+	/**
+	 * <UL>
+	 * <LI><B>just check if audience is new comer</B></LI>
+	 * </UL>
+	 * 
+	 * @param audName
+	 * @throws CumExcpAudExists
+	 */
+	public void rjctChnl(String audName) throws CumExcpAudExists;
 }

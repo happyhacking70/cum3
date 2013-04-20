@@ -9,7 +9,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import jp.happyhacking70.cum3.excp.CumExcpRscBinariseFailed;
+import jp.happyhacking70.cum3.excp.impl.CumExcpRscBinariseFailed;
 
 /**
  * @author happyhacking70@gmail.com

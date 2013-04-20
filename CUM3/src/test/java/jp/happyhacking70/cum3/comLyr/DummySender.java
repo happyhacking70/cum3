@@ -6,7 +6,7 @@ package jp.happyhacking70.cum3.comLyr;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 import jp.happyhacking70.cum3.cmd.CmdAbst;
-import jp.happyhacking70.cum3.excp.CumExcpXMLGenFailed;
+import jp.happyhacking70.cum3.excp.impl.CumExcpXMLGenFailed;
 import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf;
 
 /**

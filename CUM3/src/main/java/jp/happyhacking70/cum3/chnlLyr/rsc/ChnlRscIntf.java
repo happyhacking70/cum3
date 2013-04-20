@@ -3,7 +3,7 @@
  */
 package jp.happyhacking70.cum3.chnlLyr.rsc;
 
-import jp.happyhacking70.cum3.excp.CumExcpRscBinariseFailed;
+import jp.happyhacking70.cum3.excp.impl.CumExcpRscBinariseFailed;
 
 /**
  * @author happyhacking70@gmail.com

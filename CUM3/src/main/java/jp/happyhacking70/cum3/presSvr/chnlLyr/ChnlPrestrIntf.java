@@ -6,8 +6,7 @@ package jp.happyhacking70.cum3.presSvr.chnlLyr;
 import jp.happyhacking70.cum3.cmd.CmdChnlAbst;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdClsChnl;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdRegChnl;
-import jp.happyhacking70.cum3.excp.CumExcpAudNotExist;
-import jp.happyhacking70.cum3.presSvr.audLyr.AudIntf;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudNotExist;
 
 /**
  * @author happyhacking70@gmail.com
@@ -20,12 +19,11 @@ public interface ChnlPrestrIntf {
 	 * <LI><B>send command to <U>specific</U> audience</B></LI>
 	 * </UL>
 	 * 
-	 * 
 	 * @param cmd
-	 * @param aud
+	 * @param name
 	 * @throws CumExcpAudNotExist
 	 */
-	public void sendChnlCmd(CmdChnlAbst cmd, AudIntf aud)
+	public void sendChnlCmd(CmdChnlAbst cmd, String name)
 			throws CumExcpAudNotExist;
 
 	/**
@@ -39,15 +37,6 @@ public interface ChnlPrestrIntf {
 	public void sendChnlCmd(CmdChnlAbst cmd) throws CumExcpAudNotExist;
 
 	/**
-	 * <UL>
-	 * <LI><B>send NtfyCmdClsChnl to all <U>channel</U> audiences</B></LI>
-	 * </UL>
-	 * 
-	 * @see NtfyCmdClsChnl
-	 */
-	public void clsChnl();
-
-	/**
 	 * returns NtfyCmdRegChnl so that session can send it to all <U>session</U>
 	 * audiences
 	 * 
@@ -55,4 +44,11 @@ public interface ChnlPrestrIntf {
 	 */
 	public NtfyCmdRegChnl getNtfyCmdRegChnl();
 
+	/**
+	 * returns NtfyCmdClsChnl so that session can send it to all <U>session</U>
+	 * audiences
+	 * 
+	 * @return NtfyCmdClsChnl
+	 */
+	public NtfyCmdClsChnl getNtfyCmdClsChnl();
 }

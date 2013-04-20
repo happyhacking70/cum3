@@ -7,7 +7,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
 import jp.happyhacking70.cum3.cmd.ReqCmdChnlAbst;
-import jp.happyhacking70.cum3.excp.CumExcpXMLGenFailed;
+import jp.happyhacking70.cum3.excp.impl.CumExcpXMLGenFailed;
 
 import org.w3c.dom.Element;
 

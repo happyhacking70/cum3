@@ -8,20 +8,22 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
 import jp.happyhacking70.cum3.cmd.CmdChnlAbst;
+import jp.happyhacking70.cum3.cmd.impl.NtfyCmdClsChnl;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdClsSesh;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdJoinChnl;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdJoinSesh;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdLvChnl;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdLvSesh;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdRegChnl;
-import jp.happyhacking70.cum3.excp.CumExcpAudExists;
-import jp.happyhacking70.cum3.excp.CumExcpAudNotExist;
-import jp.happyhacking70.cum3.excp.CumExcpChnlExists;
-import jp.happyhacking70.cum3.excp.CumExcpChnlNotEixt;
-import jp.happyhacking70.cum3.excp.CumExcpRscExists;
-import jp.happyhacking70.cum3.excp.CumExcpRscNotExist;
-import jp.happyhacking70.cum3.excp.CumExcpRscNull;
-import jp.happyhacking70.cum3.excp.CumExcptNullRsces;
+import jp.happyhacking70.cum3.cmd.impl.NtfyCmdRjctChnl;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudExists;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudNotExist;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpChnlExists;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpChnlNotEixt;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscExists;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNotExist;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNull;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcptNullRsces;
 import jp.happyhacking70.cum3.presSvr.audLyr.Aud;
 import jp.happyhacking70.cum3.presSvr.audLyr.AudIntf;
 import jp.happyhacking70.cum3.presSvr.chnlLyr.ChnlPresSvr;
@@ -72,10 +74,10 @@ public class SeshPresSvr implements SeshAudIntf, SeshPrestrIntf {
 	 * @throws CumExcpChnlNotEixt
 	 */
 	protected ChnlPresSvr getChnl(String chnlName) throws CumExcpChnlNotEixt {
+
 		ChnlPresSvr chnl = chnls.get(chnlName);
 		if (chnl == null) {
-			throw new CumExcpChnlNotEixt(seshName, new CumExcpChnlNotEixt(
-					chnlName));
+			throw new CumExcpChnlNotEixt(seshName, chnlName);
 		}
 		return chnl;
 	}
@@ -89,20 +91,28 @@ public class SeshPresSvr implements SeshAudIntf, SeshPrestrIntf {
 	 */
 	synchronized public void regChnl(String chnlName,
 			ArrayList<ChnlRscIntf> chnlRsces) throws CumExcpChnlExists,
-			CumExcpRscExists, CumExcptNullRsces, CumExcpRscNull,
-			CumExcpChnlNotEixt, CumExcpAudNotExist {
+			CumExcpRscExists, CumExcptNullRsces, CumExcpRscNull {
 
 		if (chnls.containsKey(chnlName) == true) {
-			throw new CumExcpChnlExists(chnlName);
+			throw new CumExcpChnlExists(seshName, chnlName);
 		}
 
 		// Create new channel
-		ChnlPresSvr newChnl = new ChnlPresSvr(seshName, chnlName, chnlRsces);
+		ChnlPresSvr newChnl = null;
+		try {
+			newChnl = new ChnlPresSvr(seshName, chnlName, chnlRsces);
+		} catch (CumExcpRscExists e) {
+			throw new CumExcpRscExists(seshName, e);
+		} catch (CumExcptNullRsces e) {
+			throw new CumExcptNullRsces(seshName, e);
+		} catch (CumExcpRscNull e) {
+			throw new CumExcpRscNull(seshName, e);
+		}
 		chnls.put(chnlName, newChnl);
 
 		// Send NtfyCmdRegChnl to session audiences
 		for (AudIntf aud : auds.values()) {
-			aud.sendCmd(new NtfyCmdRegChnl(chnlName, chnlName, chnlRsces));
+			aud.sendCmd(new NtfyCmdRegChnl(seshName, chnlName, chnlRsces));
 		}
 
 	}
@@ -118,10 +128,17 @@ public class SeshPresSvr implements SeshAudIntf, SeshPrestrIntf {
 			throws CumExcpChnlNotEixt, CumExcpAudNotExist {
 
 		String chnlName = cmd.getChnlName();
-		ChnlPresSvr chnl = getChnl(chnlName);
+
+		ChnlPresSvr chnl;
+		chnl = getChnl(chnlName);
 
 		// send command to specific audience
-		chnl.sendChnlCmd(cmd, getAud(audName));
+		try {
+			// chnl.sendChnlCmd(cmd, getAud(audName));
+			chnl.sendChnlCmd(cmd, audName);
+		} catch (CumExcpAudNotExist e) {
+			throw new CumExcpAudNotExist(seshName, e);
+		}
 
 	}
 
@@ -136,11 +153,17 @@ public class SeshPresSvr implements SeshAudIntf, SeshPrestrIntf {
 			throws CumExcpChnlNotEixt, CumExcpAudNotExist {
 
 		String chnlName = cmd.getChnlName();
-		ChnlPresSvr chnl = getChnl(chnlName);
+		ChnlPresSvr chnl;
+
+		chnl = getChnl(chnlName);
 
 		// send command to all channel audiences
 		// delegate to channel
-		chnl.sendChnlCmd(cmd);
+		try {
+			chnl.sendChnlCmd(cmd);
+		} catch (CumExcpAudNotExist e) {
+			throw new CumExcpAudNotExist(seshName, e);
+		}
 
 	}
 
@@ -152,11 +175,17 @@ public class SeshPresSvr implements SeshAudIntf, SeshPrestrIntf {
 	 * .String)
 	 */
 	synchronized public void clsChnl(String chnlName) throws CumExcpChnlNotEixt {
-		ChnlPresSvr chnl = getChnl(chnlName);
+		ChnlPresSvr chnl;
 
-		// send NtfyCmdClsChnl to all channel audiences
+		chnl = getChnl(chnlName);
+
+		// send NtfyCmdClsChnl to all session audiences
 		// delegate to channel
-		chnl.clsChnl();
+
+		NtfyCmdClsChnl cmd = chnl.getNtfyCmdClsChnl();
+		for (AudIntf aud : auds.values()) {
+			aud.sendCmd(cmd);
+		}
 
 		// close channel
 		chnls.remove(chnlName);
@@ -182,7 +211,7 @@ public class SeshPresSvr implements SeshAudIntf, SeshPrestrIntf {
 		auds.put(audName, aud);
 
 		// send NtfyCmdJoinSesh to presenter
-		sender.sendCmd(new NtfyCmdJoinSesh(seshName, audName));
+		this.sender.sendCmd(new NtfyCmdJoinSesh(seshName, audName));
 
 		// send NtfyCmdRegChnl to audience for all existing channels
 		for (ChnlPrestrIntf chnl : chnls.values()) {
@@ -198,12 +227,23 @@ public class SeshPresSvr implements SeshAudIntf, SeshPrestrIntf {
 	 * .String, java.lang.String)
 	 */
 	synchronized public void joinChnl(String chnlName, String audName)
-			throws CumExcpChnlNotEixt, CumExcpAudNotExist, CumExcpAudExists {
-		ChnlPresSvr chnl = getChnl(chnlName);
-		AudIntf aud = getAud(audName);
+			throws CumExcpChnlNotEixt, CumExcpAudExists, CumExcpAudNotExist {
+		ChnlPresSvr chnl;
+		chnl = getChnl(chnlName);
+		AudIntf aud;
+		try {
+			aud = getAud(audName);
+		} catch (CumExcpAudNotExist e) {
+			throw new CumExcpAudNotExist(seshName, chnlName, audName);
+		}
 
 		// add audience to channel
-		NtfyCmdJoinChnl cmd = chnl.joinChnl(aud);
+		NtfyCmdJoinChnl cmd;
+		try {
+			cmd = chnl.joinChnl(aud);
+		} catch (CumExcpAudExists e) {
+			throw new CumExcpAudExists(seshName, e);
+		}
 
 		// send NtfyCmdJoinChnl to presenter
 		sender.sendCmd(cmd);
@@ -216,10 +256,15 @@ public class SeshPresSvr implements SeshAudIntf, SeshPrestrIntf {
 	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshAudIntf#lvChnl(java.lang.String
 	 * , java.lang.String, java.lang.String)
 	 */
-	synchronized public void lvChnl(String seshName, String chnlName,
-			String audName) throws CumExcpChnlNotEixt, CumExcpAudNotExist {
+	synchronized public void lvChnl(String chnlName, String audName)
+			throws CumExcpChnlNotEixt, CumExcpAudNotExist {
 		ChnlPresSvr chnl = getChnl(chnlName);
-		AudIntf aud = getAud(audName);
+		AudIntf aud = null;
+		try {
+			aud = getAud(audName);
+		} catch (CumExcpAudNotExist e) {
+			throw new CumExcpAudNotExist(seshName, chnlName, audName);
+		}
 
 		// remove audience from channel
 		NtfyCmdLvChnl cmd = chnl.lvChnl(aud);
@@ -237,8 +282,19 @@ public class SeshPresSvr implements SeshAudIntf, SeshPrestrIntf {
 	 */
 	synchronized public ChnlRscIntf getRsc(String chnlName, String rscName)
 			throws CumExcpChnlNotEixt, CumExcpRscNotExist {
-		ChnlPresSvr chnl = getChnl(chnlName);
-		return chnl.getRsc(rscName);
+		ChnlPresSvr chnl;
+		try {
+			chnl = getChnl(chnlName);
+		} catch (CumExcpChnlNotEixt e) {
+			throw new CumExcpChnlNotEixt(seshName, chnlName);
+		}
+		ChnlRscIntf rsc = null;
+		try {
+			rsc = chnl.getRsc(rscName);
+		} catch (CumExcpRscNotExist e) {
+			throw new CumExcpRscNotExist(seshName, e);
+		}
+		return rsc;
 	}
 
 	/*
@@ -250,10 +306,11 @@ public class SeshPresSvr implements SeshAudIntf, SeshPrestrIntf {
 	 */
 	synchronized public void lvSesh(String audName) throws CumExcpAudNotExist {
 
-		AudIntf aud = getAud(audName);
-		if (aud == null) {
-			throw new CumExcpAudNotExist(seshName, new CumExcpAudNotExist("",
-					audName));
+		AudIntf aud = null;
+		try {
+			aud = getAud(audName);
+		} catch (CumExcpAudNotExist e) {
+			throw new CumExcpAudNotExist(seshName, "", audName);
 		}
 
 		// remove audience from session
@@ -287,5 +344,25 @@ public class SeshPresSvr implements SeshAudIntf, SeshPrestrIntf {
 		for (AudIntf aud : auds.values()) {
 			aud.sendCmd(cmd);
 		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshAudIntf#rjctChnl(java.lang
+	 * .String)
+	 */
+	public void rjctChnl(String chnlName, String audName)
+			throws CumExcpChnlNotEixt, CumExcpAudExists {
+		ChnlPresSvr chnl = getChnl(chnlName);
+		try {
+			chnl.rjctChnl(audName);
+		} catch (CumExcpAudExists e) {
+			throw new CumExcpAudExists(seshName, e);
+		}
+
+		NtfyCmdRjctChnl cmd = new NtfyCmdRjctChnl(audName, chnlName, audName);
+		sender.sendCmd(cmd);
 	}
 }

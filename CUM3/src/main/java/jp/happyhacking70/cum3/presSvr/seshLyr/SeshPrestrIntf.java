@@ -10,12 +10,12 @@ import jp.happyhacking70.cum3.cmd.CmdChnlAbst;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdClsChnl;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdClsSesh;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdRegChnl;
-import jp.happyhacking70.cum3.excp.CumExcpAudNotExist;
-import jp.happyhacking70.cum3.excp.CumExcpChnlExists;
-import jp.happyhacking70.cum3.excp.CumExcpChnlNotEixt;
-import jp.happyhacking70.cum3.excp.CumExcpRscExists;
-import jp.happyhacking70.cum3.excp.CumExcpRscNull;
-import jp.happyhacking70.cum3.excp.CumExcptNullRsces;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudNotExist;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpChnlExists;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpChnlNotEixt;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscExists;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNull;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcptNullRsces;
 
 /**
  * @author happyhacking70@gmail.com
@@ -52,18 +52,19 @@ public interface SeshPrestrIntf {
 	 * @throws CumExcpRscExists
 	 * @throws CumExcptNullRsces
 	 * @throws CumExcpRscNull
-	 * @throws CumExcpChnlNotEixt
-	 * @throws CumExcpAudNotExist
 	 */
 	public void regChnl(String chnlName, ArrayList<ChnlRscIntf> chnlRsces)
 			throws CumExcpChnlExists, CumExcpRscExists, CumExcptNullRsces,
-			CumExcpRscNull, CumExcpChnlNotEixt, CumExcpAudNotExist;
+			CumExcpRscNull;
 
 	/**
 	 * <UL>
-	 * <LI><B>send NtfyCmdClsChnl to all <U>channel</U> audiences<B></LI>
+	 * <LI><B>send NtfyCmdClsChnl to all <U>session</U> audiences<B></LI>
 	 * <LI><B>close channel<B></LI>
 	 * </UL>
+	 * Even audience rejected channel, audience will maintain channel so that
+	 * he/she can join later. Audience should be notified when channel is
+	 * closed.
 	 * 
 	 * @see NtfyCmdClsChnl
 	 * 

@@ -4,7 +4,6 @@
 package jp.happyhacking70.cum3.presSvr.chnlLyr;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -22,13 +21,13 @@ import jp.happyhacking70.cum3.cmd.impl.NtfyCmdRegChnl;
 import jp.happyhacking70.cum3.cmd.impl.ReqCmdClsChnl;
 import jp.happyhacking70.cum3.cmd.impl.ReqCmdRegChnl;
 import jp.happyhacking70.cum3.comLyr.DummySender;
-import jp.happyhacking70.cum3.excp.CumExcpAudExists;
-import jp.happyhacking70.cum3.excp.CumExcpAudNotExist;
-import jp.happyhacking70.cum3.excp.CumExcpRscExists;
-import jp.happyhacking70.cum3.excp.CumExcpRscNotExist;
-import jp.happyhacking70.cum3.excp.CumExcpRscNull;
-import jp.happyhacking70.cum3.excp.CumExcpXMLGenFailed;
-import jp.happyhacking70.cum3.excp.CumExcptNullRsces;
+import jp.happyhacking70.cum3.excp.impl.CumExcpXMLGenFailed;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudExists;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudNotExist;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscExists;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNotExist;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNull;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcptNullRsces;
 import jp.happyhacking70.cum3.presSvr.audLyr.Aud;
 import jp.happyhacking70.cum3.presSvr.audLyr.AudIntf;
 
@@ -163,7 +162,7 @@ public class ChnlPreesSvrTest {
 		ChnlPresSvr chnl = new ChnlPresSvr(seshName, chnlName, rsces);
 
 		ReqCmdClsChnl cmd = new ReqCmdClsChnl("testSession", chnlName);
-		chnl.sendChnlCmd(cmd, aud);
+		chnl.sendChnlCmd(cmd, aud.getAudName());
 
 	}
 
@@ -187,7 +186,7 @@ public class ChnlPreesSvrTest {
 		chnl.joinChnl(aud);
 
 		ReqCmdClsChnl cmd = new ReqCmdClsChnl("testSession", chnlName);
-		chnl.sendChnlCmd(cmd, aud);
+		chnl.sendChnlCmd(cmd, aud.getAudName());
 
 		ReqCmdClsChnl cmdReturned = (ReqCmdClsChnl) sender.pollCmd();
 		assertEquals(cmd, cmdReturned);
@@ -223,38 +222,6 @@ public class ChnlPreesSvrTest {
 		assertEquals(cmd, cmdReturned);
 		cmdReturned = (ReqCmdRegChnl) senderFor2.pollCmd();
 		assertEquals(cmd, cmdReturned);
-	}
-
-	/**
-	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.chnlLyr.ChnlPresSvr#clsChnl(java.lang.String)}
-	 * .
-	 * 
-	 * @throws CumExcpRscNull
-	 * @throws CumExcptNullRsces
-	 * @throws CumExcpRscExists
-	 * @throws CumExcpAudExists
-	 */
-	@Test
-	public void testClsChnl() throws CumExcpRscExists, CumExcptNullRsces,
-			CumExcpRscNull, CumExcpAudExists {
-		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
-
-		ChnlPresSvr chnl = new ChnlPresSvr(seshName, chnlName, rsces);
-		chnl.joinChnl(aud);
-
-		DummySender senderFor2 = new DummySender();
-		AudIntf aud2 = new Aud("testAudience2", senderFor2);
-		chnl.joinChnl(aud2);
-		chnl.clsChnl();
-
-		NtfyCmdClsChnl cmd;
-		cmd = (NtfyCmdClsChnl) sender.pollCmd();
-		assertEquals(cmd.getChnlName(), chnlName);
-		assertEquals(cmd.getSeshName(), seshName);
-		cmd = (NtfyCmdClsChnl) senderFor2.pollCmd();
-		assertNotNull(cmd);
-
 	}
 
 	/**
@@ -427,6 +394,38 @@ public class ChnlPreesSvrTest {
 		assertEquals(
 				cmd.toXmlStr(),
 				"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><CUM><CMD ACTION=\"RegChnl\" CHNL=\"testChannel\" SESH=\"testSession\" TYPE=\"NTFY\"><RSC NAME=\"a\"/><RSC NAME=\"b\"/></CMD></CUM>");
+
+	}
+
+	/**
+	 * Test method for
+	 * {@link jp.happyhacking70.cum3.presSvr.chnlLyr.ChnlPresSvr#getNtfyRegChnlCmd()}
+	 * .
+	 * 
+	 * @throws IOException
+	 * @throws CumExcpRscNull
+	 * @throws CumExcptNullRsces
+	 * @throws CumExcpRscExists
+	 * @throws CumExcpXMLGenFailed
+	 */
+	@Test
+	public void testGetNtfyClsChnlCmd() throws IOException, CumExcpRscExists,
+			CumExcptNullRsces, CumExcpRscNull, CumExcpXMLGenFailed {
+		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
+		BufferedImage bImg = ImageIO.read(new File("src/test/resources/1.jpg"));
+
+		ChnlRscIntf r = new ChnlRscImg("a", bImg);
+		rsces.add(r);
+		r = new ChnlRscImg("b", bImg);
+		rsces.add(r);
+		ChnlPresSvr chnl = new ChnlPresSvr(seshName, chnlName, rsces);
+
+		NtfyCmdClsChnl cmd = chnl.getNtfyCmdClsChnl();
+		assertEquals(cmd.getChnlName(), chnlName);
+		assertEquals(cmd.getSeshName(), seshName);
+		assertEquals(
+				cmd.toXmlStr(),
+				"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><CUM><CMD ACTION=\"ClsChnl\" CHNL=\"testChannel\" SESH=\"testSession\" TYPE=\"NTFY\"/></CUM>");
 
 	}
 }

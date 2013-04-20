@@ -12,12 +12,12 @@ import jp.happyhacking70.cum3.cmd.impl.NtfyCmdClsChnl;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdJoinChnl;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdLvChnl;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdRegChnl;
-import jp.happyhacking70.cum3.excp.CumExcpAudExists;
-import jp.happyhacking70.cum3.excp.CumExcpAudNotExist;
-import jp.happyhacking70.cum3.excp.CumExcpRscExists;
-import jp.happyhacking70.cum3.excp.CumExcpRscNotExist;
-import jp.happyhacking70.cum3.excp.CumExcpRscNull;
-import jp.happyhacking70.cum3.excp.CumExcptNullRsces;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudExists;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudNotExist;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscExists;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNotExist;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNull;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcptNullRsces;
 import jp.happyhacking70.cum3.presSvr.audLyr.AudIntf;
 
 /**
@@ -102,12 +102,14 @@ public class ChnlPresSvr implements ChnlAudIntf, ChnlPrestrIntf {
 	 * happyhacking70.cum3.cmd.CmdChnlAbst,
 	 * jp.happyhacking70.cum3.presSvr.audLyr.AudIntf)
 	 */
-	synchronized public void sendChnlCmd(CmdChnlAbst cmd, AudIntf aud)
+	// synchronized public void sendChnlCmd(CmdChnlAbst cmd, AudIntf aud)
+	synchronized public void sendChnlCmd(CmdChnlAbst cmd, String audName)
 			throws CumExcpAudNotExist {
 
-		if (auds.containsKey(aud.getAudName()) == false) {
-			throw new CumExcpAudNotExist(chnlName, aud.getAudName());
+		if (auds.containsKey(audName) == false) {
+			throw new CumExcpAudNotExist(chnlName, audName);
 		}
+		AudIntf aud = auds.get(audName);
 		aud.sendCmd(cmd);
 	}
 
@@ -121,19 +123,7 @@ public class ChnlPresSvr implements ChnlAudIntf, ChnlPrestrIntf {
 	synchronized public void sendChnlCmd(CmdChnlAbst cmd)
 			throws CumExcpAudNotExist {
 		for (AudIntf aud : auds.values()) {
-			sendChnlCmd(cmd, aud);
-		}
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see jp.happyhacking70.cum3.presSvr.chnlLyr.ChnlPrestrIntf#clsChnl()
-	 */
-	synchronized public void clsChnl() {
-		for (AudIntf aud : auds.values()) {
-			NtfyCmdClsChnl cmd = new NtfyCmdClsChnl(seshName, chnlName);
-			aud.sendCmd(cmd);
+			sendChnlCmd(cmd, aud.getAudName());
 		}
 	}
 
@@ -149,7 +139,7 @@ public class ChnlPresSvr implements ChnlAudIntf, ChnlPrestrIntf {
 		ChnlRscIntf rsc = rsces.get(rscName);
 
 		if (rsc == null) {
-			throw new CumExcpRscNotExist(rscName);
+			throw new CumExcpRscNotExist(chnlName, rscName);
 		}
 
 		return rsc;
@@ -202,5 +192,26 @@ public class ChnlPresSvr implements ChnlAudIntf, ChnlPrestrIntf {
 		NtfyCmdRegChnl cmd = new NtfyCmdRegChnl(seshName, chnlName,
 				new ArrayList<ChnlRscIntf>(rsces.values()));
 		return cmd;
+	}
+
+	/**
+	 * @param audName
+	 * @throws CumExcpAudExists
+	 */
+	public void rjctChnl(String audName) throws CumExcpAudExists {
+		if (auds.containsKey(audName) == true) {
+			throw new CumExcpAudExists(chnlName, audName);
+		}
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * jp.happyhacking70.cum3.presSvr.chnlLyr.ChnlPrestrIntf#getNtfyCmdClsChnl()
+	 */
+	public NtfyCmdClsChnl getNtfyCmdClsChnl() {
+		return new NtfyCmdClsChnl(seshName, chnlName);
 	}
 }

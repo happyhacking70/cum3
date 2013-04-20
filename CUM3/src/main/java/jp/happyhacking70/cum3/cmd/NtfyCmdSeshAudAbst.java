@@ -3,7 +3,7 @@
  */
 package jp.happyhacking70.cum3.cmd;
 
-import jp.happyhacking70.cum3.excp.CumExcpIllegalCmdDoc;
+import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
 import org.w3c.dom.Document;
 
@@ -11,7 +11,8 @@ import org.w3c.dom.Document;
  * @author happyhacking70@gmail.com
  * 
  */
-abstract public class NtfyCmdSeshAudAbst extends CmdSeshAudAbst {
+abstract public class NtfyCmdSeshAudAbst extends CmdSeshAudAbst implements
+		NtfyCmdIntf {
 
 	public NtfyCmdSeshAudAbst(Document doc) throws CumExcpIllegalCmdDoc {
 		super(doc);

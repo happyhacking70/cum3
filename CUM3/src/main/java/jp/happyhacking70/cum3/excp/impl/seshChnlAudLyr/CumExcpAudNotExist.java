@@ -29,4 +29,13 @@ public class CumExcpAudNotExist extends CumExcpSeshChnlAudAbst {
 		super(chnlName, audName);
 	}
 
+	/**
+	 * @param seshName
+	 * @param chnlName
+	 * @param audName
+	 */
+	public CumExcpAudNotExist(String seshName, String chnlName, String audName) {
+		super(seshName, chnlName, audName);
+	}
+
 }

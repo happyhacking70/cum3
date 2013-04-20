@@ -4,7 +4,7 @@
 package jp.happyhacking70.cum3.cmd.impl;
 
 import jp.happyhacking70.cum3.cmd.ResCmdSeshAudAbst;
-import jp.happyhacking70.cum3.excp.CumExcpXMLGenFailed;
+import jp.happyhacking70.cum3.excp.impl.CumExcpXMLGenFailed;
 
 /**
  * @author happyhacking70@gmail.com

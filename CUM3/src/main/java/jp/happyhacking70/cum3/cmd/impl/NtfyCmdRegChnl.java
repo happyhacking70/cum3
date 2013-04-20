@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
 import jp.happyhacking70.cum3.cmd.NtfyCmdChnlAbst;
-import jp.happyhacking70.cum3.excp.CumExcpXMLGenFailed;
+import jp.happyhacking70.cum3.excp.impl.CumExcpXMLGenFailed;
 
 import org.w3c.dom.Element;
 

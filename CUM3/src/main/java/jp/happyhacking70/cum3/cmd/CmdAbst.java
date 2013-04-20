@@ -12,9 +12,9 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import jp.happyhacking70.cum3.excp.CumExcpIllegalCmdDoc;
-import jp.happyhacking70.cum3.excp.CumExcpIllegalCmdXML;
-import jp.happyhacking70.cum3.excp.CumExcpXMLGenFailed;
+import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
+import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdXML;
+import jp.happyhacking70.cum3.excp.impl.CumExcpXMLGenFailed;
 
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;

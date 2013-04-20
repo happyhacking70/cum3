@@ -15,8 +15,8 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import jp.happyhacking70.cum3.cmd.CmdAbst.CmdTypes;
 import jp.happyhacking70.cum3.cmd.impl.ReqCmdClsSesh;
-import jp.happyhacking70.cum3.excp.CumExcpIllegalCmdXML;
-import jp.happyhacking70.cum3.excp.CumExcpXMLGenFailed;
+import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdXML;
+import jp.happyhacking70.cum3.excp.impl.CumExcpXMLGenFailed;
 
 import org.junit.Test;
 import org.w3c.dom.Document;
