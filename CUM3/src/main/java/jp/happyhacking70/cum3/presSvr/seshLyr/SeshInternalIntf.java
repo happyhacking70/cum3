@@ -3,6 +3,7 @@
  */
 package jp.happyhacking70.cum3.presSvr.seshLyr;
 
+import jp.happyhacking70.cum3.cmd.XMLableCmdIntf;
 import jp.happyhacking70.cum3.excp.impl.CumExcpComError;
 
 /**
@@ -12,7 +13,7 @@ import jp.happyhacking70.cum3.excp.impl.CumExcpComError;
  * @author happyhacking70@gmail.com
  * 
  */
-public interface SeshIntfInternal {
+public interface SeshInternalIntf {
 
 	/**
 	 * <UL>
@@ -26,5 +27,7 @@ public interface SeshIntfInternal {
 	public void ntfyAudDisconned(String audName) throws CumExcpComError;
 
 	public String getSeshName();
+
+	public void sendCmdToPrestr(XMLableCmdIntf cmd);
 
 }

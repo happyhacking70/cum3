@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
 import jp.happyhacking70.cum3.cmd.CmdChnlAbst;
+import jp.happyhacking70.cum3.cmd.XMLableCmdIntf;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdAudDisconned;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdClsChnl;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdClsSesh;
@@ -35,7 +36,7 @@ import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf;
 import jp.happyhacking70.cum3.presSvr.seshLyr.AcptAudDisconnedIntf;
 import jp.happyhacking70.cum3.presSvr.seshLyr.AcptSeshDisconnedIntf;
 import jp.happyhacking70.cum3.presSvr.seshLyr.SeshAudIntf;
-import jp.happyhacking70.cum3.presSvr.seshLyr.SeshIntfInternal;
+import jp.happyhacking70.cum3.presSvr.seshLyr.SeshInternalIntf;
 import jp.happyhacking70.cum3.presSvr.seshLyr.SeshPrestrIntf;
 
 /**
@@ -43,7 +44,7 @@ import jp.happyhacking70.cum3.presSvr.seshLyr.SeshPrestrIntf;
  * 
  */
 public class SeshPresSvr implements SeshAudIntf, SeshPrestrIntf,
-		AcptAudDisconnedIntf, SeshIntfInternal {
+		AcptAudDisconnedIntf, SeshInternalIntf {
 	protected String seshName;
 	protected CmdSenderIntf sender;
 	protected ConcurrentHashMap<String, ChnlPresSvr> chnls = new ConcurrentHashMap<String, ChnlPresSvr>();
@@ -227,14 +228,10 @@ public class SeshPresSvr implements SeshAudIntf, SeshPrestrIntf,
 		auds.put(audName, aud);
 
 		// send NtfyCmdJoinSesh to presenter
-		try {
-			this.sender.sendCmd(new NtfyCmdJoinSesh(seshName, audName));
-			// send NtfyCmdRegChnl to audience for all existing channels
-			for (ChnlPrestrIntf chnl : chnls.values()) {
-				aud.sendCmd(chnl.getNtfyCmdRegChnl());
-			}
-		} catch (CumExcpComError e) {
-			seshDisconnedAcpter.acceptSeshDisconned(seshName);
+		sendCmdToPrestr(new NtfyCmdJoinSesh(seshName, audName));
+		// send NtfyCmdRegChnl to audience for all existing channels
+		for (ChnlPrestrIntf chnl : chnls.values()) {
+			aud.sendCmd(chnl.getNtfyCmdRegChnl());
 		}
 
 	}
@@ -266,12 +263,7 @@ public class SeshPresSvr implements SeshAudIntf, SeshPrestrIntf,
 		}
 
 		// send NtfyCmdJoinChnl to presenter
-		try {
-			sender.sendCmd(cmd);
-		} catch (CumExcpComError e) {
-			seshDisconnedAcpter.acceptSeshDisconned(seshName);
-
-		}
+		sendCmdToPrestr(cmd);
 	}
 
 	/*
@@ -295,11 +287,7 @@ public class SeshPresSvr implements SeshAudIntf, SeshPrestrIntf,
 		NtfyCmdLvChnl cmd = chnl.lvChnl(aud);
 
 		// send NtfyCmdLvChnl to presenter
-		try {
-			sender.sendCmd(cmd);
-		} catch (CumExcpComError e) {
-			seshDisconnedAcpter.acceptSeshDisconned(seshName);
-		}
+		sendCmdToPrestr(cmd);
 	}
 
 	/*
@@ -358,11 +346,8 @@ public class SeshPresSvr implements SeshAudIntf, SeshPrestrIntf,
 		}
 		// send NtfyCmdLvSesh to presenter
 		NtfyCmdLvSesh cmd = new NtfyCmdLvSesh(seshName, audName);
-		try {
-			sender.sendCmd(cmd);
-		} catch (CumExcpComError e) {
-			seshDisconnedAcpter.acceptSeshDisconned(seshName);
-		}
+
+		sendCmdToPrestr(cmd);
 	}
 
 	/*
@@ -396,11 +381,8 @@ public class SeshPresSvr implements SeshAudIntf, SeshPrestrIntf,
 		}
 
 		NtfyCmdRjctChnl cmd = new NtfyCmdRjctChnl(audName, chnlName, audName);
-		try {
-			sender.sendCmd(cmd);
-		} catch (CumExcpComError e) {
-			seshDisconnedAcpter.acceptSeshDisconned(seshName);
-		}
+
+		sendCmdToPrestr(cmd);
 	}
 
 	/*
@@ -427,11 +409,8 @@ public class SeshPresSvr implements SeshAudIntf, SeshPrestrIntf,
 	 */
 	public void ntfyAudDisconned(String audName) {
 		NtfyCmdAudDisconned cmd = new NtfyCmdAudDisconned(audName);
-		try {
-			sender.sendCmd(cmd);
-		} catch (CumExcpComError e) {
-			seshDisconnedAcpter.acceptSeshDisconned(seshName);
-		}
+
+		sendCmdToPrestr(cmd);
 	}
 
 	/*
@@ -446,6 +425,22 @@ public class SeshPresSvr implements SeshAudIntf, SeshPrestrIntf,
 
 		hdlrThread.start();
 
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshInternalIntf#sendCmdToPrestr
+	 * (jp.happyhacking70.cum3.cmd.XMLableCmdIntf)
+	 */
+	public void sendCmdToPrestr(XMLableCmdIntf cmd) {
+
+		try {
+			sender.sendCmd(cmd);
+		} catch (CumExcpComError e) {
+			seshDisconnedAcpter.acceptSeshDisconned(seshName);
+		}
 	}
 
 }

@@ -3,7 +3,7 @@
  */
 package jp.happyhacking70.cum3.presSvr.seshLyr.impl;
 
-import jp.happyhacking70.cum3.presSvr.seshLyr.SeshIntfInternal;
+import jp.happyhacking70.cum3.presSvr.seshLyr.SeshInternalIntf;
 import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrInternalIntf;
 
 /**
@@ -11,10 +11,10 @@ import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrInternalIntf;
  * 
  */
 public class SeshDisconnedHdlr implements Runnable {
-	SeshIntfInternal sesh;
+	SeshInternalIntf sesh;
 	SeshMgrInternalIntf seshMgr;
 
-	public SeshDisconnedHdlr(SeshIntfInternal sesh, SeshMgrInternalIntf seshMgr) {
+	public SeshDisconnedHdlr(SeshInternalIntf sesh, SeshMgrInternalIntf seshMgr) {
 		super();
 		this.sesh = sesh;
 		this.seshMgr = seshMgr;
