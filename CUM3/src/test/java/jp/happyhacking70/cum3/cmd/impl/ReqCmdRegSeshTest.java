@@ -7,6 +7,7 @@ import jp.happyhacking70.cum3.cmd.CmdAbst;
 import jp.happyhacking70.cum3.cmd.ReqCmdSeshTestAbst;
 
 import org.junit.BeforeClass;
+import org.w3c.dom.Document;
 
 /**
  * @author happyhacking70@gmail.com
@@ -36,6 +37,19 @@ public class ReqCmdRegSeshTest extends ReqCmdSeshTestAbst {
 	@Override
 	protected String getActionName() {
 		return "RegSesh";
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * jp.happyhacking70.cum3.cmd.CmdSeshTestAbst#getCmdNormal(org.w3c.dom.Document
+	 * )
+	 */
+	@Override
+	protected CmdAbst getCmdNormal(Document doc) {
+
+		return new ReqCmdRegSesh(doc);
 	}
 
 }

@@ -14,7 +14,7 @@ public class CumExcpIllegalCmdDoc extends CumExcpAbst {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @param string
+	 * @param msg
 	 */
 	public CumExcpIllegalCmdDoc(String msg) {
 		super(msg);

@@ -32,6 +32,7 @@ public interface SeshPrestrIntf {
 	 * care of closing channels when session is closed</B></LI>
 	 * </UL>
 	 * 
+	 * 
 	 * @see NtfyCmdClsSesh
 	 * @see NtfyCmdClsChnl
 	 * 
@@ -70,7 +71,6 @@ public interface SeshPrestrIntf {
 	 * 
 	 * @param chnlName
 	 * 
-	 * @throws CumExcpChnlNotEixt
 	 */
 	public void clsChnl(String chnlName) throws CumExcpChnlNotEixt;
 

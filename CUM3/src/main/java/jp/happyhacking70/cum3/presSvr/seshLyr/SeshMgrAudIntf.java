@@ -48,8 +48,9 @@ public interface SeshMgrAudIntf {
 	 * @throws CumExcpAudExists
 	 * @throws CumExcpSeshNotExist
 	 */
-	public void joinSesh(String seshName, String audName, CmdSenderIntf sender)
-			throws CumExcpSeshNotExist, CumExcpAudExists;
+	public void joinSesh(String seshName, String audName, CmdSenderIntf sender,
+			AudDisconnedHdlrIntf disconnedHdlr) throws CumExcpSeshNotExist,
+			CumExcpAudExists;
 
 	/**
 	 * <UL>

@@ -189,8 +189,10 @@ public class ChnlPresSvr implements ChnlAudIntf, ChnlPrestrIntf {
 	 * jp.happyhacking70.cum3.presSvr.chnlLyr.ChnlPrestrIntf#getNtfyRegChnlCmd()
 	 */
 	public NtfyCmdRegChnl getNtfyCmdRegChnl() {
-		NtfyCmdRegChnl cmd = new NtfyCmdRegChnl(seshName, chnlName,
-				new ArrayList<ChnlRscIntf>(rsces.values()));
+		NtfyCmdRegChnl cmd = new NtfyCmdRegChnl(seshName, chnlName);
+		for (ChnlRscIntf rsc : rsces.values()) {
+			cmd.addRscData(rsc);
+		}
 		return cmd;
 	}
 

@@ -39,7 +39,7 @@ public class CumExcpSeshChnlAbst extends CumExcpSeshAbst {
 	}
 
 	/**
-	 * @return
+	 * @return channel name
 	 */
 	final public String getChnlName() {
 		return chnlName;

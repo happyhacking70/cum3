@@ -5,8 +5,10 @@ package jp.happyhacking70.cum3.cmd.impl;
 
 import jp.happyhacking70.cum3.cmd.CmdAbst;
 import jp.happyhacking70.cum3.cmd.ReqCmdSeshAudTestAbst;
+import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
 import org.junit.BeforeClass;
+import org.w3c.dom.Document;
 
 /**
  * @author happyhacking70@gmail.com
@@ -33,5 +35,16 @@ public class ReqCmdJoinSeshTest extends ReqCmdSeshAudTestAbst {
 	@BeforeClass
 	public static final void setBeforeClass() {
 		System.out.println(xml);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * jp.happyhacking70.cum3.cmd.CmdTestAbst#getCmdNormal(org.w3c.dom.Document)
+	 */
+	@Override
+	protected CmdAbst getCmdNormal(Document doc) throws CumExcpIllegalCmdDoc {
+		return new ReqCmdJoinSesh(doc);
 	}
 }

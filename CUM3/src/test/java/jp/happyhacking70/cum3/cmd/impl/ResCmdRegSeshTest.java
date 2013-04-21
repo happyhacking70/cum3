@@ -5,8 +5,10 @@ package jp.happyhacking70.cum3.cmd.impl;
 
 import jp.happyhacking70.cum3.cmd.CmdAbst;
 import jp.happyhacking70.cum3.cmd.ResCmdSeshTestAbst;
+import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
 import org.junit.BeforeClass;
+import org.w3c.dom.Document;
 
 /**
  * @author happyhacking70@gmail.com
@@ -38,5 +40,26 @@ public class ResCmdRegSeshTest extends ResCmdSeshTestAbst {
 	@Override
 	protected String getActionName() {
 		return "RegSesh";
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * jp.happyhacking70.cum3.cmd.CmdTestAbst#getCmdNormal(org.w3c.dom.Document)
+	 */
+	@Override
+	protected CmdAbst getCmdNormal(Document doc) throws CumExcpIllegalCmdDoc {
+		return new ResCmdRegSesh(doc);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see jp.happyhacking70.cum3.cmd.ResCmdTestIntf#getNormalRslt()
+	 */
+	public String getNormalRslt() {
+		return rslt.name();
+
 	}
 }

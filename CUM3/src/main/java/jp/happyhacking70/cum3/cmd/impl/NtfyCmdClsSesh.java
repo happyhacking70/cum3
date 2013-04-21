@@ -4,6 +4,9 @@
 package jp.happyhacking70.cum3.cmd.impl;
 
 import jp.happyhacking70.cum3.cmd.NtfyCmdSeshAbst;
+import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
+
+import org.w3c.dom.Document;
 
 /**
  * @author happyhacking70@gmail.com
@@ -16,6 +19,14 @@ public class NtfyCmdClsSesh extends NtfyCmdSeshAbst {
 	 */
 	public NtfyCmdClsSesh(String seshName) {
 		super(seshName);
+	}
+
+	/**
+	 * @param doc
+	 * @throws CumExcpIllegalCmdDoc
+	 */
+	public NtfyCmdClsSesh(Document doc) throws CumExcpIllegalCmdDoc {
+		super(doc);
 	}
 
 	/*

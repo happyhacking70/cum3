@@ -5,15 +5,18 @@ package jp.happyhacking70.cum3.cmd.impl;
 
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscImg;
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
 import jp.happyhacking70.cum3.cmd.CmdAbst;
 import jp.happyhacking70.cum3.cmd.ReqCmdChnlTestAbst;
+import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.w3c.dom.Document;
 
 /**
  * @author happyhacking70@gmail.com
@@ -69,5 +72,19 @@ public class ReqCmdRegChnlTest extends ReqCmdChnlTestAbst {
 
 		}
 
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * jp.happyhacking70.cum3.cmd.CmdTestAbst#getCmdNormal(org.w3c.dom.Document)
+	 */
+	@Override
+	protected CmdAbst getCmdNormal(Document doc) throws CumExcpIllegalCmdDoc {
+		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
+		rsces.add(new ChnlRscImg("a", null));
+		rsces.add(new ChnlRscImg("b", null));
+		return new ReqCmdRegChnl(doc, rsces);
 	}
 }

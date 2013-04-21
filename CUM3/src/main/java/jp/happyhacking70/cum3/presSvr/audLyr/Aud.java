@@ -4,7 +4,9 @@
 package jp.happyhacking70.cum3.presSvr.audLyr;
 
 import jp.happyhacking70.cum3.cmd.CmdAbst;
+import jp.happyhacking70.cum3.excp.impl.CumExcpComError;
 import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf;
+import jp.happyhacking70.cum3.presSvr.seshLyr.AudDisconnedHdlrIntf;
 
 /**
  * @author happyhacking70@gmail.com
@@ -13,22 +15,29 @@ import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf;
 public class Aud implements AudIntf {
 	protected String audName;
 	protected CmdSenderIntf sender;
-
-	public Aud(String audName, CmdSenderIntf sender) {
-		super();
-		this.audName = audName;
-		this.sender = sender;
-	}
+	protected AudDisconnedHdlrIntf disconnedHdlr;
 
 	public final String getAudName() {
 		return audName;
 	}
 
-	/**
-	 * @param cmd
-	 */
-	synchronized public void sendCmd(CmdAbst cmd) {
-		sender.sendCmd(cmd);
+	public Aud(String audName, CmdSenderIntf sender,
+			AudDisconnedHdlrIntf disconnedHdlr) {
+		super();
+		this.audName = audName;
+		this.sender = sender;
+		this.disconnedHdlr = disconnedHdlr;
 	}
 
+	/**
+	 * @param cmd
+	 * @throws CumExcpComError
+	 */
+	synchronized public void sendCmd(CmdAbst cmd) {
+		try {
+			sender.sendCmd(cmd);
+		} catch (CumExcpComError e) {
+			disconnedHdlr.audDisconned(audName);
+		}
+	}
 }

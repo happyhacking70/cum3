@@ -3,8 +3,10 @@
  */
 package jp.happyhacking70.cum3.cmd;
 
+import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 import jp.happyhacking70.cum3.excp.impl.CumExcpXMLGenFailed;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
@@ -18,6 +20,14 @@ public abstract class ResCmdChnlAbst extends CmdChnlAbst implements ResCmdIntf {
 	public ResCmdChnlAbst(String seshName, String chnlName, String rslt) {
 		super(seshName, chnlName);
 		this.rslt = rslt;
+	}
+
+	/**
+	 * @param doc
+	 * @throws CumExcpIllegalCmdDoc
+	 */
+	public ResCmdChnlAbst(Document doc) throws CumExcpIllegalCmdDoc {
+		super(doc);
 	}
 
 	@Override

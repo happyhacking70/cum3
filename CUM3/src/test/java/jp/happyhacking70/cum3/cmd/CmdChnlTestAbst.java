@@ -23,4 +23,10 @@ public abstract class CmdChnlTestAbst extends CmdSeshTestAbst {
 		assertEquals(chnlName, ((CmdChnlAbst) getCmdNormal()).getChnlName());
 	}
 
+	@Override
+	protected void myAddonToFromDocToInstance(CmdAbst cmd) {
+		super.myAddonToFromDocToInstance(cmd);
+		assertEquals(chnlName, ((CmdChnlAbst) cmd).getChnlName());
+	}
+
 }

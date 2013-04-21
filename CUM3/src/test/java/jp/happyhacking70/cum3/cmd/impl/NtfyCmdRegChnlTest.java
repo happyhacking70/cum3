@@ -9,8 +9,10 @@ import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscImg;
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
 import jp.happyhacking70.cum3.cmd.CmdAbst;
 import jp.happyhacking70.cum3.cmd.NtfyCmdChnlTestAbst;
+import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
 import org.junit.BeforeClass;
+import org.w3c.dom.Document;
 
 /**
  * @author happyhacking70@gmail.com
@@ -29,10 +31,11 @@ public class NtfyCmdRegChnlTest extends NtfyCmdChnlTestAbst {
 
 	@Override
 	protected CmdAbst getCmdNormal() {
-		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
-		rsces.add(new ChnlRscImg("a", null));
-		rsces.add(new ChnlRscImg("b", null));
-		return new NtfyCmdRegChnl(seshName, chnlName, rsces);
+
+		NtfyCmdRegChnl cmd = new NtfyCmdRegChnl(seshName, chnlName);
+		cmd.addRscData(new ChnlRscImg("a", null));
+		cmd.addRscData(new ChnlRscImg("b", null));
+		return cmd;
 	}
 
 	@Override
@@ -43,6 +46,20 @@ public class NtfyCmdRegChnlTest extends NtfyCmdChnlTestAbst {
 	@Override
 	protected String getActionName() {
 		return "RegChnl";
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * jp.happyhacking70.cum3.cmd.CmdTestAbst#getCmdNormal(org.w3c.dom.Document)
+	 */
+	@Override
+	protected CmdAbst getCmdNormal(Document doc) throws CumExcpIllegalCmdDoc {
+		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
+		rsces.add(new ChnlRscImg("a", null));
+		rsces.add(new ChnlRscImg("b", null));
+		return new NtfyCmdRegChnl(doc, rsces);
 	}
 
 }

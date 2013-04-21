@@ -4,7 +4,9 @@
 package jp.happyhacking70.cum3.cmd.impl;
 
 import jp.happyhacking70.cum3.cmd.ResCmdSeshAbst;
-import jp.happyhacking70.cum3.excp.impl.CumExcpXMLGenFailed;
+import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
+
+import org.w3c.dom.Document;
 
 /**
  * @author happyhacking70@gmail.com
@@ -23,13 +25,22 @@ public class ResCmdRegSesh extends ResCmdSeshAbst {
 		super(seshName, rslt.name());
 	}
 
+	/**
+	 * @param doc
+	 * @throws CumExcpIllegalCmdDoc
+	 */
+	public ResCmdRegSesh(Document doc) throws CumExcpIllegalCmdDoc {
+		super(doc);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see jp.happyhacking70.cum3.cmd.CmdAbst#setActionName()
+	 */
 	@Override
 	protected void setActionName() {
 		actionName = "RegSesh";
 	}
 
-	public static void main(String[] args) throws CumExcpXMLGenFailed {
-		ResCmdRegSesh cmd = new ResCmdRegSesh("testSession", RsltTypes.Reged);
-		System.out.println(cmd.toXmlStr());
-	}
 }

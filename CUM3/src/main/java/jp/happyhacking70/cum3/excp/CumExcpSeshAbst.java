@@ -26,7 +26,7 @@ public class CumExcpSeshAbst extends CumExcpAbst {
 	}
 
 	/**
-	 * @return
+	 * @return session name
 	 */
 	final public String getSeshName() {
 		return seshName;

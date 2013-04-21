@@ -5,8 +5,10 @@ package jp.happyhacking70.cum3.cmd.impl;
 
 import jp.happyhacking70.cum3.cmd.CmdAbst;
 import jp.happyhacking70.cum3.cmd.NtfyCmdSeshAudTestAbst;
+import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
 import org.junit.BeforeClass;
+import org.w3c.dom.Document;
 
 /**
  * @author happyhacking70@gmail.com
@@ -51,6 +53,17 @@ public class NtfyCmdLvSeshTest extends NtfyCmdSeshAudTestAbst {
 	@Override
 	protected String getActionName() {
 		return "LvSesh";
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * jp.happyhacking70.cum3.cmd.CmdTestAbst#getCmdNormal(org.w3c.dom.Document)
+	 */
+	@Override
+	protected CmdAbst getCmdNormal(Document doc) throws CumExcpIllegalCmdDoc {
+		return new NtfyCmdLvSesh(doc);
 	}
 
 }

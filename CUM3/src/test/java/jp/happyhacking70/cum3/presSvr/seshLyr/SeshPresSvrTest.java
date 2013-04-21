@@ -11,8 +11,8 @@ import java.util.ArrayList;
 
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscImg;
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
-import jp.happyhacking70.cum3.cmd.CmdAbst;
 import jp.happyhacking70.cum3.cmd.CmdAbst.CmdTypes;
+import jp.happyhacking70.cum3.cmd.XMLableCmdIntf;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdClsChnl;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdJoinChnl;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdJoinSesh;
@@ -20,6 +20,7 @@ import jp.happyhacking70.cum3.cmd.impl.NtfyCmdLvChnl;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdLvSesh;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdRegChnl;
 import jp.happyhacking70.cum3.comLyr.DummySender;
+import jp.happyhacking70.cum3.excp.impl.CumExcpComError;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpChnlExists;
@@ -28,6 +29,7 @@ import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNull;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcptNullRsces;
+import jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshPresSvr;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -49,17 +51,19 @@ public class SeshPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvr#getSeshName()}.
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshPresSvr#getSeshName()}
+	 * .
 	 */
 	@Test
 	public void testGetSeshName() {
-		SeshPresSvr sesh = new SeshPresSvr(seshName, new DummySender());
+		SeshPresSvr sesh = new SeshPresSvr(seshName, new DummySender(),
+				new DummyPrestrDisconnedHdlr());
 		assertEquals(sesh.getSeshName(), seshName);
 	}
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvr#regChnl(java.lang.String, java.util.ArrayList)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshPresSvr#regChnl(java.lang.String, java.util.ArrayList)}
 	 * .
 	 * 
 	 * @throws CumExcpRscNull
@@ -69,20 +73,22 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpAudNotExist
 	 * @throws CumExcpChnlNotEixt
 	 * @throws CumExcpAudExists
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testRegChnl_OK() throws CumExcpChnlExists, CumExcpRscExists,
 			CumExcptNullRsces, CumExcpRscNull, CumExcpChnlNotEixt,
-			CumExcpAudNotExist, CumExcpAudExists {
+			CumExcpAudNotExist, CumExcpAudExists, CumExcpComError {
 		DummySender senderForPresenter = new DummySender();
 
 		DummySender senderForAudA = new DummySender();
 		DummySender senderForAudB = new DummySender();
 
-		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPresenter);
+		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPresenter,
+				new DummyPrestrDisconnedHdlr());
 
-		sesh.joinSesh("audA", senderForAudA);
-		sesh.joinSesh("audB", senderForAudB);
+		sesh.joinSesh("audA", senderForAudA, sesh);
+		sesh.joinSesh("audB", senderForAudB, sesh);
 
 		sesh.regChnl(chnlName, new ArrayList<ChnlRscIntf>());
 
@@ -101,7 +107,7 @@ public class SeshPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvr#regChnl(java.lang.String, java.util.ArrayList)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshPresSvr#regChnl(java.lang.String, java.util.ArrayList)}
 	 * .
 	 * 
 	 * @throws CumExcpRscNull
@@ -110,19 +116,21 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpAudNotExist
 	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpComError
 	 */
 	@Test(expected = CumExcpChnlExists.class)
 	public void testRegChnl_ChnlExists() throws CumExcpChnlExists,
 			CumExcpRscExists, CumExcptNullRsces, CumExcpRscNull,
-			CumExcpChnlNotEixt, CumExcpAudNotExist {
-		SeshPresSvr sesh = new SeshPresSvr(seshName, new DummySender());
+			CumExcpChnlNotEixt, CumExcpAudNotExist, CumExcpComError {
+		SeshPresSvr sesh = new SeshPresSvr(seshName, new DummySender(),
+				new DummyPrestrDisconnedHdlr());
 		sesh.regChnl(chnlName, new ArrayList<ChnlRscIntf>());
 		sesh.regChnl(chnlName, new ArrayList<ChnlRscIntf>());
 	}
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvr#regChnl(java.lang.String, java.util.ArrayList)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshPresSvr#regChnl(java.lang.String, java.util.ArrayList)}
 	 * .
 	 * 
 	 * @throws CumExcpRscNull
@@ -131,18 +139,20 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpAudNotExist
 	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpComError
 	 */
 	@Test(expected = CumExcptNullRsces.class)
 	public void testRegChnl_NulRsces() throws CumExcpChnlExists,
 			CumExcpRscExists, CumExcptNullRsces, CumExcpRscNull,
-			CumExcpChnlNotEixt, CumExcpAudNotExist {
-		SeshPresSvr sesh = new SeshPresSvr(seshName, new DummySender());
+			CumExcpChnlNotEixt, CumExcpAudNotExist, CumExcpComError {
+		SeshPresSvr sesh = new SeshPresSvr(seshName, new DummySender(),
+				new DummyPrestrDisconnedHdlr());
 		sesh.regChnl(chnlName, null);
 	}
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvr#regChnl(java.lang.String, java.util.ArrayList)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshPresSvr#regChnl(java.lang.String, java.util.ArrayList)}
 	 * .
 	 * 
 	 * @throws CumExcpRscNull
@@ -151,12 +161,14 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpAudNotExist
 	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpComError
 	 */
 	@Test(expected = CumExcpRscNull.class)
 	public void testRegChnl_NulRsce() throws CumExcpChnlExists,
 			CumExcpRscExists, CumExcptNullRsces, CumExcpRscNull,
-			CumExcpChnlNotEixt, CumExcpAudNotExist {
-		SeshPresSvr sesh = new SeshPresSvr(seshName, new DummySender());
+			CumExcpChnlNotEixt, CumExcpAudNotExist, CumExcpComError {
+		SeshPresSvr sesh = new SeshPresSvr(seshName, new DummySender(),
+				new DummyPrestrDisconnedHdlr());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		rsces.add(new ChnlRscImg("rscA", null));
 		rsces.add(null);
@@ -167,7 +179,7 @@ public class SeshPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvr#regChnl(java.lang.String, java.util.ArrayList)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshPresSvr#regChnl(java.lang.String, java.util.ArrayList)}
 	 * .
 	 * 
 	 * @throws CumExcpRscNull
@@ -176,12 +188,14 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpAudNotExist
 	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpComError
 	 */
 	@Test(expected = CumExcpRscExists.class)
 	public void testRegChnl_rscExists() throws CumExcpChnlExists,
 			CumExcpRscExists, CumExcptNullRsces, CumExcpRscNull,
-			CumExcpChnlNotEixt, CumExcpAudNotExist {
-		SeshPresSvr sesh = new SeshPresSvr(seshName, new DummySender());
+			CumExcpChnlNotEixt, CumExcpAudNotExist, CumExcpComError {
+		SeshPresSvr sesh = new SeshPresSvr(seshName, new DummySender(),
+				new DummyPrestrDisconnedHdlr());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		rsces.add(new ChnlRscImg("rscA", null));
 		rsces.add(new ChnlRscImg("rscA", null));
@@ -191,7 +205,7 @@ public class SeshPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvr#getRsc(java.lang.String, java.lang.String)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshPresSvr#getRsc(java.lang.String, java.lang.String)}
 	 * .
 	 * 
 	 * @throws CumExcpRscNull
@@ -200,12 +214,14 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpRscNotExist
 	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testGetRsc_OK() throws CumExcpChnlExists, CumExcpRscExists,
 			CumExcptNullRsces, CumExcpRscNull, CumExcpChnlNotEixt,
-			CumExcpRscNotExist {
-		SeshPresSvr sesh = new SeshPresSvr(seshName, new DummySender());
+			CumExcpRscNotExist, CumExcpComError {
+		SeshPresSvr sesh = new SeshPresSvr(seshName, new DummySender(),
+				new DummyPrestrDisconnedHdlr());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 
 		ChnlRscImg a = new ChnlRscImg("rscA", null);
@@ -224,19 +240,22 @@ public class SeshPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvr#getRsc(java.lang.String, java.lang.String)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshPresSvr#getRsc(java.lang.String, java.lang.String)}
 	 * 
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpRscExists
 	 * @throws CumExcptNullRsces
 	 * @throws CumExcpRscNull
 	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpComError
 	 * @throws CumExcpRscNotExist
 	 */
 	@Test
 	public void testGetRsc_NoRsc() throws CumExcpChnlExists, CumExcpRscExists,
-			CumExcptNullRsces, CumExcpRscNull, CumExcpChnlNotEixt {
-		SeshPresSvr sesh = new SeshPresSvr(seshName, new DummySender());
+			CumExcptNullRsces, CumExcpRscNull, CumExcpChnlNotEixt,
+			CumExcpComError {
+		SeshPresSvr sesh = new SeshPresSvr(seshName, new DummySender(),
+				new DummyPrestrDisconnedHdlr());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 
 		ChnlRscImg a = new ChnlRscImg("rscA", null);
@@ -264,7 +283,8 @@ public class SeshPresSvrTest {
 
 	@Test
 	public void testGetRsc_NoChnl() throws CumExcpRscNotExist {
-		SeshPresSvr sesh = new SeshPresSvr(seshName, new DummySender());
+		SeshPresSvr sesh = new SeshPresSvr(seshName, new DummySender(),
+				new DummyPrestrDisconnedHdlr());
 
 		boolean ok = false;
 
@@ -283,7 +303,7 @@ public class SeshPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvr#sendChnlCmd(jp.happyhacking70.cum3.cmd.CmdChnlAbst, java.lang.String)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshPresSvr#sendChnlCmd(jp.happyhacking70.cum3.cmd.CmdChnlAbst, java.lang.String)}
 	 * .
 	 * 
 	 * @throws CumExcpRscNull
@@ -293,25 +313,31 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpAudExists
 	 * @throws CumExcpChnlNotEixt
 	 * @throws CumExcpAudNotExist
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testSendChnlCmdToAud() throws CumExcpRscExists,
 			CumExcpChnlExists, CumExcptNullRsces, CumExcpRscNull,
-			CumExcpAudExists, CumExcpAudNotExist, CumExcpChnlNotEixt {
+			CumExcpAudExists, CumExcpAudNotExist, CumExcpChnlNotEixt,
+			CumExcpComError {
 
 		DummySender senderForPrestr = new DummySender();
-		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr);
+		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr,
+				new DummyPrestrDisconnedHdlr());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		sesh.regChnl(chnlName, rsces);
 
 		DummySender senderForAud = new DummySender();
-		sesh.joinSesh("audA", senderForAud);
+		sesh.joinSesh("audA", senderForAud, sesh);
 		sesh.joinChnl(chnlName, "audA");
 
-		NtfyCmdRegChnl cmd = new NtfyCmdRegChnl(seshName, chnlName, rsces);
+		NtfyCmdRegChnl cmd = new NtfyCmdRegChnl(seshName, chnlName);
+		for (ChnlRscIntf rsc : rsces) {
+			cmd.addRscData(rsc);
+		}
 		sesh.sendChnlCmd(cmd, "audA");
 
-		CmdAbst cmdSent = senderForAud.pollCmd();
+		XMLableCmdIntf cmdSent = senderForAud.pollCmd();
 		cmdSent = senderForAud.pollCmd();
 		assertEquals(cmdSent, cmd);
 
@@ -319,7 +345,7 @@ public class SeshPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvr#sendChnlCmd(jp.happyhacking70.cum3.cmd.CmdChnlAbst, java.lang.String)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshPresSvr#sendChnlCmd(jp.happyhacking70.cum3.cmd.CmdChnlAbst, java.lang.String)}
 	 * .
 	 * 
 	 * @throws CumExcpRscNull
@@ -329,15 +355,22 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpAudExists
 	 * @throws CumExcpChnlNotEixt
 	 * @throws CumExcpAudNotExist
+	 * @throws CumExcpComError
 	 */
 	@Test
-	public void testSendChnlCmdToAudNoChnl() throws CumExcpAudNotExist {
+	public void testSendChnlCmdToAudNoChnl() throws CumExcpAudNotExist,
+			CumExcpComError {
 
 		DummySender senderForPrestr = new DummySender();
-		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr);
+		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr,
+				new DummyPrestrDisconnedHdlr());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 
-		NtfyCmdRegChnl cmd = new NtfyCmdRegChnl(seshName, "NOCHNL", rsces);
+		NtfyCmdRegChnl cmd = new NtfyCmdRegChnl(seshName, "NOCHNL");
+
+		for (ChnlRscIntf rsc : rsces) {
+			cmd.addRscData(rsc);
+		}
 		boolean ok = false;
 		try {
 			sesh.sendChnlCmd(cmd, "audA");
@@ -357,7 +390,7 @@ public class SeshPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvr#sendChnlCmd(jp.happyhacking70.cum3.cmd.CmdChnlAbst, java.lang.String)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshPresSvr#sendChnlCmd(jp.happyhacking70.cum3.cmd.CmdChnlAbst, java.lang.String)}
 	 * .
 	 * 
 	 * @throws CumExcpRscNull
@@ -366,14 +399,16 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpAudExists
 	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpComError
 	 * @throws CumExcpAudNotExist
 	 */
 	@Test
 	public void testSendChnlCmdToAudNoAud() throws CumExcpRscExists,
 			CumExcpChnlExists, CumExcptNullRsces, CumExcpRscNull,
-			CumExcpAudExists, CumExcpChnlNotEixt {
+			CumExcpAudExists, CumExcpChnlNotEixt, CumExcpComError {
 		DummySender senderForPrestr = new DummySender();
-		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr);
+		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr,
+				new DummyPrestrDisconnedHdlr());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		sesh.regChnl(chnlName, rsces);
 
@@ -381,7 +416,10 @@ public class SeshPresSvrTest {
 		// sesh.joinSesh("audA", senderForAud);
 
 		boolean ok = false;
-		NtfyCmdRegChnl cmd = new NtfyCmdRegChnl(seshName, chnlName, rsces);
+		NtfyCmdRegChnl cmd = new NtfyCmdRegChnl(seshName, chnlName);
+		for (ChnlRscIntf rsc : rsces) {
+			cmd.addRscData(rsc);
+		}
 		try {
 			sesh.sendChnlCmd(cmd, "audB");
 		} catch (CumExcpAudNotExist e) {
@@ -398,7 +436,7 @@ public class SeshPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvr#sendChnlCmd(jp.happyhacking70.cum3.cmd.CmdChnlAbst)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshPresSvr#sendChnlCmd(jp.happyhacking70.cum3.cmd.CmdChnlAbst)}
 	 * .
 	 * 
 	 * @throws CumExcpRscNull
@@ -408,28 +446,34 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpAudExists
 	 * @throws CumExcpChnlNotEixt
 	 * @throws CumExcpAudNotExist
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testSendChnlCmdToAuds_OK() throws CumExcpRscExists,
 			CumExcpChnlExists, CumExcptNullRsces, CumExcpRscNull,
-			CumExcpAudExists, CumExcpAudNotExist, CumExcpChnlNotEixt {
+			CumExcpAudExists, CumExcpAudNotExist, CumExcpChnlNotEixt,
+			CumExcpComError {
 		DummySender senderForPrestr = new DummySender();
-		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr);
+		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr,
+				new DummyPrestrDisconnedHdlr());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		sesh.regChnl(chnlName, rsces);
 
 		DummySender senderForAudA = new DummySender();
-		sesh.joinSesh("audA", senderForAudA);
+		sesh.joinSesh("audA", senderForAudA, sesh);
 		sesh.joinChnl(chnlName, "audA");
 
 		DummySender senderForAudB = new DummySender();
-		sesh.joinSesh("audB", senderForAudB);
+		sesh.joinSesh("audB", senderForAudB, sesh);
 		sesh.joinChnl(chnlName, "audB");
 
-		NtfyCmdRegChnl cmd = new NtfyCmdRegChnl(seshName, chnlName, rsces);
+		NtfyCmdRegChnl cmd = new NtfyCmdRegChnl(seshName, chnlName);
+		for (ChnlRscIntf rsc : rsces) {
+			cmd.addRscData(rsc);
+		}
 		sesh.sendChnlCmd(cmd);
 
-		CmdAbst cmdSent = senderForAudA.pollCmd();
+		XMLableCmdIntf cmdSent = senderForAudA.pollCmd();
 		cmdSent = senderForAudA.pollCmd();
 		assertEquals(cmdSent, cmd);
 		cmdSent = senderForAudB.pollCmd();
@@ -440,7 +484,7 @@ public class SeshPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvr#sendChnlCmd(jp.happyhacking70.cum3.cmd.CmdChnlAbst)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshPresSvr#sendChnlCmd(jp.happyhacking70.cum3.cmd.CmdChnlAbst)}
 	 * .
 	 * 
 	 * @throws CumExcpRscNull
@@ -450,14 +494,20 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpAudExists
 	 * @throws CumExcpChnlNotEixt
 	 * @throws CumExcpAudNotExist
+	 * @throws CumExcpComError
 	 */
 	@Test
-	public void testSendChnlCmdToAuds_NOCHNL() throws CumExcpAudNotExist {
+	public void testSendChnlCmdToAuds_NOCHNL() throws CumExcpAudNotExist,
+			CumExcpComError {
 		DummySender senderForPrestr = new DummySender();
-		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr);
+		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr,
+				new DummyPrestrDisconnedHdlr());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 
-		NtfyCmdRegChnl cmd = new NtfyCmdRegChnl(seshName, "NOCHNL", rsces);
+		NtfyCmdRegChnl cmd = new NtfyCmdRegChnl(seshName, "NOCHNL");
+		for (ChnlRscIntf rsc : rsces) {
+			cmd.addRscData(rsc);
+		}
 		boolean ok = false;
 		try {
 			sesh.sendChnlCmd(cmd);
@@ -477,7 +527,7 @@ public class SeshPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvr#clsChnl(java.lang.String)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshPresSvr#clsChnl(java.lang.String)}
 	 * .
 	 * 
 	 * @throws CumExcpRscNull
@@ -487,23 +537,25 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpAudExists
 	 * @throws CumExcpChnlNotEixt
 	 * @throws CumExcpAudNotExist
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testClsChnl_OK() throws CumExcpRscExists, CumExcpChnlExists,
 			CumExcptNullRsces, CumExcpRscNull, CumExcpAudExists,
-			CumExcpChnlNotEixt, CumExcpAudNotExist {
+			CumExcpChnlNotEixt, CumExcpAudNotExist, CumExcpComError {
 
 		DummySender senderForPrestr = new DummySender();
-		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr);
+		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr,
+				new DummyPrestrDisconnedHdlr());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 
 		sesh.regChnl(chnlName, rsces);
 		DummySender senderForAud = new DummySender();
 		DummySender senderForAudB = new DummySender();
 
-		sesh.joinSesh("audA", senderForAud);
+		sesh.joinSesh("audA", senderForAud, sesh);
 		senderForAud.pollCmd();
-		sesh.joinSesh("audB", senderForAudB);
+		sesh.joinSesh("audB", senderForAudB, sesh);
 		senderForAudB.pollCmd();
 
 		sesh.joinChnl(chnlName, "audA");
@@ -524,7 +576,7 @@ public class SeshPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvr#clsChnl(java.lang.String)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshPresSvr#clsChnl(java.lang.String)}
 	 * .
 	 * 
 	 * @throws CumExcpRscNull
@@ -532,19 +584,22 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpAudExists
+	 * @throws CumExcpComError
 	 * @throws CumExcpChnlNotEixt
 	 */
 	@Test
 	public void testClsChnl_NOCHNL() throws CumExcpAudExists, CumExcpRscExists,
-			CumExcpChnlExists, CumExcptNullRsces, CumExcpRscNull {
+			CumExcpChnlExists, CumExcptNullRsces, CumExcpRscNull,
+			CumExcpComError {
 		DummySender senderForPrestr = new DummySender();
-		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr);
+		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr,
+				new DummyPrestrDisconnedHdlr());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 
 		sesh.regChnl(chnlName, rsces);
 		DummySender senderForAud = new DummySender();
 
-		sesh.joinSesh("audA", senderForAud);
+		sesh.joinSesh("audA", senderForAud, sesh);
 		senderForAud.pollCmd();
 
 		boolean ok = false;
@@ -564,7 +619,7 @@ public class SeshPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvr#joinSesh(java.lang.String, jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshPresSvr#joinSesh(java.lang.String, jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf)}
 	 * .
 	 * 
 	 * @throws CumExcpRscNull
@@ -572,17 +627,20 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpAudExists
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testJoinSesh_OK() throws CumExcpRscExists, CumExcpChnlExists,
-			CumExcptNullRsces, CumExcpRscNull, CumExcpAudExists {
+			CumExcptNullRsces, CumExcpRscNull, CumExcpAudExists,
+			CumExcpComError {
 		DummySender senderForPrestr = new DummySender();
-		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr);
+		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr,
+				new DummyPrestrDisconnedHdlr());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		sesh.regChnl(chnlName, rsces);
 
 		DummySender senderForAudA = new DummySender();
-		sesh.joinSesh("audA", senderForAudA);
+		sesh.joinSesh("audA", senderForAudA, sesh);
 
 		NtfyCmdRegChnl cmd = (NtfyCmdRegChnl) senderForAudA.pollCmd();
 		assertEquals(seshName, cmd.getSeshName());
@@ -595,7 +653,7 @@ public class SeshPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvr#joinSesh(java.lang.String, jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshPresSvr#joinSesh(java.lang.String, jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf)}
 	 * .
 	 * 
 	 * @throws CumExcpRscNull
@@ -603,23 +661,25 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpAudExists
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testJoinSesh_AUDEXISTS() throws CumExcpAudExists,
 			CumExcpRscExists, CumExcpChnlExists, CumExcptNullRsces,
-			CumExcpRscNull {
+			CumExcpRscNull, CumExcpComError {
 
 		DummySender senderForPrestr = new DummySender();
-		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr);
+		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr,
+				new DummyPrestrDisconnedHdlr());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		sesh.regChnl(chnlName, rsces);
 
 		DummySender senderForAudA = new DummySender();
-		sesh.joinSesh("audA", senderForAudA);
+		sesh.joinSesh("audA", senderForAudA, sesh);
 
 		boolean ok = false;
 		try {
-			sesh.joinSesh("audA", senderForAudA);
+			sesh.joinSesh("audA", senderForAudA, sesh);
 		} catch (CumExcpAudExists e) {
 			assertEquals(seshName, e.getSeshName());
 			assertEquals("", e.getChnlName());
@@ -634,7 +694,7 @@ public class SeshPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvr#joinChnl(java.lang.String, java.lang.String)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshPresSvr#joinChnl(java.lang.String, java.lang.String)}
 	 * .
 	 * 
 	 * @throws CumExcpRscNull
@@ -644,18 +704,20 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpAudExists
 	 * @throws CumExcpChnlNotEixt
 	 * @throws CumExcpAudNotExist
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testJoinChnl_OK() throws CumExcpRscExists, CumExcpChnlExists,
 			CumExcptNullRsces, CumExcpRscNull, CumExcpAudExists,
-			CumExcpAudNotExist, CumExcpChnlNotEixt {
+			CumExcpAudNotExist, CumExcpChnlNotEixt, CumExcpComError {
 		DummySender senderForPrestr = new DummySender();
-		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr);
+		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr,
+				new DummyPrestrDisconnedHdlr());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		sesh.regChnl(chnlName, rsces);
 
 		DummySender senderForAudA = new DummySender();
-		sesh.joinSesh("audA", senderForAudA);
+		sesh.joinSesh("audA", senderForAudA, sesh);
 		senderForPrestr.pollCmd();
 		senderForAudA.pollCmd();
 
@@ -671,7 +733,7 @@ public class SeshPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvr#joinChnl(java.lang.String, java.lang.String)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshPresSvr#joinChnl(java.lang.String, java.lang.String)}
 	 * .
 	 * 
 	 * @throws CumExcpRscNull
@@ -681,19 +743,21 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpAudExists
 	 * @throws CumExcpChnlNotEixt
 	 * @throws CumExcpAudNotExist
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testJoinChnl_NOCHNL() throws CumExcpRscExists,
 			CumExcpChnlExists, CumExcptNullRsces, CumExcpRscNull,
-			CumExcpAudExists, CumExcpAudNotExist {
+			CumExcpAudExists, CumExcpAudNotExist, CumExcpComError {
 
 		DummySender senderForPrestr = new DummySender();
-		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr);
+		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr,
+				new DummyPrestrDisconnedHdlr());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		sesh.regChnl(chnlName, rsces);
 
 		DummySender senderForAudA = new DummySender();
-		sesh.joinSesh("audA", senderForAudA);
+		sesh.joinSesh("audA", senderForAudA, sesh);
 		senderForPrestr.pollCmd();
 		senderForAudA.pollCmd();
 
@@ -712,7 +776,7 @@ public class SeshPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvr#joinChnl(java.lang.String, java.lang.String)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshPresSvr#joinChnl(java.lang.String, java.lang.String)}
 	 * .
 	 * 
 	 * @throws CumExcpRscNull
@@ -721,20 +785,22 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpAudExists
 	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpComError
 	 * @throws CumExcpAudNotExist
 	 */
 	@Test
 	public void testJoinChnl_NOAUD() throws CumExcpAudExists,
 			CumExcpChnlNotEixt, CumExcpRscExists, CumExcpChnlExists,
-			CumExcptNullRsces, CumExcpRscNull {
+			CumExcptNullRsces, CumExcpRscNull, CumExcpComError {
 
 		DummySender senderForPrestr = new DummySender();
-		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr);
+		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr,
+				new DummyPrestrDisconnedHdlr());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		sesh.regChnl(chnlName, rsces);
 
 		DummySender senderForAudA = new DummySender();
-		sesh.joinSesh("audA", senderForAudA);
+		sesh.joinSesh("audA", senderForAudA, sesh);
 		senderForPrestr.pollCmd();
 		senderForAudA.pollCmd();
 
@@ -755,7 +821,7 @@ public class SeshPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvr#joinChnl(java.lang.String, java.lang.String)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshPresSvr#joinChnl(java.lang.String, java.lang.String)}
 	 * .
 	 * 
 	 * @throws CumExcpRscNull
@@ -765,18 +831,21 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpAudExists
 	 * @throws CumExcpChnlNotEixt
 	 * @throws CumExcpAudNotExist
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testJoinChnl_AUDEXISTS() throws CumExcpAudNotExist,
 			CumExcpChnlNotEixt, CumExcpAudExists, CumExcpRscExists,
-			CumExcpChnlExists, CumExcptNullRsces, CumExcpRscNull {
+			CumExcpChnlExists, CumExcptNullRsces, CumExcpRscNull,
+			CumExcpComError {
 		DummySender senderForPrestr = new DummySender();
-		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr);
+		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr,
+				new DummyPrestrDisconnedHdlr());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		sesh.regChnl(chnlName, rsces);
 
 		DummySender senderForAudA = new DummySender();
-		sesh.joinSesh("audA", senderForAudA);
+		sesh.joinSesh("audA", senderForAudA, sesh);
 		senderForPrestr.pollCmd();
 		senderForAudA.pollCmd();
 
@@ -798,7 +867,7 @@ public class SeshPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvr#lvChnl(java.lang.String, java.lang.String, java.lang.String)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshPresSvr#lvChnl(java.lang.String, java.lang.String, java.lang.String)}
 	 * .
 	 * 
 	 * @throws CumExcpRscNull
@@ -808,20 +877,22 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpAudExists
 	 * @throws CumExcpChnlNotEixt
 	 * @throws CumExcpAudNotExist
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testLvChnl() throws CumExcpRscExists, CumExcpChnlExists,
 			CumExcptNullRsces, CumExcpRscNull, CumExcpAudExists,
-			CumExcpAudNotExist, CumExcpChnlNotEixt {
+			CumExcpAudNotExist, CumExcpChnlNotEixt, CumExcpComError {
 
 		DummySender senderForPresenter = new DummySender();
-		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPresenter);
+		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPresenter,
+				new DummyPrestrDisconnedHdlr());
 
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		sesh.regChnl(chnlName, rsces);
 
 		DummySender senderForAudA = new DummySender();
-		sesh.joinSesh("audA", senderForAudA);
+		sesh.joinSesh("audA", senderForAudA, sesh);
 		senderForPresenter.pollCmd();
 		senderForAudA.pollCmd();
 
@@ -840,7 +911,7 @@ public class SeshPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvr#lvChnl(java.lang.String, java.lang.String, java.lang.String)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshPresSvr#lvChnl(java.lang.String, java.lang.String, java.lang.String)}
 	 * .
 	 * 
 	 * @throws CumExcpRscNull
@@ -850,20 +921,23 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpAudExists
 	 * @throws CumExcpChnlNotEixt
 	 * @throws CumExcpAudNotExist
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testLvChnl_NOCHNL() throws CumExcpAudNotExist,
 			CumExcpAudExists, CumExcpChnlNotEixt, CumExcpRscExists,
-			CumExcpChnlExists, CumExcptNullRsces, CumExcpRscNull {
+			CumExcpChnlExists, CumExcptNullRsces, CumExcpRscNull,
+			CumExcpComError {
 
 		DummySender senderForPresenter = new DummySender();
-		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPresenter);
+		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPresenter,
+				new DummyPrestrDisconnedHdlr());
 
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		sesh.regChnl(chnlName, rsces);
 
 		DummySender senderForAudA = new DummySender();
-		sesh.joinSesh("audA", senderForAudA);
+		sesh.joinSesh("audA", senderForAudA, sesh);
 		senderForPresenter.pollCmd();
 		senderForAudA.pollCmd();
 
@@ -888,7 +962,7 @@ public class SeshPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvr#lvChnl(java.lang.String, java.lang.String, java.lang.String)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshPresSvr#lvChnl(java.lang.String, java.lang.String, java.lang.String)}
 	 * .
 	 * 
 	 * @throws CumExcpRscNull
@@ -898,20 +972,22 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpAudExists
 	 * @throws CumExcpChnlNotEixt
 	 * @throws CumExcpAudNotExist
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testLvChnl_NOAUD() throws CumExcpChnlNotEixt, CumExcpAudExists,
 			CumExcpAudNotExist, CumExcpRscExists, CumExcpChnlExists,
-			CumExcptNullRsces, CumExcpRscNull {
+			CumExcptNullRsces, CumExcpRscNull, CumExcpComError {
 
 		DummySender senderForPresenter = new DummySender();
-		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPresenter);
+		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPresenter,
+				new DummyPrestrDisconnedHdlr());
 
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		sesh.regChnl(chnlName, rsces);
 
 		DummySender senderForAudA = new DummySender();
-		sesh.joinSesh("audA", senderForAudA);
+		sesh.joinSesh("audA", senderForAudA, sesh);
 		senderForPresenter.pollCmd();
 		senderForAudA.pollCmd();
 
@@ -938,7 +1014,7 @@ public class SeshPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvr#lvSesh(java.lang.String)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshPresSvr#lvSesh(java.lang.String)}
 	 * .
 	 * 
 	 * @throws CumExcpRscNull
@@ -948,19 +1024,21 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpAudExists
 	 * @throws CumExcpChnlNotEixt
 	 * @throws CumExcpAudNotExist
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testLvSesh() throws CumExcpRscExists, CumExcpChnlExists,
 			CumExcptNullRsces, CumExcpRscNull, CumExcpAudExists,
-			CumExcpAudNotExist, CumExcpChnlNotEixt {
+			CumExcpAudNotExist, CumExcpChnlNotEixt, CumExcpComError {
 		DummySender senderForPresenter = new DummySender();
-		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPresenter);
+		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPresenter,
+				new DummyPrestrDisconnedHdlr());
 
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		sesh.regChnl(chnlName, rsces);
 
 		DummySender senderForAudA = new DummySender();
-		sesh.joinSesh("audA", senderForAudA);
+		sesh.joinSesh("audA", senderForAudA, sesh);
 		senderForPresenter.pollCmd();
 		senderForAudA.pollCmd();
 
@@ -979,7 +1057,7 @@ public class SeshPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvr#lvSesh(java.lang.String)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshPresSvr#lvSesh(java.lang.String)}
 	 * .
 	 * 
 	 * @throws CumExcpRscNull
@@ -989,19 +1067,21 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpAudExists
 	 * @throws CumExcpChnlNotEixt
 	 * @throws CumExcpAudNotExist
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testLvSesh_NOAUD() throws CumExcpAudExists, CumExcpAudNotExist,
 			CumExcpChnlNotEixt, CumExcpRscExists, CumExcpChnlExists,
-			CumExcptNullRsces, CumExcpRscNull {
+			CumExcptNullRsces, CumExcpRscNull, CumExcpComError {
 		DummySender senderForPresenter = new DummySender();
-		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPresenter);
+		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPresenter,
+				new DummyPrestrDisconnedHdlr());
 
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		sesh.regChnl(chnlName, rsces);
 
 		DummySender senderForAudA = new DummySender();
-		sesh.joinSesh("audA", senderForAudA);
+		sesh.joinSesh("audA", senderForAudA, sesh);
 		senderForPresenter.pollCmd();
 		senderForAudA.pollCmd();
 

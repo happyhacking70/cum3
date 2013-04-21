@@ -30,8 +30,17 @@ import org.w3c.dom.NodeList;
  */
 public abstract class CmdAbst implements XMLableCmdIntf {
 
+	/**
+	 * @author happyhacking70@gmail.com
+	 * 
+	 */
 	public static enum CmdTypes {
-		REQ, RES, NTFY
+		/** REQUEST COMMAND */
+		REQ,
+		/** RESPONSE COMMAND */
+		RES,
+		/** NOTIFICATION COMMAND */
+		NTFY
 	}
 
 	protected CmdTypes cmdType;
@@ -48,7 +57,6 @@ public abstract class CmdAbst implements XMLableCmdIntf {
 	/**
 	 * @param doc
 	 * @throws CumExcpIllegalCmdDoc
-	 * @throws CumExcpIllegalCmdXML
 	 */
 	public CmdAbst(Document doc) throws CumExcpIllegalCmdDoc {
 		setCmdType();
@@ -122,8 +130,7 @@ public abstract class CmdAbst implements XMLableCmdIntf {
 	}
 
 	/**
-	 * @param doc
-	 * @throws CumExcpIllegalCmdXML
+	 * @param rootNode
 	 * @throws CumExcpIllegalCmdDoc
 	 */
 	final protected void checkRootName(Element rootNode)
@@ -138,14 +145,25 @@ public abstract class CmdAbst implements XMLableCmdIntf {
 
 	abstract protected void setActionName();
 
+	/**
+	 * @return action name
+	 */
 	public final String getActionName() {
 		return actionName;
 	}
 
+	/**
+	 * @return CmdTypes
+	 */
 	public final CmdTypes getCmdType() {
 		return cmdType;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see jp.happyhacking70.cum3.cmd.XMLableCmdIntf#toXmlStr()
+	 */
 	final public String toXmlStr() throws CumExcpXMLGenFailed {
 		String xmlStr = null;
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -167,6 +185,11 @@ public abstract class CmdAbst implements XMLableCmdIntf {
 		return xmlStr;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see jp.happyhacking70.cum3.cmd.XMLableCmdIntf#toXmlDom()
+	 */
 	public Document toXmlDom() throws CumExcpXMLGenFailed {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = null;
@@ -193,23 +216,9 @@ public abstract class CmdAbst implements XMLableCmdIntf {
 
 	/**
 	 * @param cmdElem
+	 * @throws CumExcpXMLGenFailed
 	 */
 	abstract protected void configureDomCocument(Element cmdElem)
 			throws CumExcpXMLGenFailed;
 
-	// protected NamedNodeMap getAttrs(Document document)
-	// throws CumExcpIllegalCmdXML {
-	//
-	// Element rootNode = document.getDocumentElement();
-	//
-	// NodeList cmdNodeList = rootNode.getElementsByTagName("CMD");
-	// if (cmdNodeList.getLength() != 1) {
-	// throw new CumExcpIllegalCmdXML(
-	// "Responce Command Should Appear ONCE");
-	// }
-	//
-	// Node cmdNode = cmdNodeList.item(0);
-	//
-	// return cmdNode.getAttributes();
-	// }
 }

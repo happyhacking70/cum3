@@ -32,7 +32,7 @@ public abstract class CumExcpSeshChnlRscAbst extends CumExcpSeshChnlAbst {
 	}
 
 	/**
-	 * @return
+	 * @return channel resource name
 	 */
 	final public String getRscName() {
 		return rscName;

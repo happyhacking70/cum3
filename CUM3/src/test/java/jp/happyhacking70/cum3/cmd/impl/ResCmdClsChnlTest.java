@@ -3,12 +3,12 @@
  */
 package jp.happyhacking70.cum3.cmd.impl;
 
-import static org.junit.Assert.assertEquals;
 import jp.happyhacking70.cum3.cmd.CmdAbst;
 import jp.happyhacking70.cum3.cmd.ResCmdChnlTestAbst;
+import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
 import org.junit.BeforeClass;
-import org.junit.Test;
+import org.w3c.dom.Document;
 
 /**
  * @author happyhacking70@gmail.com
@@ -42,12 +42,24 @@ public class ResCmdClsChnlTest extends ResCmdChnlTestAbst {
 		return "ClsChnl";
 	}
 
-	/**
-	 * Test method for
-	 * {@link jp.happyhacking70.cum3.cmd.ResCmdChnlAbst#getRslt()}.
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * jp.happyhacking70.cum3.cmd.CmdTestAbst#getCmdNormal(org.w3c.dom.Document)
 	 */
-	@Test
-	public void testGetRslt() {
-		assertEquals(((ResCmdClsChnl) getCmdNormal()).getRslt(), rslt.name());
+	@Override
+	protected CmdAbst getCmdNormal(Document doc) throws CumExcpIllegalCmdDoc {
+		return new ResCmdClsChnl(doc);
 	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see jp.happyhacking70.cum3.cmd.ResCmdTestIntf#getNormalRslt()
+	 */
+	public String getNormalRslt() {
+		return rslt.name();
+	}
+
 }

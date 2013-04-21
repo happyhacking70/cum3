@@ -4,13 +4,19 @@
 package jp.happyhacking70.cum3.cmd.impl;
 
 import jp.happyhacking70.cum3.cmd.ResCmdSeshAudAbst;
-import jp.happyhacking70.cum3.excp.impl.CumExcpXMLGenFailed;
+import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
+
+import org.w3c.dom.Document;
 
 /**
  * @author happyhacking70@gmail.com
  * 
  */
 public class ResCmdJoinSesh extends ResCmdSeshAudAbst {
+	/**
+	 * @author happyhacking70@gmail.com
+	 * 
+	 */
 	public enum RsltTypes {
 		NotExist, Joined, Exists
 	}
@@ -25,15 +31,22 @@ public class ResCmdJoinSesh extends ResCmdSeshAudAbst {
 
 	}
 
+	/**
+	 * @param doc
+	 * @throws CumExcpIllegalCmdDoc
+	 */
+	public ResCmdJoinSesh(Document doc) throws CumExcpIllegalCmdDoc {
+		super(doc);
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see jp.happyhacking70.cum3.cmd.CmdAbst#setActionName()
+	 */
 	@Override
 	protected void setActionName() {
 		actionName = "JoinSesh";
-	}
-
-	public static void main(String[] args) throws CumExcpXMLGenFailed {
-		ResCmdJoinSesh cmd = new ResCmdJoinSesh("testSession", "testAudience",
-				RsltTypes.Exists);
-		System.out.println(cmd.toXmlStr());
 	}
 
 }

@@ -23,4 +23,10 @@ abstract public class CmdSeshAudTestAbst extends CmdSeshTestAbst {
 		assertEquals(audName, ((CmdSeshAudAbst) getCmdNormal()).getAudName());
 	}
 
+	@Override
+	protected void myAddonToFromDocToInstance(CmdAbst cmd) {
+		super.myAddonToFromDocToInstance(cmd);
+		assertEquals(audName, ((CmdSeshAudAbst) cmd).getAudName());
+
+	}
 }

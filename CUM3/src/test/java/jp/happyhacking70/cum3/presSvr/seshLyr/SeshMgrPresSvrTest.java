@@ -12,6 +12,7 @@ import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscImg;
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdClsChnl;
 import jp.happyhacking70.cum3.comLyr.DummySender;
+import jp.happyhacking70.cum3.excp.impl.CumExcpComError;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpChnlExists;
@@ -22,6 +23,7 @@ import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNull;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcptNullRsces;
+import jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -45,7 +47,7 @@ public class SeshMgrPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvr#regSesh(java.lang.String, jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr#regSesh(java.lang.String, jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf)}
 	 * .
 	 * 
 	 * @throws CumExcpSeshExists
@@ -58,7 +60,7 @@ public class SeshMgrPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvr#regSesh(java.lang.String, jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr#regSesh(java.lang.String, jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf)}
 	 * .
 	 * 
 	 * @throws CumExcpSeshExists
@@ -82,7 +84,7 @@ public class SeshMgrPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvr#regChnl(java.lang.String, java.lang.String, java.util.ArrayList)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr#regChnl(java.lang.String, java.lang.String, java.util.ArrayList)}
 	 * .
 	 * 
 	 * @throws CumExcpSeshExists
@@ -91,11 +93,12 @@ public class SeshMgrPresSvrTest {
 	 * @throws CumExcptNullRsces
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpRscExists
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testRegChnl() throws CumExcpSeshExists, CumExcpRscExists,
 			CumExcpChnlExists, CumExcptNullRsces, CumExcpRscNull,
-			CumExcpSeshNotExist {
+			CumExcpSeshNotExist, CumExcpComError {
 		SeshMgrPresSvr seshMgr = new SeshMgrPresSvr();
 		seshMgr.regSesh(seshName, new DummySender());
 
@@ -105,7 +108,7 @@ public class SeshMgrPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvr#regChnl(java.lang.String, java.lang.String, java.util.ArrayList)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr#regChnl(java.lang.String, java.lang.String, java.util.ArrayList)}
 	 * .
 	 * 
 	 * @throws CumExcpSeshExists
@@ -114,11 +117,12 @@ public class SeshMgrPresSvrTest {
 	 * @throws CumExcptNullRsces
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpRscExists
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testRegChnl_NOSESH() throws CumExcpRscExists,
 			CumExcpChnlExists, CumExcptNullRsces, CumExcpRscNull,
-			CumExcpSeshExists {
+			CumExcpSeshExists, CumExcpComError {
 		SeshMgrPresSvr seshMgr = new SeshMgrPresSvr();
 		seshMgr.regSesh(seshName, new DummySender());
 
@@ -137,14 +141,16 @@ public class SeshMgrPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvr#clsSesh(java.lang.String)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr#clsSesh(java.lang.String)}
 	 * .
 	 * 
 	 * @throws CumExcpSeshExists
 	 * @throws CumExcpSeshNotExist
+	 * @throws CumExcpComError
 	 */
 	@Test
-	public void testClsSesh() throws CumExcpSeshExists, CumExcpSeshNotExist {
+	public void testClsSesh() throws CumExcpSeshExists, CumExcpSeshNotExist,
+			CumExcpComError {
 		SeshMgrPresSvr seshMgr = new SeshMgrPresSvr();
 		seshMgr.regSesh(seshName, new DummySender());
 		seshMgr.clsSesh(seshName);
@@ -153,15 +159,16 @@ public class SeshMgrPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvr#clsSesh(java.lang.String)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr#clsSesh(java.lang.String)}
 	 * .
 	 * 
 	 * @throws CumExcpSeshExists
 	 * @throws CumExcpSeshNotExist
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testClsSesh_NOSESH() throws CumExcpSeshExists,
-			CumExcpSeshNotExist {
+			CumExcpSeshNotExist, CumExcpComError {
 		SeshMgrPresSvr seshMgr = new SeshMgrPresSvr();
 		seshMgr.regSesh(seshName, new DummySender());
 
@@ -180,7 +187,7 @@ public class SeshMgrPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvr#sendChnlCmd(jp.happyhacking70.cum3.cmd.CmdChnlAbst, java.lang.String)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr#sendChnlCmd(jp.happyhacking70.cum3.cmd.CmdChnlAbst, java.lang.String)}
 	 * .
 	 * 
 	 * @throws CumExcpSeshExists
@@ -192,17 +199,19 @@ public class SeshMgrPresSvrTest {
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpAudExists
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testSendChnlCmdToAud() throws CumExcpSeshExists,
 			CumExcpAudNotExist, CumExcpChnlNotEixt, CumExcpSeshNotExist,
 			CumExcpRscExists, CumExcpChnlExists, CumExcptNullRsces,
-			CumExcpRscNull, CumExcpAudExists {
+			CumExcpRscNull, CumExcpAudExists, CumExcpComError {
 
 		SeshMgrPresSvr seshMgr = new SeshMgrPresSvr();
 		seshMgr.regSesh(seshName, new DummySender());
 		seshMgr.regChnl(seshName, chnlName, rsces);
-		seshMgr.joinSesh(seshName, audName, new DummySender());
+		seshMgr.joinSesh(seshName, audName, new DummySender(),
+				new DummyAudDisconnedHdlr());
 		seshMgr.joinChnl(seshName, chnlName, audName);
 		seshMgr.sendChnlCmd(new NtfyCmdClsChnl(seshName, chnlName), audName);
 
@@ -210,7 +219,7 @@ public class SeshMgrPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvr#sendChnlCmd(jp.happyhacking70.cum3.cmd.CmdChnlAbst, java.lang.String)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr#sendChnlCmd(jp.happyhacking70.cum3.cmd.CmdChnlAbst, java.lang.String)}
 	 * .
 	 * 
 	 * @throws CumExcpSeshExists
@@ -221,12 +230,13 @@ public class SeshMgrPresSvrTest {
 	 * @throws CumExcptNullRsces
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpRscExists
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testSendChnlCmdToAud_NOSESH() throws CumExcpSeshExists,
 			CumExcpAudNotExist, CumExcpChnlNotEixt, CumExcpSeshNotExist,
 			CumExcpRscExists, CumExcpChnlExists, CumExcptNullRsces,
-			CumExcpRscNull {
+			CumExcpRscNull, CumExcpComError {
 
 		SeshMgrPresSvr seshMgr = new SeshMgrPresSvr();
 		seshMgr.regSesh(seshName, new DummySender());
@@ -248,7 +258,7 @@ public class SeshMgrPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvr#sendChnlCmd(jp.happyhacking70.cum3.cmd.CmdChnlAbst)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr#sendChnlCmd(jp.happyhacking70.cum3.cmd.CmdChnlAbst)}
 	 * .
 	 * 
 	 * @throws CumExcpSeshExists
@@ -259,12 +269,13 @@ public class SeshMgrPresSvrTest {
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpChnlNotEixt
 	 * @throws CumExcpAudNotExist
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testSendChnlCmdToAuds() throws CumExcpSeshExists,
 			CumExcpRscExists, CumExcpChnlExists, CumExcptNullRsces,
 			CumExcpRscNull, CumExcpSeshNotExist, CumExcpAudNotExist,
-			CumExcpChnlNotEixt {
+			CumExcpChnlNotEixt, CumExcpComError {
 		SeshMgrPresSvr seshMgr = new SeshMgrPresSvr();
 		seshMgr.regSesh(seshName, new DummySender());
 		seshMgr.regChnl(seshName, chnlName, rsces);
@@ -274,7 +285,7 @@ public class SeshMgrPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvr#sendChnlCmd(jp.happyhacking70.cum3.cmd.CmdChnlAbst)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr#sendChnlCmd(jp.happyhacking70.cum3.cmd.CmdChnlAbst)}
 	 * .
 	 * 
 	 * @throws CumExcpSeshExists
@@ -285,12 +296,13 @@ public class SeshMgrPresSvrTest {
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpChnlNotEixt
 	 * @throws CumExcpAudNotExist
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testSendChnlCmdToAuds_NOSESH() throws CumExcpSeshExists,
 			CumExcpRscExists, CumExcpChnlExists, CumExcptNullRsces,
 			CumExcpRscNull, CumExcpSeshNotExist, CumExcpAudNotExist,
-			CumExcpChnlNotEixt {
+			CumExcpChnlNotEixt, CumExcpComError {
 		SeshMgrPresSvr seshMgr = new SeshMgrPresSvr();
 		seshMgr.regSesh(seshName, new DummySender());
 		seshMgr.regChnl(seshName, chnlName, rsces);
@@ -311,7 +323,7 @@ public class SeshMgrPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvr#clsChnl(java.lang.String, java.lang.String)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr#clsChnl(java.lang.String, java.lang.String)}
 	 * .
 	 * 
 	 * @throws CumExcpSeshExists
@@ -321,11 +333,12 @@ public class SeshMgrPresSvrTest {
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testClsChnl() throws CumExcpSeshExists, CumExcpRscExists,
 			CumExcpChnlExists, CumExcptNullRsces, CumExcpRscNull,
-			CumExcpSeshNotExist, CumExcpChnlNotEixt {
+			CumExcpSeshNotExist, CumExcpChnlNotEixt, CumExcpComError {
 		SeshMgrPresSvr seshMgr = new SeshMgrPresSvr();
 		seshMgr.regSesh(seshName, new DummySender());
 		seshMgr.regChnl(seshName, chnlName, rsces);
@@ -334,7 +347,7 @@ public class SeshMgrPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvr#clsChnl(java.lang.String, java.lang.String)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr#clsChnl(java.lang.String, java.lang.String)}
 	 * .
 	 * 
 	 * @throws CumExcpSeshExists
@@ -344,11 +357,13 @@ public class SeshMgrPresSvrTest {
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testClsChnl_NOSESH() throws CumExcpSeshExists,
 			CumExcpRscExists, CumExcpChnlExists, CumExcptNullRsces,
-			CumExcpRscNull, CumExcpSeshNotExist, CumExcpChnlNotEixt {
+			CumExcpRscNull, CumExcpSeshNotExist, CumExcpChnlNotEixt,
+			CumExcpComError {
 		SeshMgrPresSvr seshMgr = new SeshMgrPresSvr();
 		seshMgr.regSesh(seshName, new DummySender());
 		seshMgr.regChnl(seshName, chnlName, rsces);
@@ -368,39 +383,43 @@ public class SeshMgrPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvr#joinSesh(java.lang.String, java.lang.String, jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr#joinSesh(java.lang.String, java.lang.String, jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf)}
 	 * .
 	 * 
 	 * @throws CumExcpSeshExists
 	 * @throws CumExcpSeshNotExist
 	 * @throws CumExcpAudExists
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testJoinSesh() throws CumExcpSeshExists, CumExcpAudExists,
-			CumExcpSeshNotExist {
+			CumExcpSeshNotExist, CumExcpComError {
 		SeshMgrPresSvr seshMgr = new SeshMgrPresSvr();
 		seshMgr.regSesh(seshName, new DummySender());
-		seshMgr.joinSesh(seshName, audName, new DummySender());
+		seshMgr.joinSesh(seshName, audName, new DummySender(),
+				new DummyAudDisconnedHdlr());
 	}
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvr#joinSesh(java.lang.String, java.lang.String, jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr#joinSesh(java.lang.String, java.lang.String, jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf)}
 	 * .
 	 * 
 	 * @throws CumExcpSeshExists
 	 * @throws CumExcpSeshNotExist
 	 * @throws CumExcpAudExists
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testJoinSesh_NOSESH() throws CumExcpSeshExists,
-			CumExcpAudExists, CumExcpSeshNotExist {
+			CumExcpAudExists, CumExcpSeshNotExist, CumExcpComError {
 		SeshMgrPresSvr seshMgr = new SeshMgrPresSvr();
 		seshMgr.regSesh(seshName, new DummySender());
 
 		boolean ok = false;
 		try {
-			seshMgr.joinSesh("NOSESH", audName, new DummySender());
+			seshMgr.joinSesh("NOSESH", audName, new DummySender(),
+					new DummyAudDisconnedHdlr());
 		} catch (CumExcpSeshNotExist e) {
 			assertEquals("NOSESH", e.getSeshName());
 
@@ -413,7 +432,7 @@ public class SeshMgrPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvr#joinChnl(java.lang.String, java.lang.String, java.lang.String)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr#joinChnl(java.lang.String, java.lang.String, java.lang.String)}
 	 * .
 	 * 
 	 * @throws CumExcpSeshExists
@@ -425,22 +444,24 @@ public class SeshMgrPresSvrTest {
 	 * @throws CumExcptNullRsces
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpRscExists
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testJoinChnl() throws CumExcpSeshExists, CumExcpAudExists,
 			CumExcpSeshNotExist, CumExcpAudNotExist, CumExcpChnlNotEixt,
 			CumExcpRscExists, CumExcpChnlExists, CumExcptNullRsces,
-			CumExcpRscNull {
+			CumExcpRscNull, CumExcpComError {
 		SeshMgrPresSvr seshMgr = new SeshMgrPresSvr();
 		seshMgr.regSesh(seshName, new DummySender());
 		seshMgr.regChnl(seshName, chnlName, rsces);
-		seshMgr.joinSesh(seshName, audName, new DummySender());
+		seshMgr.joinSesh(seshName, audName, new DummySender(),
+				new DummyAudDisconnedHdlr());
 		seshMgr.joinChnl(seshName, chnlName, audName);
 	}
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvr#joinChnl(java.lang.String, java.lang.String, java.lang.String)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr#joinChnl(java.lang.String, java.lang.String, java.lang.String)}
 	 * .
 	 * 
 	 * @throws CumExcpSeshExists
@@ -448,14 +469,16 @@ public class SeshMgrPresSvrTest {
 	 * @throws CumExcpAudExists
 	 * @throws CumExcpChnlNotEixt
 	 * @throws CumExcpAudNotExist
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testJoinChnl_NOSESH() throws CumExcpSeshExists,
 			CumExcpAudExists, CumExcpSeshNotExist, CumExcpAudNotExist,
-			CumExcpChnlNotEixt {
+			CumExcpChnlNotEixt, CumExcpComError {
 		SeshMgrPresSvr seshMgr = new SeshMgrPresSvr();
 		seshMgr.regSesh(seshName, new DummySender());
-		seshMgr.joinSesh(seshName, audName, new DummySender());
+		seshMgr.joinSesh(seshName, audName, new DummySender(),
+				new DummyAudDisconnedHdlr());
 
 		boolean ok = false;
 		try {
@@ -472,7 +495,7 @@ public class SeshMgrPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvr#rjctChnl(java.lang.String, java.lang.String, java.lang.String)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr#rjctChnl(java.lang.String, java.lang.String, java.lang.String)}
 	 * .
 	 * 
 	 * @throws CumExcpSeshExists
@@ -483,21 +506,24 @@ public class SeshMgrPresSvrTest {
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpAudExists
 	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testRjctChnl() throws CumExcpSeshExists, CumExcpRscExists,
 			CumExcpChnlExists, CumExcptNullRsces, CumExcpRscNull,
-			CumExcpSeshNotExist, CumExcpAudExists, CumExcpChnlNotEixt {
+			CumExcpSeshNotExist, CumExcpAudExists, CumExcpChnlNotEixt,
+			CumExcpComError {
 		SeshMgrPresSvr seshMgr = new SeshMgrPresSvr();
 		seshMgr.regSesh(seshName, new DummySender());
 		seshMgr.regChnl(seshName, chnlName, rsces);
-		seshMgr.joinSesh(seshName, audName, new DummySender());
+		seshMgr.joinSesh(seshName, audName, new DummySender(),
+				new DummyAudDisconnedHdlr());
 		seshMgr.rjctChnl(seshName, chnlName, audName);
 	}
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvr#rjctChnl(java.lang.String, java.lang.String, java.lang.String)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr#rjctChnl(java.lang.String, java.lang.String, java.lang.String)}
 	 * .
 	 * 
 	 * @throws CumExcpSeshExists
@@ -508,16 +534,18 @@ public class SeshMgrPresSvrTest {
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpAudExists
 	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testRjctChnl_NOSESH() throws CumExcpSeshExists,
 			CumExcpRscExists, CumExcpChnlExists, CumExcptNullRsces,
 			CumExcpRscNull, CumExcpSeshNotExist, CumExcpAudExists,
-			CumExcpChnlNotEixt {
+			CumExcpChnlNotEixt, CumExcpComError {
 		SeshMgrPresSvr seshMgr = new SeshMgrPresSvr();
 		seshMgr.regSesh(seshName, new DummySender());
 		seshMgr.regChnl(seshName, chnlName, rsces);
-		seshMgr.joinSesh(seshName, audName, new DummySender());
+		seshMgr.joinSesh(seshName, audName, new DummySender(),
+				new DummyAudDisconnedHdlr());
 
 		boolean ok = false;
 		try {
@@ -534,7 +562,7 @@ public class SeshMgrPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvr#lvChnl(java.lang.String, java.lang.String, java.lang.String)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr#lvChnl(java.lang.String, java.lang.String, java.lang.String)}
 	 * .
 	 * 
 	 * @throws CumExcpSeshExists
@@ -546,16 +574,18 @@ public class SeshMgrPresSvrTest {
 	 * @throws CumExcpAudExists
 	 * @throws CumExcpChnlNotEixt
 	 * @throws CumExcpAudNotExist
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testLvChnl() throws CumExcpSeshExists, CumExcpRscExists,
 			CumExcpChnlExists, CumExcptNullRsces, CumExcpRscNull,
 			CumExcpSeshNotExist, CumExcpAudExists, CumExcpAudNotExist,
-			CumExcpChnlNotEixt {
+			CumExcpChnlNotEixt, CumExcpComError {
 		SeshMgrPresSvr seshMgr = new SeshMgrPresSvr();
 		seshMgr.regSesh(seshName, new DummySender());
 		seshMgr.regChnl(seshName, chnlName, rsces);
-		seshMgr.joinSesh(seshName, audName, new DummySender());
+		seshMgr.joinSesh(seshName, audName, new DummySender(),
+				new DummyAudDisconnedHdlr());
 		seshMgr.joinChnl(seshName, chnlName, audName);
 
 		seshMgr.lvChnl(seshName, chnlName, audName);
@@ -563,7 +593,7 @@ public class SeshMgrPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvr#lvChnl(java.lang.String, java.lang.String, java.lang.String)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr#lvChnl(java.lang.String, java.lang.String, java.lang.String)}
 	 * .
 	 * 
 	 * @throws CumExcpSeshExists
@@ -575,16 +605,18 @@ public class SeshMgrPresSvrTest {
 	 * @throws CumExcpAudExists
 	 * @throws CumExcpChnlNotEixt
 	 * @throws CumExcpAudNotExist
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testLvChnl_NOSESH() throws CumExcpSeshExists, CumExcpRscExists,
 			CumExcpChnlExists, CumExcptNullRsces, CumExcpRscNull,
 			CumExcpSeshNotExist, CumExcpAudExists, CumExcpAudNotExist,
-			CumExcpChnlNotEixt {
+			CumExcpChnlNotEixt, CumExcpComError {
 		SeshMgrPresSvr seshMgr = new SeshMgrPresSvr();
 		seshMgr.regSesh(seshName, new DummySender());
 		seshMgr.regChnl(seshName, chnlName, rsces);
-		seshMgr.joinSesh(seshName, audName, new DummySender());
+		seshMgr.joinSesh(seshName, audName, new DummySender(),
+				new DummyAudDisconnedHdlr());
 		seshMgr.joinChnl(seshName, chnlName, audName);
 
 		boolean ok = false;
@@ -602,7 +634,7 @@ public class SeshMgrPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvr#lvSesh(java.lang.String, java.lang.String)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr#lvSesh(java.lang.String, java.lang.String)}
 	 * .
 	 * 
 	 * @throws CumExcpSeshExists
@@ -613,22 +645,25 @@ public class SeshMgrPresSvrTest {
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpAudExists
 	 * @throws CumExcpAudNotExist
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testLvSesh() throws CumExcpSeshExists, CumExcpRscExists,
 			CumExcpChnlExists, CumExcptNullRsces, CumExcpRscNull,
-			CumExcpSeshNotExist, CumExcpAudExists, CumExcpAudNotExist {
+			CumExcpSeshNotExist, CumExcpAudExists, CumExcpAudNotExist,
+			CumExcpComError {
 		SeshMgrPresSvr seshMgr = new SeshMgrPresSvr();
 		seshMgr.regSesh(seshName, new DummySender());
 		seshMgr.regChnl(seshName, chnlName, rsces);
-		seshMgr.joinSesh(seshName, audName, new DummySender());
+		seshMgr.joinSesh(seshName, audName, new DummySender(),
+				new DummyAudDisconnedHdlr());
 		seshMgr.lvSesh(seshName, audName);
 
 	}
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvr#lvSesh(java.lang.String, java.lang.String)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr#lvSesh(java.lang.String, java.lang.String)}
 	 * .
 	 * 
 	 * @throws CumExcpSeshExists
@@ -639,15 +674,18 @@ public class SeshMgrPresSvrTest {
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpAudExists
 	 * @throws CumExcpAudNotExist
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testLvSesh_NOSESH() throws CumExcpSeshExists, CumExcpRscExists,
 			CumExcpChnlExists, CumExcptNullRsces, CumExcpRscNull,
-			CumExcpSeshNotExist, CumExcpAudExists, CumExcpAudNotExist {
+			CumExcpSeshNotExist, CumExcpAudExists, CumExcpAudNotExist,
+			CumExcpComError {
 		SeshMgrPresSvr seshMgr = new SeshMgrPresSvr();
 		seshMgr.regSesh(seshName, new DummySender());
 		seshMgr.regChnl(seshName, chnlName, rsces);
-		seshMgr.joinSesh(seshName, audName, new DummySender());
+		seshMgr.joinSesh(seshName, audName, new DummySender(),
+				new DummyAudDisconnedHdlr());
 
 		boolean ok = false;
 		try {
@@ -664,7 +702,7 @@ public class SeshMgrPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvr#getRsc(java.lang.String, java.lang.String, java.lang.String)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr#getRsc(java.lang.String, java.lang.String, java.lang.String)}
 	 * .
 	 * 
 	 * @throws CumExcpSeshExists
@@ -675,11 +713,13 @@ public class SeshMgrPresSvrTest {
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpChnlNotEixt
 	 * @throws CumExcpRscNotExist
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testGetRsc() throws CumExcpSeshExists, CumExcpRscExists,
 			CumExcpChnlExists, CumExcptNullRsces, CumExcpRscNull,
-			CumExcpSeshNotExist, CumExcpRscNotExist, CumExcpChnlNotEixt {
+			CumExcpSeshNotExist, CumExcpRscNotExist, CumExcpChnlNotEixt,
+			CumExcpComError {
 		SeshMgrPresSvr seshMgr = new SeshMgrPresSvr();
 		seshMgr.regSesh(seshName, new DummySender());
 		ArrayList<ChnlRscIntf> chnlRsces = new ArrayList<ChnlRscIntf>();
@@ -693,7 +733,7 @@ public class SeshMgrPresSvrTest {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvr#getRsc(java.lang.String, java.lang.String, java.lang.String)}
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr#getRsc(java.lang.String, java.lang.String, java.lang.String)}
 	 * .
 	 * 
 	 * @throws CumExcpSeshExists
@@ -704,11 +744,13 @@ public class SeshMgrPresSvrTest {
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpChnlNotEixt
 	 * @throws CumExcpRscNotExist
+	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testGetRsc_NOSESH() throws CumExcpSeshExists, CumExcpRscExists,
 			CumExcpChnlExists, CumExcptNullRsces, CumExcpRscNull,
-			CumExcpSeshNotExist, CumExcpRscNotExist, CumExcpChnlNotEixt {
+			CumExcpSeshNotExist, CumExcpRscNotExist, CumExcpChnlNotEixt,
+			CumExcpComError {
 		SeshMgrPresSvr seshMgr = new SeshMgrPresSvr();
 		seshMgr.regSesh(seshName, new DummySender());
 		ArrayList<ChnlRscIntf> chnlRsces = new ArrayList<ChnlRscIntf>();

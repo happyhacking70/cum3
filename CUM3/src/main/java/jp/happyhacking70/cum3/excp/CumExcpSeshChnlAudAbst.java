@@ -38,7 +38,7 @@ public abstract class CumExcpSeshChnlAudAbst extends CumExcpSeshChnlAbst {
 	}
 
 	/**
-	 * @return
+	 * @return audience name
 	 */
 	final public String getAudName() {
 		return audName;

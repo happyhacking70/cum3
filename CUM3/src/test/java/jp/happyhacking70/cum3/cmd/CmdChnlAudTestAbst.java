@@ -23,4 +23,10 @@ abstract public class CmdChnlAudTestAbst extends CmdChnlTestAbst {
 		assertEquals(audName, ((CmdChnlAudAbst) getCmdNormal()).getAudName());
 	}
 
+	@Override
+	protected void myAddonToFromDocToInstance(CmdAbst cmd) {
+		super.myAddonToFromDocToInstance(cmd);
+		assertEquals(audName, ((CmdChnlAudAbst) cmd).getAudName());
+	}
+
 }
