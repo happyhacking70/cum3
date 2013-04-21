@@ -38,7 +38,7 @@ public interface SeshAudIntf {
 	 * @throws CumExcpAudExists
 	 */
 	public void joinSesh(String audName, CmdSenderIntf sender,
-			AudDisconnedHdlrIntf hdlr) throws CumExcpAudExists;
+			AcptAudDisconnedIntf hdlr) throws CumExcpAudExists;
 
 	/**
 	 * <UL>

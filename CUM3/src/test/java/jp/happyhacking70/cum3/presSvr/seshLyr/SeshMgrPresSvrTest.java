@@ -211,7 +211,7 @@ public class SeshMgrPresSvrTest {
 		seshMgr.regSesh(seshName, new DummySender());
 		seshMgr.regChnl(seshName, chnlName, rsces);
 		seshMgr.joinSesh(seshName, audName, new DummySender(),
-				new DummyAudDisconnedHdlr());
+				new DummyAcptAudDisconned());
 		seshMgr.joinChnl(seshName, chnlName, audName);
 		seshMgr.sendChnlCmd(new NtfyCmdClsChnl(seshName, chnlName), audName);
 
@@ -397,7 +397,7 @@ public class SeshMgrPresSvrTest {
 		SeshMgrPresSvr seshMgr = new SeshMgrPresSvr();
 		seshMgr.regSesh(seshName, new DummySender());
 		seshMgr.joinSesh(seshName, audName, new DummySender(),
-				new DummyAudDisconnedHdlr());
+				new DummyAcptAudDisconned());
 	}
 
 	/**
@@ -419,7 +419,7 @@ public class SeshMgrPresSvrTest {
 		boolean ok = false;
 		try {
 			seshMgr.joinSesh("NOSESH", audName, new DummySender(),
-					new DummyAudDisconnedHdlr());
+					new DummyAcptAudDisconned());
 		} catch (CumExcpSeshNotExist e) {
 			assertEquals("NOSESH", e.getSeshName());
 
@@ -455,7 +455,7 @@ public class SeshMgrPresSvrTest {
 		seshMgr.regSesh(seshName, new DummySender());
 		seshMgr.regChnl(seshName, chnlName, rsces);
 		seshMgr.joinSesh(seshName, audName, new DummySender(),
-				new DummyAudDisconnedHdlr());
+				new DummyAcptAudDisconned());
 		seshMgr.joinChnl(seshName, chnlName, audName);
 	}
 
@@ -478,7 +478,7 @@ public class SeshMgrPresSvrTest {
 		SeshMgrPresSvr seshMgr = new SeshMgrPresSvr();
 		seshMgr.regSesh(seshName, new DummySender());
 		seshMgr.joinSesh(seshName, audName, new DummySender(),
-				new DummyAudDisconnedHdlr());
+				new DummyAcptAudDisconned());
 
 		boolean ok = false;
 		try {
@@ -517,7 +517,7 @@ public class SeshMgrPresSvrTest {
 		seshMgr.regSesh(seshName, new DummySender());
 		seshMgr.regChnl(seshName, chnlName, rsces);
 		seshMgr.joinSesh(seshName, audName, new DummySender(),
-				new DummyAudDisconnedHdlr());
+				new DummyAcptAudDisconned());
 		seshMgr.rjctChnl(seshName, chnlName, audName);
 	}
 
@@ -545,7 +545,7 @@ public class SeshMgrPresSvrTest {
 		seshMgr.regSesh(seshName, new DummySender());
 		seshMgr.regChnl(seshName, chnlName, rsces);
 		seshMgr.joinSesh(seshName, audName, new DummySender(),
-				new DummyAudDisconnedHdlr());
+				new DummyAcptAudDisconned());
 
 		boolean ok = false;
 		try {
@@ -585,7 +585,7 @@ public class SeshMgrPresSvrTest {
 		seshMgr.regSesh(seshName, new DummySender());
 		seshMgr.regChnl(seshName, chnlName, rsces);
 		seshMgr.joinSesh(seshName, audName, new DummySender(),
-				new DummyAudDisconnedHdlr());
+				new DummyAcptAudDisconned());
 		seshMgr.joinChnl(seshName, chnlName, audName);
 
 		seshMgr.lvChnl(seshName, chnlName, audName);
@@ -616,7 +616,7 @@ public class SeshMgrPresSvrTest {
 		seshMgr.regSesh(seshName, new DummySender());
 		seshMgr.regChnl(seshName, chnlName, rsces);
 		seshMgr.joinSesh(seshName, audName, new DummySender(),
-				new DummyAudDisconnedHdlr());
+				new DummyAcptAudDisconned());
 		seshMgr.joinChnl(seshName, chnlName, audName);
 
 		boolean ok = false;
@@ -656,7 +656,7 @@ public class SeshMgrPresSvrTest {
 		seshMgr.regSesh(seshName, new DummySender());
 		seshMgr.regChnl(seshName, chnlName, rsces);
 		seshMgr.joinSesh(seshName, audName, new DummySender(),
-				new DummyAudDisconnedHdlr());
+				new DummyAcptAudDisconned());
 		seshMgr.lvSesh(seshName, audName);
 
 	}
@@ -685,7 +685,7 @@ public class SeshMgrPresSvrTest {
 		seshMgr.regSesh(seshName, new DummySender());
 		seshMgr.regChnl(seshName, chnlName, rsces);
 		seshMgr.joinSesh(seshName, audName, new DummySender(),
-				new DummyAudDisconnedHdlr());
+				new DummyAcptAudDisconned());
 
 		boolean ok = false;
 		try {

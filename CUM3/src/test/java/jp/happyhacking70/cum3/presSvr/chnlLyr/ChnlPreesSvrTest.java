@@ -31,7 +31,7 @@ import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNull;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcptNullRsces;
 import jp.happyhacking70.cum3.presSvr.audLyr.Aud;
 import jp.happyhacking70.cum3.presSvr.audLyr.AudIntf;
-import jp.happyhacking70.cum3.presSvr.seshLyr.DummyAudDisconnedHdlr;
+import jp.happyhacking70.cum3.presSvr.seshLyr.DummyAcptAudDisconned;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -46,7 +46,7 @@ public class ChnlPreesSvrTest {
 	protected static final String audName = "testAudience";
 	protected DummySender sender = new DummySender();
 	protected AudIntf aud = new Aud(audName, sender,
-			new DummyAudDisconnedHdlr());
+			new DummyAcptAudDisconned());
 
 	/**
 	 * @throws java.lang.Exception
@@ -219,7 +219,7 @@ public class ChnlPreesSvrTest {
 
 		DummySender senderFor2 = new DummySender();
 		chnl.joinChnl(new Aud("testAudience2", senderFor2,
-				new DummyAudDisconnedHdlr()));
+				new DummyAcptAudDisconned()));
 
 		ReqCmdRegChnl cmd = new ReqCmdRegChnl("testSession", "testChannel");
 		chnl.sendChnlCmd(cmd);

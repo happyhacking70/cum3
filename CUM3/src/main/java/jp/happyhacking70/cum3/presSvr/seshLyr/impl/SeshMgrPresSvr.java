@@ -19,9 +19,10 @@ import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcptNullRsces;
 import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf;
-import jp.happyhacking70.cum3.presSvr.seshLyr.AudDisconnedHdlrIntf;
-import jp.happyhacking70.cum3.presSvr.seshLyr.PrestrDisconnedHdlrIntf;
+import jp.happyhacking70.cum3.presSvr.seshLyr.AcptAudDisconnedIntf;
+import jp.happyhacking70.cum3.presSvr.seshLyr.AcptSeshDisconnedIntf;
 import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrAudIntf;
+import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrInternalIntf;
 import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPrestrIntf;
 
 /**
@@ -36,7 +37,7 @@ import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPrestrIntf;
  * 
  */
 public class SeshMgrPresSvr implements SeshMgrAudIntf, SeshMgrPrestrIntf,
-		PrestrDisconnedHdlrIntf {
+		AcptSeshDisconnedIntf, SeshMgrInternalIntf {
 	protected ConcurrentHashMap<String, SeshPresSvr> seshes = new ConcurrentHashMap<String, SeshPresSvr>();
 
 	protected SeshPresSvr getSesh(String seshName) throws CumExcpSeshNotExist {
@@ -146,10 +147,10 @@ public class SeshMgrPresSvr implements SeshMgrAudIntf, SeshMgrPrestrIntf,
 	 * .String, java.lang.String)
 	 */
 	public void joinSesh(String seshName, String audName, CmdSenderIntf sender,
-			AudDisconnedHdlrIntf hdlr) throws CumExcpSeshNotExist,
-			CumExcpAudExists {
+			AcptAudDisconnedIntf haudDisconnedAcpter)
+			throws CumExcpSeshNotExist, CumExcpAudExists {
 		SeshPresSvr sesh = getSesh(seshName);
-		sesh.joinSesh(audName, sender, hdlr);
+		sesh.joinSesh(audName, sender, haudDisconnedAcpter);
 	}
 
 	/*
@@ -224,11 +225,49 @@ public class SeshMgrPresSvr implements SeshMgrAudIntf, SeshMgrPrestrIntf,
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * jp.happyhacking70.cum3.presSvr.comLyr.PrestrDisconnedHdlrIntf#disconned
+	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrInternalIntf#hndlSeshDsiconned
 	 * (java.lang.String)
 	 */
-	public void disconned(String seshName) {
-		// TODO Auto-generated method stub
+	public void hndlSeshDsiconned(String seshName) {
+		SeshPresSvr sesh = null;
+		try {
+			sesh = getSesh(seshName);
+			sesh.ntfySeshDisconned();
+			seshes.remove(seshName);
+		} catch (CumExcpSeshNotExist e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see jp.happyhacking70.cum3.presSvr.seshLyr.AcptSeshDisconnedIntf#
+	 * acceptSeshDisconned(java.lang.String)
+	 */
+	public void acceptSeshDisconned(String seshName) {
+		SeshPresSvr sesh = null;
+		try {
+			sesh = getSesh(seshName);
+		} catch (CumExcpSeshNotExist e) {
+
+			e.printStackTrace();
+		}
+		Thread hdlrThread = new Thread(new SeshDisconnedHdlr(sesh, this));
+		hdlrThread.start();
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrInternalIntf#removeSesh
+	 * (java.lang.String)
+	 */
+	public void removeSesh(String seshName) {
+		seshes.remove(seshName);
 
 	}
 

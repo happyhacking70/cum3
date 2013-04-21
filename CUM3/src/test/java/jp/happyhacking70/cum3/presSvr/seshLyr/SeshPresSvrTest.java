@@ -57,7 +57,7 @@ public class SeshPresSvrTest {
 	@Test
 	public void testGetSeshName() {
 		SeshPresSvr sesh = new SeshPresSvr(seshName, new DummySender(),
-				new DummyPrestrDisconnedHdlr());
+				new DummyAcptSeshDisconned());
 		assertEquals(sesh.getSeshName(), seshName);
 	}
 
@@ -85,7 +85,7 @@ public class SeshPresSvrTest {
 		DummySender senderForAudB = new DummySender();
 
 		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPresenter,
-				new DummyPrestrDisconnedHdlr());
+				new DummyAcptSeshDisconned());
 
 		sesh.joinSesh("audA", senderForAudA, sesh);
 		sesh.joinSesh("audB", senderForAudB, sesh);
@@ -123,7 +123,7 @@ public class SeshPresSvrTest {
 			CumExcpRscExists, CumExcptNullRsces, CumExcpRscNull,
 			CumExcpChnlNotEixt, CumExcpAudNotExist, CumExcpComError {
 		SeshPresSvr sesh = new SeshPresSvr(seshName, new DummySender(),
-				new DummyPrestrDisconnedHdlr());
+				new DummyAcptSeshDisconned());
 		sesh.regChnl(chnlName, new ArrayList<ChnlRscIntf>());
 		sesh.regChnl(chnlName, new ArrayList<ChnlRscIntf>());
 	}
@@ -146,7 +146,7 @@ public class SeshPresSvrTest {
 			CumExcpRscExists, CumExcptNullRsces, CumExcpRscNull,
 			CumExcpChnlNotEixt, CumExcpAudNotExist, CumExcpComError {
 		SeshPresSvr sesh = new SeshPresSvr(seshName, new DummySender(),
-				new DummyPrestrDisconnedHdlr());
+				new DummyAcptSeshDisconned());
 		sesh.regChnl(chnlName, null);
 	}
 
@@ -168,7 +168,7 @@ public class SeshPresSvrTest {
 			CumExcpRscExists, CumExcptNullRsces, CumExcpRscNull,
 			CumExcpChnlNotEixt, CumExcpAudNotExist, CumExcpComError {
 		SeshPresSvr sesh = new SeshPresSvr(seshName, new DummySender(),
-				new DummyPrestrDisconnedHdlr());
+				new DummyAcptSeshDisconned());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		rsces.add(new ChnlRscImg("rscA", null));
 		rsces.add(null);
@@ -195,7 +195,7 @@ public class SeshPresSvrTest {
 			CumExcpRscExists, CumExcptNullRsces, CumExcpRscNull,
 			CumExcpChnlNotEixt, CumExcpAudNotExist, CumExcpComError {
 		SeshPresSvr sesh = new SeshPresSvr(seshName, new DummySender(),
-				new DummyPrestrDisconnedHdlr());
+				new DummyAcptSeshDisconned());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		rsces.add(new ChnlRscImg("rscA", null));
 		rsces.add(new ChnlRscImg("rscA", null));
@@ -221,7 +221,7 @@ public class SeshPresSvrTest {
 			CumExcptNullRsces, CumExcpRscNull, CumExcpChnlNotEixt,
 			CumExcpRscNotExist, CumExcpComError {
 		SeshPresSvr sesh = new SeshPresSvr(seshName, new DummySender(),
-				new DummyPrestrDisconnedHdlr());
+				new DummyAcptSeshDisconned());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 
 		ChnlRscImg a = new ChnlRscImg("rscA", null);
@@ -255,7 +255,7 @@ public class SeshPresSvrTest {
 			CumExcptNullRsces, CumExcpRscNull, CumExcpChnlNotEixt,
 			CumExcpComError {
 		SeshPresSvr sesh = new SeshPresSvr(seshName, new DummySender(),
-				new DummyPrestrDisconnedHdlr());
+				new DummyAcptSeshDisconned());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 
 		ChnlRscImg a = new ChnlRscImg("rscA", null);
@@ -284,7 +284,7 @@ public class SeshPresSvrTest {
 	@Test
 	public void testGetRsc_NoChnl() throws CumExcpRscNotExist {
 		SeshPresSvr sesh = new SeshPresSvr(seshName, new DummySender(),
-				new DummyPrestrDisconnedHdlr());
+				new DummyAcptSeshDisconned());
 
 		boolean ok = false;
 
@@ -323,7 +323,7 @@ public class SeshPresSvrTest {
 
 		DummySender senderForPrestr = new DummySender();
 		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr,
-				new DummyPrestrDisconnedHdlr());
+				new DummyAcptSeshDisconned());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		sesh.regChnl(chnlName, rsces);
 
@@ -363,7 +363,7 @@ public class SeshPresSvrTest {
 
 		DummySender senderForPrestr = new DummySender();
 		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr,
-				new DummyPrestrDisconnedHdlr());
+				new DummyAcptSeshDisconned());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 
 		NtfyCmdRegChnl cmd = new NtfyCmdRegChnl(seshName, "NOCHNL");
@@ -408,7 +408,7 @@ public class SeshPresSvrTest {
 			CumExcpAudExists, CumExcpChnlNotEixt, CumExcpComError {
 		DummySender senderForPrestr = new DummySender();
 		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr,
-				new DummyPrestrDisconnedHdlr());
+				new DummyAcptSeshDisconned());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		sesh.regChnl(chnlName, rsces);
 
@@ -455,7 +455,7 @@ public class SeshPresSvrTest {
 			CumExcpComError {
 		DummySender senderForPrestr = new DummySender();
 		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr,
-				new DummyPrestrDisconnedHdlr());
+				new DummyAcptSeshDisconned());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		sesh.regChnl(chnlName, rsces);
 
@@ -501,7 +501,7 @@ public class SeshPresSvrTest {
 			CumExcpComError {
 		DummySender senderForPrestr = new DummySender();
 		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr,
-				new DummyPrestrDisconnedHdlr());
+				new DummyAcptSeshDisconned());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 
 		NtfyCmdRegChnl cmd = new NtfyCmdRegChnl(seshName, "NOCHNL");
@@ -546,7 +546,7 @@ public class SeshPresSvrTest {
 
 		DummySender senderForPrestr = new DummySender();
 		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr,
-				new DummyPrestrDisconnedHdlr());
+				new DummyAcptSeshDisconned());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 
 		sesh.regChnl(chnlName, rsces);
@@ -593,7 +593,7 @@ public class SeshPresSvrTest {
 			CumExcpComError {
 		DummySender senderForPrestr = new DummySender();
 		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr,
-				new DummyPrestrDisconnedHdlr());
+				new DummyAcptSeshDisconned());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 
 		sesh.regChnl(chnlName, rsces);
@@ -635,7 +635,7 @@ public class SeshPresSvrTest {
 			CumExcpComError {
 		DummySender senderForPrestr = new DummySender();
 		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr,
-				new DummyPrestrDisconnedHdlr());
+				new DummyAcptSeshDisconned());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		sesh.regChnl(chnlName, rsces);
 
@@ -670,7 +670,7 @@ public class SeshPresSvrTest {
 
 		DummySender senderForPrestr = new DummySender();
 		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr,
-				new DummyPrestrDisconnedHdlr());
+				new DummyAcptSeshDisconned());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		sesh.regChnl(chnlName, rsces);
 
@@ -712,7 +712,7 @@ public class SeshPresSvrTest {
 			CumExcpAudNotExist, CumExcpChnlNotEixt, CumExcpComError {
 		DummySender senderForPrestr = new DummySender();
 		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr,
-				new DummyPrestrDisconnedHdlr());
+				new DummyAcptSeshDisconned());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		sesh.regChnl(chnlName, rsces);
 
@@ -752,7 +752,7 @@ public class SeshPresSvrTest {
 
 		DummySender senderForPrestr = new DummySender();
 		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr,
-				new DummyPrestrDisconnedHdlr());
+				new DummyAcptSeshDisconned());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		sesh.regChnl(chnlName, rsces);
 
@@ -795,7 +795,7 @@ public class SeshPresSvrTest {
 
 		DummySender senderForPrestr = new DummySender();
 		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr,
-				new DummyPrestrDisconnedHdlr());
+				new DummyAcptSeshDisconned());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		sesh.regChnl(chnlName, rsces);
 
@@ -840,7 +840,7 @@ public class SeshPresSvrTest {
 			CumExcpComError {
 		DummySender senderForPrestr = new DummySender();
 		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr,
-				new DummyPrestrDisconnedHdlr());
+				new DummyAcptSeshDisconned());
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		sesh.regChnl(chnlName, rsces);
 
@@ -886,7 +886,7 @@ public class SeshPresSvrTest {
 
 		DummySender senderForPresenter = new DummySender();
 		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPresenter,
-				new DummyPrestrDisconnedHdlr());
+				new DummyAcptSeshDisconned());
 
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		sesh.regChnl(chnlName, rsces);
@@ -931,7 +931,7 @@ public class SeshPresSvrTest {
 
 		DummySender senderForPresenter = new DummySender();
 		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPresenter,
-				new DummyPrestrDisconnedHdlr());
+				new DummyAcptSeshDisconned());
 
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		sesh.regChnl(chnlName, rsces);
@@ -981,7 +981,7 @@ public class SeshPresSvrTest {
 
 		DummySender senderForPresenter = new DummySender();
 		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPresenter,
-				new DummyPrestrDisconnedHdlr());
+				new DummyAcptSeshDisconned());
 
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		sesh.regChnl(chnlName, rsces);
@@ -1032,7 +1032,7 @@ public class SeshPresSvrTest {
 			CumExcpAudNotExist, CumExcpChnlNotEixt, CumExcpComError {
 		DummySender senderForPresenter = new DummySender();
 		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPresenter,
-				new DummyPrestrDisconnedHdlr());
+				new DummyAcptSeshDisconned());
 
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		sesh.regChnl(chnlName, rsces);
@@ -1075,7 +1075,7 @@ public class SeshPresSvrTest {
 			CumExcptNullRsces, CumExcpRscNull, CumExcpComError {
 		DummySender senderForPresenter = new DummySender();
 		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPresenter,
-				new DummyPrestrDisconnedHdlr());
+				new DummyAcptSeshDisconned());
 
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		sesh.regChnl(chnlName, rsces);

@@ -8,6 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
 import jp.happyhacking70.cum3.cmd.CmdChnlAbst;
+import jp.happyhacking70.cum3.cmd.impl.NtfyCmdAudDisconned;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdClsChnl;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdClsSesh;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdJoinChnl;
@@ -16,6 +17,7 @@ import jp.happyhacking70.cum3.cmd.impl.NtfyCmdLvChnl;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdLvSesh;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdRegChnl;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdRjctChnl;
+import jp.happyhacking70.cum3.cmd.impl.NtfyCmdSeshDisconned;
 import jp.happyhacking70.cum3.excp.impl.CumExcpComError;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudNotExist;
@@ -30,9 +32,10 @@ import jp.happyhacking70.cum3.presSvr.audLyr.AudIntf;
 import jp.happyhacking70.cum3.presSvr.chnlLyr.ChnlPresSvr;
 import jp.happyhacking70.cum3.presSvr.chnlLyr.ChnlPrestrIntf;
 import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf;
-import jp.happyhacking70.cum3.presSvr.seshLyr.AudDisconnedHdlrIntf;
-import jp.happyhacking70.cum3.presSvr.seshLyr.PrestrDisconnedHdlrIntf;
+import jp.happyhacking70.cum3.presSvr.seshLyr.AcptAudDisconnedIntf;
+import jp.happyhacking70.cum3.presSvr.seshLyr.AcptSeshDisconnedIntf;
 import jp.happyhacking70.cum3.presSvr.seshLyr.SeshAudIntf;
+import jp.happyhacking70.cum3.presSvr.seshLyr.SeshIntfInternal;
 import jp.happyhacking70.cum3.presSvr.seshLyr.SeshPrestrIntf;
 
 /**
@@ -40,19 +43,19 @@ import jp.happyhacking70.cum3.presSvr.seshLyr.SeshPrestrIntf;
  * 
  */
 public class SeshPresSvr implements SeshAudIntf, SeshPrestrIntf,
-		AudDisconnedHdlrIntf {
+		AcptAudDisconnedIntf, SeshIntfInternal {
 	protected String seshName;
 	protected CmdSenderIntf sender;
-	protected PrestrDisconnedHdlrIntf prestrDisconnedHdlr;
 	protected ConcurrentHashMap<String, ChnlPresSvr> chnls = new ConcurrentHashMap<String, ChnlPresSvr>();
 	protected ConcurrentHashMap<String, AudIntf> auds = new ConcurrentHashMap<String, AudIntf>();
+	protected AcptSeshDisconnedIntf seshDisconnedAcpter;
 
 	public SeshPresSvr(String seshName, CmdSenderIntf sender,
-			PrestrDisconnedHdlrIntf prestrDisconnedHdlr) {
+			AcptSeshDisconnedIntf seshDisconnedAcpter) {
 		super();
 		this.seshName = seshName;
 		this.sender = sender;
-		this.prestrDisconnedHdlr = prestrDisconnedHdlr;
+		this.seshDisconnedAcpter = seshDisconnedAcpter;
 	}
 
 	/**
@@ -213,7 +216,7 @@ public class SeshPresSvr implements SeshAudIntf, SeshPrestrIntf,
 	 * .String, jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf)
 	 */
 	synchronized public void joinSesh(String audName, CmdSenderIntf sender,
-			AudDisconnedHdlrIntf hdlr) throws CumExcpAudExists {
+			AcptAudDisconnedIntf hdlr) throws CumExcpAudExists {
 		if (auds.containsKey(audName) == true) {
 			throw new CumExcpAudExists(seshName, new CumExcpAudExists("",
 					audName));
@@ -231,7 +234,7 @@ public class SeshPresSvr implements SeshAudIntf, SeshPrestrIntf,
 				aud.sendCmd(chnl.getNtfyCmdRegChnl());
 			}
 		} catch (CumExcpComError e) {
-			prestrDisconnedHdlr.disconned(seshName);
+			seshDisconnedAcpter.acceptSeshDisconned(seshName);
 		}
 
 	}
@@ -266,7 +269,8 @@ public class SeshPresSvr implements SeshAudIntf, SeshPrestrIntf,
 		try {
 			sender.sendCmd(cmd);
 		} catch (CumExcpComError e) {
-			prestrDisconnedHdlr.disconned(seshName);
+			seshDisconnedAcpter.acceptSeshDisconned(seshName);
+
 		}
 	}
 
@@ -294,7 +298,7 @@ public class SeshPresSvr implements SeshAudIntf, SeshPrestrIntf,
 		try {
 			sender.sendCmd(cmd);
 		} catch (CumExcpComError e) {
-			prestrDisconnedHdlr.disconned(seshName);
+			seshDisconnedAcpter.acceptSeshDisconned(seshName);
 		}
 	}
 
@@ -357,7 +361,7 @@ public class SeshPresSvr implements SeshAudIntf, SeshPrestrIntf,
 		try {
 			sender.sendCmd(cmd);
 		} catch (CumExcpComError e) {
-			prestrDisconnedHdlr.disconned(seshName);
+			seshDisconnedAcpter.acceptSeshDisconned(seshName);
 		}
 	}
 
@@ -395,7 +399,7 @@ public class SeshPresSvr implements SeshAudIntf, SeshPrestrIntf,
 		try {
 			sender.sendCmd(cmd);
 		} catch (CumExcpComError e) {
-			prestrDisconnedHdlr.disconned(seshName);
+			seshDisconnedAcpter.acceptSeshDisconned(seshName);
 		}
 	}
 
@@ -403,11 +407,44 @@ public class SeshPresSvr implements SeshAudIntf, SeshPrestrIntf,
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * jp.happyhacking70.cum3.presSvr.comLyr.AudDisconnedHdlrIntf#audDisconned
+	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshIntfInternal#ntfySeshDisconned
+	 * ()
+	 */
+	public void ntfySeshDisconned() {
+		NtfyCmdSeshDisconned cmd = new NtfyCmdSeshDisconned(seshName);
+		for (AudIntf aud : auds.values()) {
+			aud.sendCmd(cmd);
+		}
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshIntfInternal#ntfyAudDisconned
 	 * (java.lang.String)
 	 */
-	public void audDisconned(String audName) {
-		// TODO Auto-generated method stub
+	public void ntfyAudDisconned(String audName) {
+		NtfyCmdAudDisconned cmd = new NtfyCmdAudDisconned(audName);
+		try {
+			sender.sendCmd(cmd);
+		} catch (CumExcpComError e) {
+			seshDisconnedAcpter.acceptSeshDisconned(seshName);
+		}
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see jp.happyhacking70.cum3.presSvr.seshLyr.AcptAudDisconnedIntf#
+	 * acceptAudDisconned(java.lang.String)
+	 */
+	public void acceptAudDisconned(String audName) {
+		Thread hdlrThread = new Thread(new AudDisconnedHdlr(audName, this,
+				seshDisconnedAcpter));
+
+		hdlrThread.start();
 
 	}
 

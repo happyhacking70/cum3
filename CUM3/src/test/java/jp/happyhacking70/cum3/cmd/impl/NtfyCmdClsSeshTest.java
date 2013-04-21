@@ -32,7 +32,6 @@ public class NtfyCmdClsSeshTest extends NtfyCmdSeshTestAbst {
 	 */
 	@Override
 	protected CmdAbst getCmdNormal() {
-
 		return new NtfyCmdClsSesh(seshName);
 	}
 
@@ -53,7 +52,6 @@ public class NtfyCmdClsSeshTest extends NtfyCmdSeshTestAbst {
 	 */
 	@Override
 	protected String getActionName() {
-
 		return "ClsSesh";
 	}
 
@@ -65,7 +63,6 @@ public class NtfyCmdClsSeshTest extends NtfyCmdSeshTestAbst {
 	 */
 	@Override
 	protected CmdAbst getCmdNormal(Document doc) throws CumExcpIllegalCmdDoc {
-
 		return new NtfyCmdClsSesh(doc);
 	}
 
