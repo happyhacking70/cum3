@@ -5,6 +5,8 @@ package jp.happyhacking70.cum3.presSvr.seshLyr.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import jp.happyhacking70.cum3.presSvr.seshLyr.impl.dummy.DummySeshInternalIntf;
+import jp.happyhacking70.cum3.presSvr.seshLyr.impl.dummy.DummySeshMgrInternalIntf;
 
 import org.junit.BeforeClass;
 import org.junit.Test;

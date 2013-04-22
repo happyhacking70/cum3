@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdRegChnl;
 import jp.happyhacking70.cum3.comLyr.DummySender;
-import jp.happyhacking70.cum3.presSvr.seshLyr.DummyAcptAudDisconned;
+import jp.happyhacking70.cum3.presSvr.seshLyr.impl.dummy.DummyAcptAudDisconned;
 
 import org.junit.BeforeClass;
 import org.junit.Test;

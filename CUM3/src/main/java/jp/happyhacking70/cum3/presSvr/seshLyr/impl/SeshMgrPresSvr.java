@@ -150,7 +150,8 @@ public class SeshMgrPresSvr implements SeshMgrAudIntf, SeshMgrPrestrIntf,
 			AcptAudDisconnedIntf haudDisconnedAcpter)
 			throws CumExcpSeshNotExist, CumExcpAudExists {
 		SeshPresSvr sesh = getSesh(seshName);
-		sesh.joinSesh(audName, sender, haudDisconnedAcpter);
+		// sesh.joinSesh(audName, sender, haudDisconnedAcpter);
+		sesh.joinSesh(audName, sender);
 	}
 
 	/*

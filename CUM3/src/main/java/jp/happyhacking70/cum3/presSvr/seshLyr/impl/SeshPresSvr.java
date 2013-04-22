@@ -216,8 +216,11 @@ public class SeshPresSvr implements SeshAudIntf, SeshPrestrIntf,
 	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshAudIntf#joinSesh(java.lang
 	 * .String, jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf)
 	 */
-	synchronized public void joinSesh(String audName, CmdSenderIntf sender,
-			AcptAudDisconnedIntf hdlr) throws CumExcpAudExists {
+	synchronized public void joinSesh(String audName, CmdSenderIntf sender)
+			throws CumExcpAudExists {
+		// synchronized public void joinSesh(String audName, CmdSenderIntf
+		// sender,
+		// AcptAudDisconnedIntf hdlr) throws CumExcpAudExists {
 		if (auds.containsKey(audName) == true) {
 			throw new CumExcpAudExists(seshName, new CumExcpAudExists("",
 					audName));

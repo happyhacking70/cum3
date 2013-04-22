@@ -17,6 +17,11 @@ public class Aud implements AudIntf {
 	protected CmdSenderIntf sender;
 	protected AcptAudDisconnedIntf acpter;
 
+	/**
+	 * @param audName
+	 * @param sender
+	 * @param acpter
+	 */
 	public Aud(String audName, CmdSenderIntf sender, AcptAudDisconnedIntf acpter) {
 		super();
 		this.audName = audName;
@@ -24,13 +29,21 @@ public class Aud implements AudIntf {
 		this.acpter = acpter;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see jp.happyhacking70.cum3.presSvr.audLyr.AudIntf#getAudName()
+	 */
 	public final String getAudName() {
 		return audName;
 	}
 
-	/**
-	 * @param cmd
-	 * @throws CumExcpComError
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * jp.happyhacking70.cum3.presSvr.audLyr.AudIntf#sendCmd(jp.happyhacking70
+	 * .cum3.cmd.CmdAbst)
 	 */
 	synchronized public void sendCmd(CmdAbst cmd) {
 		try {

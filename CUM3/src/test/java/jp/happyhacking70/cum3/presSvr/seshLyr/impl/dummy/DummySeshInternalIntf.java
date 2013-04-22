@@ -1,7 +1,7 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.presSvr.seshLyr.impl;
+package jp.happyhacking70.cum3.presSvr.seshLyr.impl.dummy;
 
 import jp.happyhacking70.cum3.cmd.XMLableCmdIntf;
 import jp.happyhacking70.cum3.excp.impl.CumExcpComError;

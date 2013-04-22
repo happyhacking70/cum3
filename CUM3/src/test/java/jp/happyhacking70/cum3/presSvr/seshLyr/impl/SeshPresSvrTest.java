@@ -1,7 +1,7 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.presSvr.seshLyr;
+package jp.happyhacking70.cum3.presSvr.seshLyr.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -29,7 +29,7 @@ import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNull;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcptNullRsces;
-import jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshPresSvr;
+import jp.happyhacking70.cum3.presSvr.seshLyr.impl.dummy.DummyAcptSeshDisconned;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -87,8 +87,8 @@ public class SeshPresSvrTest {
 		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPresenter,
 				new DummyAcptSeshDisconned());
 
-		sesh.joinSesh("audA", senderForAudA, sesh);
-		sesh.joinSesh("audB", senderForAudB, sesh);
+		sesh.joinSesh("audA", senderForAudA);
+		sesh.joinSesh("audB", senderForAudB);
 
 		sesh.regChnl(chnlName, new ArrayList<ChnlRscIntf>());
 
@@ -328,7 +328,7 @@ public class SeshPresSvrTest {
 		sesh.regChnl(chnlName, rsces);
 
 		DummySender senderForAud = new DummySender();
-		sesh.joinSesh("audA", senderForAud, sesh);
+		sesh.joinSesh("audA", senderForAud);
 		sesh.joinChnl(chnlName, "audA");
 
 		NtfyCmdRegChnl cmd = new NtfyCmdRegChnl(seshName, chnlName);
@@ -460,11 +460,11 @@ public class SeshPresSvrTest {
 		sesh.regChnl(chnlName, rsces);
 
 		DummySender senderForAudA = new DummySender();
-		sesh.joinSesh("audA", senderForAudA, sesh);
+		sesh.joinSesh("audA", senderForAudA);
 		sesh.joinChnl(chnlName, "audA");
 
 		DummySender senderForAudB = new DummySender();
-		sesh.joinSesh("audB", senderForAudB, sesh);
+		sesh.joinSesh("audB", senderForAudB);
 		sesh.joinChnl(chnlName, "audB");
 
 		NtfyCmdRegChnl cmd = new NtfyCmdRegChnl(seshName, chnlName);
@@ -553,9 +553,9 @@ public class SeshPresSvrTest {
 		DummySender senderForAud = new DummySender();
 		DummySender senderForAudB = new DummySender();
 
-		sesh.joinSesh("audA", senderForAud, sesh);
+		sesh.joinSesh("audA", senderForAud);
 		senderForAud.pollCmd();
-		sesh.joinSesh("audB", senderForAudB, sesh);
+		sesh.joinSesh("audB", senderForAudB);
 		senderForAudB.pollCmd();
 
 		sesh.joinChnl(chnlName, "audA");
@@ -599,7 +599,7 @@ public class SeshPresSvrTest {
 		sesh.regChnl(chnlName, rsces);
 		DummySender senderForAud = new DummySender();
 
-		sesh.joinSesh("audA", senderForAud, sesh);
+		sesh.joinSesh("audA", senderForAud);
 		senderForAud.pollCmd();
 
 		boolean ok = false;
@@ -640,7 +640,7 @@ public class SeshPresSvrTest {
 		sesh.regChnl(chnlName, rsces);
 
 		DummySender senderForAudA = new DummySender();
-		sesh.joinSesh("audA", senderForAudA, sesh);
+		sesh.joinSesh("audA", senderForAudA);
 
 		NtfyCmdRegChnl cmd = (NtfyCmdRegChnl) senderForAudA.pollCmd();
 		assertEquals(seshName, cmd.getSeshName());
@@ -675,11 +675,11 @@ public class SeshPresSvrTest {
 		sesh.regChnl(chnlName, rsces);
 
 		DummySender senderForAudA = new DummySender();
-		sesh.joinSesh("audA", senderForAudA, sesh);
+		sesh.joinSesh("audA", senderForAudA);
 
 		boolean ok = false;
 		try {
-			sesh.joinSesh("audA", senderForAudA, sesh);
+			sesh.joinSesh("audA", senderForAudA);
 		} catch (CumExcpAudExists e) {
 			assertEquals(seshName, e.getSeshName());
 			assertEquals("", e.getChnlName());
@@ -717,7 +717,7 @@ public class SeshPresSvrTest {
 		sesh.regChnl(chnlName, rsces);
 
 		DummySender senderForAudA = new DummySender();
-		sesh.joinSesh("audA", senderForAudA, sesh);
+		sesh.joinSesh("audA", senderForAudA);
 		senderForPrestr.pollCmd();
 		senderForAudA.pollCmd();
 
@@ -757,7 +757,7 @@ public class SeshPresSvrTest {
 		sesh.regChnl(chnlName, rsces);
 
 		DummySender senderForAudA = new DummySender();
-		sesh.joinSesh("audA", senderForAudA, sesh);
+		sesh.joinSesh("audA", senderForAudA);
 		senderForPrestr.pollCmd();
 		senderForAudA.pollCmd();
 
@@ -800,7 +800,7 @@ public class SeshPresSvrTest {
 		sesh.regChnl(chnlName, rsces);
 
 		DummySender senderForAudA = new DummySender();
-		sesh.joinSesh("audA", senderForAudA, sesh);
+		sesh.joinSesh("audA", senderForAudA);
 		senderForPrestr.pollCmd();
 		senderForAudA.pollCmd();
 
@@ -845,7 +845,7 @@ public class SeshPresSvrTest {
 		sesh.regChnl(chnlName, rsces);
 
 		DummySender senderForAudA = new DummySender();
-		sesh.joinSesh("audA", senderForAudA, sesh);
+		sesh.joinSesh("audA", senderForAudA);
 		senderForPrestr.pollCmd();
 		senderForAudA.pollCmd();
 
@@ -892,7 +892,7 @@ public class SeshPresSvrTest {
 		sesh.regChnl(chnlName, rsces);
 
 		DummySender senderForAudA = new DummySender();
-		sesh.joinSesh("audA", senderForAudA, sesh);
+		sesh.joinSesh("audA", senderForAudA);
 		senderForPresenter.pollCmd();
 		senderForAudA.pollCmd();
 
@@ -937,7 +937,7 @@ public class SeshPresSvrTest {
 		sesh.regChnl(chnlName, rsces);
 
 		DummySender senderForAudA = new DummySender();
-		sesh.joinSesh("audA", senderForAudA, sesh);
+		sesh.joinSesh("audA", senderForAudA);
 		senderForPresenter.pollCmd();
 		senderForAudA.pollCmd();
 
@@ -987,7 +987,7 @@ public class SeshPresSvrTest {
 		sesh.regChnl(chnlName, rsces);
 
 		DummySender senderForAudA = new DummySender();
-		sesh.joinSesh("audA", senderForAudA, sesh);
+		sesh.joinSesh("audA", senderForAudA);
 		senderForPresenter.pollCmd();
 		senderForAudA.pollCmd();
 
@@ -1038,7 +1038,7 @@ public class SeshPresSvrTest {
 		sesh.regChnl(chnlName, rsces);
 
 		DummySender senderForAudA = new DummySender();
-		sesh.joinSesh("audA", senderForAudA, sesh);
+		sesh.joinSesh("audA", senderForAudA);
 		senderForPresenter.pollCmd();
 		senderForAudA.pollCmd();
 
@@ -1081,7 +1081,8 @@ public class SeshPresSvrTest {
 		sesh.regChnl(chnlName, rsces);
 
 		DummySender senderForAudA = new DummySender();
-		sesh.joinSesh("audA", senderForAudA, sesh);
+		// sesh.joinSesh("audA", senderForAudA, sesh);
+		sesh.joinSesh("audA", senderForAudA);
 		senderForPresenter.pollCmd();
 		senderForAudA.pollCmd();
 

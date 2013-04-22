@@ -31,7 +31,7 @@ import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNull;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcptNullRsces;
 import jp.happyhacking70.cum3.presSvr.audLyr.Aud;
 import jp.happyhacking70.cum3.presSvr.audLyr.AudIntf;
-import jp.happyhacking70.cum3.presSvr.seshLyr.DummyAcptAudDisconned;
+import jp.happyhacking70.cum3.presSvr.seshLyr.impl.dummy.DummyAcptAudDisconned;
 
 import org.junit.BeforeClass;
 import org.junit.Test;

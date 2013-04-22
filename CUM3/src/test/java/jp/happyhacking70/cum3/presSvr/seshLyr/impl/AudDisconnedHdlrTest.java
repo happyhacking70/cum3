@@ -5,6 +5,8 @@ package jp.happyhacking70.cum3.presSvr.seshLyr.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import jp.happyhacking70.cum3.presSvr.seshLyr.impl.dummy.DummyAcptSeshDisconned;
+import jp.happyhacking70.cum3.presSvr.seshLyr.impl.dummy.DummySeshInternalIntf;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -33,7 +35,7 @@ public class AudDisconnedHdlrTest {
 	@Test
 	public void testRun() {
 		DummySeshInternalIntf sesh = new DummySeshInternalIntf(seshName);
-		DummyDeshDisconnedAcpter acpter = new DummyDeshDisconnedAcpter();
+		DummyAcptSeshDisconned acpter = new DummyAcptSeshDisconned();
 
 		AudDisconnedHdlr audDisconnedHdlr = new AudDisconnedHdlr(audName, sesh,
 				acpter);
@@ -61,7 +63,7 @@ public class AudDisconnedHdlrTest {
 	@Test
 	public void testRun_SeshSendErr() {
 		DummySeshInternalIntf sesh = new DummySeshInternalIntf(seshName);
-		DummyDeshDisconnedAcpter acpter = new DummyDeshDisconnedAcpter();
+		DummyAcptSeshDisconned acpter = new DummyAcptSeshDisconned();
 
 		AudDisconnedHdlr audDisconnedHdlr = new AudDisconnedHdlr(audName, sesh,
 				acpter);

@@ -1,7 +1,9 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.presSvr.seshLyr;
+package jp.happyhacking70.cum3.presSvr.seshLyr.impl.dummy;
+
+import jp.happyhacking70.cum3.presSvr.seshLyr.AcptSeshDisconnedIntf;
 
 /**
  * @author happyhacking70@gmail.com

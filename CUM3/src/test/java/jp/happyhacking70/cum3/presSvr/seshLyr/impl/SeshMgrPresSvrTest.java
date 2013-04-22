@@ -1,7 +1,7 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.presSvr.seshLyr;
+package jp.happyhacking70.cum3.presSvr.seshLyr.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -24,6 +24,7 @@ import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcptNullRsces;
 import jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr;
+import jp.happyhacking70.cum3.presSvr.seshLyr.impl.dummy.DummyAcptAudDisconned;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
