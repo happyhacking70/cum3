@@ -268,7 +268,6 @@ public class SeshMgrPresSvr implements SeshMgrAudIntf, SeshMgrPrestrIntf,
 	 */
 	public void removeSesh(String seshName) {
 		seshes.remove(seshName);
-
 	}
 
 }

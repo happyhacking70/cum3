@@ -1101,4 +1101,36 @@ public class SeshPresSvrTest {
 			fail("CumExcpAudNotExist not caught");
 		}
 	}
+
+	@Test
+	public void testSendCmdToPrestr() {
+		DummySender sender = new DummySender();
+		DummyAcptSeshDisconned acpter = new DummyAcptSeshDisconned();
+
+		SeshPresSvr sesh = new SeshPresSvr(seshName, sender, acpter);
+
+		NtfyCmdJoinSesh cmd = new NtfyCmdJoinSesh(seshName, "testAudience");
+		sesh.sendCmdToPrestr(cmd);
+
+		assertEquals(cmd, sender.pollCmd());
+		assertNull(sender.pollCmd());
+		assertNull(acpter.getSeshName());
+
+	}
+
+	@Test
+	public void testSendCmdToPrestr_COMERR() {
+		DummySender sender = new DummySender();
+		DummyAcptSeshDisconned acpter = new DummyAcptSeshDisconned();
+
+		SeshPresSvr sesh = new SeshPresSvr(seshName, sender, acpter);
+
+		sender.emulateComErr();
+		NtfyCmdJoinSesh cmd = new NtfyCmdJoinSesh(seshName, "testAudience");
+		sesh.sendCmdToPrestr(cmd);
+
+		assertNull(sender.pollCmd());
+		assertEquals(seshName, acpter.getSeshName());
+
+	}
 }
