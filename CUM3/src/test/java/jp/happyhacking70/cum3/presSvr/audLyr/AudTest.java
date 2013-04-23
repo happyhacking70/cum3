@@ -7,7 +7,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdRegChnl;
 import jp.happyhacking70.cum3.comLyr.DummySender;
-import jp.happyhacking70.cum3.presSvr.seshLyr.impl.dummy.DummyAcptAudDisconned;
+import jp.happyhacking70.cum3.comLyr.DummySrvAdm;
+import jp.happyhacking70.cum3.excp.impl.CumExcpXMLGenFailed;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -33,9 +34,8 @@ public class AudTest {
 	 */
 	@Test
 	public void testGetAudName() {
-		DummySender sender = new DummySender();
-		DummyAcptAudDisconned acpter = new DummyAcptAudDisconned();
-		Aud aud = new Aud(audName, sender, acpter);
+		DummySender sender = new DummySender(new DummySrvAdm());
+		Aud aud = new Aud(audName, sender);
 
 		assertEquals(audName, aud.getAudName());
 
@@ -45,36 +45,18 @@ public class AudTest {
 	 * Test method for
 	 * {@link jp.happyhacking70.cum3.presSvr.audLyr.Aud#sendCmd(jp.happyhacking70.cum3.cmd.CmdAbst)}
 	 * .
+	 * 
+	 * @throws CumExcpXMLGenFailed
 	 */
 	@Test
-	public void testSendCmdOk() {
-		DummySender sender = new DummySender();
-		DummyAcptAudDisconned acpter = new DummyAcptAudDisconned();
-		Aud aud = new Aud(audName, sender, acpter);
+	public void testSendCmdOk() throws CumExcpXMLGenFailed {
+		DummySender sender = new DummySender(new DummySrvAdm());
+		Aud aud = new Aud(audName, sender);
 
 		NtfyCmdRegChnl cmd = new NtfyCmdRegChnl("testSession", "testChnl");
 		aud.sendCmd(cmd);
-		assertNull(acpter.getAudName());
-		assertEquals(cmd, sender.pollCmd());
+		assertEquals(cmd.toXmlStr(), sender.pollCmd());
 		assertNull(sender.pollCmd());
 	}
 
-	/**
-	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.audLyr.Aud#sendCmd(jp.happyhacking70.cum3.cmd.CmdAbst)}
-	 * .
-	 */
-	@Test
-	public void testSendCmd_COMERR() {
-		DummySender sender = new DummySender();
-		DummyAcptAudDisconned acpter = new DummyAcptAudDisconned();
-		Aud aud = new Aud(audName, sender, acpter);
-
-		sender.emulateComErr();
-
-		NtfyCmdRegChnl cmd = new NtfyCmdRegChnl("testSession", "testChnl");
-		aud.sendCmd(cmd);
-		assertNull(sender.pollCmd());
-		assertEquals(audName, acpter.getAudName());
-	}
 }

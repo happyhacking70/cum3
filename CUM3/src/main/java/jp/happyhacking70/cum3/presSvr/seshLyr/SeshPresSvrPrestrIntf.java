@@ -21,7 +21,7 @@ import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcptNullRsces;
  * @author happyhacking70@gmail.com
  * 
  */
-public interface SeshPrestrIntf {
+public interface SeshPresSvrPrestrIntf {
 
 	/**
 	 * <UL>

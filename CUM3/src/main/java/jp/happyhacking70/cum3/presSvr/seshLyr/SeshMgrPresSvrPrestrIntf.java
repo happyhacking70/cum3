@@ -18,13 +18,13 @@ import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNull;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcptNullRsces;
-import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf;
+import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderAbst;
 
 /**
  * @author happyhacking70@gmail.com
  * 
  */
-public interface SeshMgrPrestrIntf {
+public interface SeshMgrPresSvrPrestrIntf {
 
 	/**
 	 * <UL>
@@ -36,7 +36,7 @@ public interface SeshMgrPrestrIntf {
 	 * @param sender
 	 * @throws CumExcpSeshExists
 	 */
-	public void regSesh(String seshName, CmdSenderIntf sender)
+	public void regSesh(String seshName, CmdSenderAbst sender)
 			throws CumExcpSeshExists;
 
 	/**

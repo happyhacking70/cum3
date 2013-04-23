@@ -18,12 +18,9 @@ import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNull;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcptNullRsces;
-import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf;
-import jp.happyhacking70.cum3.presSvr.seshLyr.AcptAudDisconnedIntf;
-import jp.happyhacking70.cum3.presSvr.seshLyr.AcptSeshDisconnedIntf;
-import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrAudIntf;
-import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrInternalIntf;
-import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPrestrIntf;
+import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderAbst;
+import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAudIntf;
+import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrPrestrIntf;
 
 /**
  * <UL>
@@ -36,10 +33,15 @@ import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPrestrIntf;
  * @author happyhacking70@gmail.com
  * 
  */
-public class SeshMgrPresSvr implements SeshMgrAudIntf, SeshMgrPrestrIntf,
-		AcptSeshDisconnedIntf, SeshMgrInternalIntf {
+public class SeshMgrPresSvr implements SeshMgrPresSvrAudIntf,
+		SeshMgrPresSvrPrestrIntf {
 	protected ConcurrentHashMap<String, SeshPresSvr> seshes = new ConcurrentHashMap<String, SeshPresSvr>();
 
+	/**
+	 * @param seshName
+	 * @return session
+	 * @throws CumExcpSeshNotExist
+	 */
 	protected SeshPresSvr getSesh(String seshName) throws CumExcpSeshNotExist {
 		SeshPresSvr sesh = seshes.get(seshName);
 		if (sesh == null) {
@@ -52,17 +54,18 @@ public class SeshMgrPresSvr implements SeshMgrAudIntf, SeshMgrPrestrIntf,
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPrestrIntf#regSesh(java
-	 * .lang.String, jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf)
+	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrPrestrIntf#regSesh
+	 * (java.lang.String, jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderAbst)
 	 */
-	public void regSesh(String seshName, CmdSenderIntf sender)
+	@Override
+	public void regSesh(String seshName, CmdSenderAbst sender)
 			throws CumExcpSeshExists {
 
 		if (seshes.containsKey(seshName) == true) {
 			throw new CumExcpSeshExists(seshName);
 		}
 
-		SeshPresSvr sesh = new SeshPresSvr(seshName, sender, this);
+		SeshPresSvr sesh = new SeshPresSvr(seshName, sender);
 
 		seshes.put(seshName, sesh);
 	}
@@ -71,9 +74,10 @@ public class SeshMgrPresSvr implements SeshMgrAudIntf, SeshMgrPrestrIntf,
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPrestrIntf#regChnl(java
-	 * .lang.String, java.lang.String, java.util.ArrayList)
+	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrPrestrIntf#regChnl
+	 * (java.lang.String, java.lang.String, java.util.ArrayList)
 	 */
+	@Override
 	public void regChnl(String seshName, String chnlName,
 			ArrayList<ChnlRscIntf> chnlRsces) throws CumExcpSeshNotExist,
 			CumExcpRscExists, CumExcpChnlExists, CumExcptNullRsces,
@@ -87,9 +91,10 @@ public class SeshMgrPresSvr implements SeshMgrAudIntf, SeshMgrPrestrIntf,
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPrestrIntf#clsSesh(java
-	 * .lang.String)
+	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrPrestrIntf#clsSesh
+	 * (java.lang.String)
 	 */
+	@Override
 	public void clsSesh(String seshName) throws CumExcpSeshNotExist {
 		SeshPresSvr sesh = getSesh(seshName);
 		sesh.clsSesh();
@@ -100,9 +105,10 @@ public class SeshMgrPresSvr implements SeshMgrAudIntf, SeshMgrPrestrIntf,
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPrestrIntf#sendChnlCmd(
-	 * jp.happyhacking70.cum3.cmd.CmdAbst, java.lang.String)
+	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrPrestrIntf#sendChnlCmd
+	 * (jp.happyhacking70.cum3.cmd.CmdChnlAbst, java.lang.String)
 	 */
+	@Override
 	public void sendChnlCmd(CmdChnlAbst cmd, String audName)
 			throws CumExcpSeshNotExist, CumExcpChnlNotEixt, CumExcpAudNotExist {
 		SeshPresSvr sesh = getSesh(cmd.getSeshName());
@@ -114,9 +120,10 @@ public class SeshMgrPresSvr implements SeshMgrAudIntf, SeshMgrPrestrIntf,
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPrestrIntf#sendChnlCmd(
-	 * jp.happyhacking70.cum3.cmd.CmdAbst)
+	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrPrestrIntf#sendChnlCmd
+	 * (jp.happyhacking70.cum3.cmd.CmdChnlAbst)
 	 */
+	@Override
 	public void sendChnlCmd(CmdChnlAbst cmd) throws CumExcpSeshNotExist,
 			CumExcpChnlNotEixt, CumExcpAudNotExist {
 		SeshPresSvr sesh = getSesh(cmd.getSeshName());
@@ -128,9 +135,10 @@ public class SeshMgrPresSvr implements SeshMgrAudIntf, SeshMgrPrestrIntf,
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPrestrIntf#clsChnl(java
-	 * .lang.String, java.lang.String)
+	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrPrestrIntf#clsChnl
+	 * (java.lang.String, java.lang.String)
 	 */
+	@Override
 	public void clsChnl(String seshName, String chnlName)
 			throws CumExcpSeshNotExist, CumExcpChnlNotEixt {
 
@@ -143,11 +151,12 @@ public class SeshMgrPresSvr implements SeshMgrAudIntf, SeshMgrPrestrIntf,
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrAudIntf#joinSesh(java.lang
-	 * .String, java.lang.String)
+	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAudIntf#joinSesh
+	 * (java.lang.String, java.lang.String,
+	 * jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderAbst)
 	 */
-	public void joinSesh(String seshName, String audName, CmdSenderIntf sender,
-			AcptAudDisconnedIntf haudDisconnedAcpter)
+	@Override
+	public void joinSesh(String seshName, String audName, CmdSenderAbst sender)
 			throws CumExcpSeshNotExist, CumExcpAudExists {
 		SeshPresSvr sesh = getSesh(seshName);
 		// sesh.joinSesh(audName, sender, haudDisconnedAcpter);
@@ -158,9 +167,10 @@ public class SeshMgrPresSvr implements SeshMgrAudIntf, SeshMgrPrestrIntf,
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrAudIntf#joinChnl(java.lang
-	 * .String, java.lang.String, java.lang.String)
+	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAudIntf#joinChnl
+	 * (java.lang.String, java.lang.String, java.lang.String)
 	 */
+	@Override
 	public void joinChnl(String seshName, String chnlName, String audName)
 			throws CumExcpSeshNotExist, CumExcpChnlNotEixt, CumExcpAudExists,
 			CumExcpAudNotExist {
@@ -172,9 +182,10 @@ public class SeshMgrPresSvr implements SeshMgrAudIntf, SeshMgrPrestrIntf,
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrAudIntf#rjctChnl(java.lang
-	 * .String, java.lang.String, java.lang.String)
+	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAudIntf#rjctChnl
+	 * (java.lang.String, java.lang.String, java.lang.String)
 	 */
+	@Override
 	public void rjctChnl(String seshName, String chnlName, String audName)
 			throws CumExcpSeshNotExist, CumExcpChnlNotEixt, CumExcpAudExists {
 		SeshPresSvr sesh = getSesh(seshName);
@@ -185,9 +196,10 @@ public class SeshMgrPresSvr implements SeshMgrAudIntf, SeshMgrPrestrIntf,
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrAudIntf#lvChnl(java.lang
-	 * .String, java.lang.String, java.lang.String)
+	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAudIntf#lvChnl(java
+	 * .lang.String, java.lang.String, java.lang.String)
 	 */
+	@Override
 	public void lvChnl(String seshName, String chnlName, String audName)
 			throws CumExcpSeshNotExist, CumExcpChnlNotEixt, CumExcpAudNotExist {
 		SeshPresSvr sesh = getSesh(seshName);
@@ -198,9 +210,10 @@ public class SeshMgrPresSvr implements SeshMgrAudIntf, SeshMgrPrestrIntf,
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrAudIntf#lvSesh(java.lang
-	 * .String, java.lang.String)
+	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAudIntf#lvSesh(java
+	 * .lang.String, java.lang.String)
 	 */
+	@Override
 	public void lvSesh(String seshName, String audName)
 			throws CumExcpSeshNotExist, CumExcpAudNotExist {
 		SeshPresSvr sesh = getSesh(seshName);
@@ -212,63 +225,15 @@ public class SeshMgrPresSvr implements SeshMgrAudIntf, SeshMgrPrestrIntf,
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrAudIntf#getRsc(java.lang
-	 * .String, java.lang.String, java.lang.String)
+	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAudIntf#getRsc(java
+	 * .lang.String, java.lang.String, java.lang.String)
 	 */
+	@Override
 	public ChnlRscIntf getRsc(String seshName, String chnlName, String rscName)
 			throws CumExcpSeshNotExist, CumExcpChnlNotEixt, CumExcpRscNotExist {
 		SeshPresSvr sesh = getSesh(seshName);
 		ChnlRscIntf rsc = sesh.getRsc(chnlName, rscName);
 		return rsc;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrInternalIntf#hndlSeshDsiconned
-	 * (java.lang.String)
-	 */
-	public void hndlSeshDsiconned(String seshName) {
-		SeshPresSvr sesh = null;
-		try {
-			sesh = getSesh(seshName);
-			sesh.ntfySeshDisconned();
-			seshes.remove(seshName);
-		} catch (CumExcpSeshNotExist e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see jp.happyhacking70.cum3.presSvr.seshLyr.AcptSeshDisconnedIntf#
-	 * acceptSeshDisconned(java.lang.String)
-	 */
-	public void acceptSeshDisconned(String seshName) {
-		SeshPresSvr sesh = null;
-		try {
-			sesh = getSesh(seshName);
-		} catch (CumExcpSeshNotExist e) {
-
-			e.printStackTrace();
-		}
-		Thread hdlrThread = new Thread(new SeshDisconnedHdlr(sesh, this));
-		hdlrThread.start();
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrInternalIntf#removeSesh
-	 * (java.lang.String)
-	 */
-	public void removeSesh(String seshName) {
-		seshes.remove(seshName);
 	}
 
 }

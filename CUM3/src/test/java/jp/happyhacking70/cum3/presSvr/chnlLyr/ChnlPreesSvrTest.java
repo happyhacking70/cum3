@@ -21,6 +21,7 @@ import jp.happyhacking70.cum3.cmd.impl.NtfyCmdRegChnl;
 import jp.happyhacking70.cum3.cmd.impl.ReqCmdClsChnl;
 import jp.happyhacking70.cum3.cmd.impl.ReqCmdRegChnl;
 import jp.happyhacking70.cum3.comLyr.DummySender;
+import jp.happyhacking70.cum3.comLyr.DummySrvAdm;
 import jp.happyhacking70.cum3.excp.impl.CumExcpComError;
 import jp.happyhacking70.cum3.excp.impl.CumExcpXMLGenFailed;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudExists;
@@ -31,7 +32,6 @@ import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNull;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcptNullRsces;
 import jp.happyhacking70.cum3.presSvr.audLyr.Aud;
 import jp.happyhacking70.cum3.presSvr.audLyr.AudIntf;
-import jp.happyhacking70.cum3.presSvr.seshLyr.impl.dummy.DummyAcptAudDisconned;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -44,9 +44,9 @@ public class ChnlPreesSvrTest {
 	protected static final String seshName = "testSession";
 	protected static final String chnlName = "testChannel";
 	protected static final String audName = "testAudience";
-	protected DummySender sender = new DummySender();
-	protected AudIntf aud = new Aud(audName, sender,
-			new DummyAcptAudDisconned());
+	protected DummySrvAdm svrAdm = new DummySrvAdm();
+	protected DummySender sender = new DummySender(svrAdm);
+	protected AudIntf aud = new Aud(audName, sender);
 
 	/**
 	 * @throws java.lang.Exception
@@ -181,11 +181,12 @@ public class ChnlPreesSvrTest {
 	 * @throws CumExcpAudExists
 	 * @throws CumExcpAudNotExist
 	 * @throws CumExcpComError
+	 * @throws CumExcpXMLGenFailed
 	 */
 	@Test
 	public void testSendChnlCmdCmdAbstAudIntf_OK() throws CumExcpRscExists,
 			CumExcptNullRsces, CumExcpRscNull, CumExcpAudExists,
-			CumExcpAudNotExist, CumExcpComError {
+			CumExcpAudNotExist, CumExcpComError, CumExcpXMLGenFailed {
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		ChnlPresSvr chnl = new ChnlPresSvr(seshName, chnlName, rsces);
 		chnl.joinChnl(aud);
@@ -193,8 +194,7 @@ public class ChnlPreesSvrTest {
 		ReqCmdClsChnl cmd = new ReqCmdClsChnl("testSession", chnlName);
 		chnl.sendChnlCmd(cmd, aud.getAudName());
 
-		ReqCmdClsChnl cmdReturned = (ReqCmdClsChnl) sender.pollCmd();
-		assertEquals(cmd, cmdReturned);
+		assertEquals(cmd.toXmlStr(), sender.pollCmd());
 	}
 
 	/**
@@ -208,27 +208,24 @@ public class ChnlPreesSvrTest {
 	 * @throws CumExcpAudExists
 	 * @throws CumExcpAudNotExist
 	 * @throws CumExcpComError
+	 * @throws CumExcpXMLGenFailed
 	 */
 	@Test
 	public void testSendChnlCmdCmdAbst() throws CumExcpRscExists,
 			CumExcptNullRsces, CumExcpRscNull, CumExcpAudExists,
-			CumExcpAudNotExist, CumExcpComError {
+			CumExcpAudNotExist, CumExcpComError, CumExcpXMLGenFailed {
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		ChnlPresSvr chnl = new ChnlPresSvr(seshName, chnlName, rsces);
 		chnl.joinChnl(aud);
 
-		DummySender senderFor2 = new DummySender();
-		chnl.joinChnl(new Aud("testAudience2", senderFor2,
-				new DummyAcptAudDisconned()));
+		DummySender senderFor2 = new DummySender(new DummySrvAdm());
+		chnl.joinChnl(new Aud("testAudience2", senderFor2));
 
 		ReqCmdRegChnl cmd = new ReqCmdRegChnl("testSession", "testChannel");
 		chnl.sendChnlCmd(cmd);
 
-		ReqCmdRegChnl cmdReturned;
-		cmdReturned = (ReqCmdRegChnl) sender.pollCmd();
-		assertEquals(cmd, cmdReturned);
-		cmdReturned = (ReqCmdRegChnl) senderFor2.pollCmd();
-		assertEquals(cmd, cmdReturned);
+		assertEquals(cmd.toXmlStr(), sender.pollCmd());
+		assertEquals(cmd.toXmlStr(), senderFor2.pollCmd());
 	}
 
 	/**

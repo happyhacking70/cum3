@@ -5,31 +5,27 @@ package jp.happyhacking70.cum3.comLyr;
 
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import jp.happyhacking70.cum3.cmd.XMLableCmdIntf;
-import jp.happyhacking70.cum3.excp.impl.CumExcpComError;
-import jp.happyhacking70.cum3.excp.impl.CumExcpXMLGenFailed;
-import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf;
+import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderAbst;
+import jp.happyhacking70.cum3.presSvr.comLyr.SvrAdmIntf;
 
 /**
  * @author happyhacking70@gmail.com
  * 
  */
-public class DummySender implements CmdSenderIntf {
+public class DummySender extends CmdSenderAbst {
+	ConcurrentLinkedQueue<String> cmdsSent = new ConcurrentLinkedQueue<String>();
 
-	ConcurrentLinkedQueue<XMLableCmdIntf> cmdsSent = new ConcurrentLinkedQueue<XMLableCmdIntf>();
-	protected boolean emulateComErro = false;
+	/**
+	 * @param svrAdm
+	 */
+	public DummySender(SvrAdmIntf svrAdm) {
+		super(svrAdm);
+	}
 
-	// public void sendCmd(CmdAbst cmd) {
-	// try {
-	// System.out.println(cmd.toXmlStr());
-	// cmdsSent.offer(cmd);
-	//
-	// } catch (CumExcpXMLGenFailed e) {
-	// e.printStackTrace();
-	// }
-	// }
-
-	public XMLableCmdIntf pollCmd() {
+	/**
+	 * @return
+	 */
+	public String pollCmd() {
 		return cmdsSent.poll();
 	}
 
@@ -37,26 +33,12 @@ public class DummySender implements CmdSenderIntf {
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf#sendCmd(jp.happyhacking70
-	 * .cum3.cmd.XMLableCmdIntf)
+	 * jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderAbst#sendCmd(java.lang
+	 * .String)
 	 */
-	public void sendCmd(XMLableCmdIntf cmd) throws CumExcpComError {
-
-		if (emulateComErro == true) {
-			throw new CumExcpComError("DUMMY");
-		}
-		try {
-			System.out.println(cmd.toXmlStr());
-			cmdsSent.offer(cmd);
-
-		} catch (CumExcpXMLGenFailed e) {
-			e.printStackTrace();
-		}
-
-	}
-
-	public void emulateComErr() {
-		emulateComErro = true;
+	@Override
+	protected void sendCmd(String xmledCmd) {
+		cmdsSent.add(xmledCmd);
 	}
 
 }

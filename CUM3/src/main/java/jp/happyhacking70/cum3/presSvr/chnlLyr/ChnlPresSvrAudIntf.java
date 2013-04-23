@@ -18,7 +18,7 @@ import jp.happyhacking70.cum3.presSvr.audLyr.AudIntf;
  * @author happyhacking70@gmail.com
  * 
  */
-public interface ChnlAudIntf {
+public interface ChnlPresSvrAudIntf {
 
 	/**
 	 * <UL>
@@ -65,4 +65,5 @@ public interface ChnlAudIntf {
 	 * @throws CumExcpAudExists
 	 */
 	public void rjctChnl(String audName) throws CumExcpAudExists;
+
 }

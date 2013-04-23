@@ -4,9 +4,7 @@
 package jp.happyhacking70.cum3.presSvr.audLyr;
 
 import jp.happyhacking70.cum3.cmd.CmdAbst;
-import jp.happyhacking70.cum3.excp.impl.CumExcpComError;
-import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf;
-import jp.happyhacking70.cum3.presSvr.seshLyr.AcptAudDisconnedIntf;
+import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderAbst;
 
 /**
  * @author happyhacking70@gmail.com
@@ -14,19 +12,17 @@ import jp.happyhacking70.cum3.presSvr.seshLyr.AcptAudDisconnedIntf;
  */
 public class Aud implements AudIntf {
 	protected String audName;
-	protected CmdSenderIntf sender;
-	protected AcptAudDisconnedIntf acpter;
+	protected CmdSenderAbst sender;
 
 	/**
 	 * @param audName
 	 * @param sender
 	 * @param acpter
 	 */
-	public Aud(String audName, CmdSenderIntf sender, AcptAudDisconnedIntf acpter) {
+	public Aud(String audName, CmdSenderAbst sender) {
 		super();
 		this.audName = audName;
 		this.sender = sender;
-		this.acpter = acpter;
 	}
 
 	/*
@@ -34,6 +30,7 @@ public class Aud implements AudIntf {
 	 * 
 	 * @see jp.happyhacking70.cum3.presSvr.audLyr.AudIntf#getAudName()
 	 */
+	@Override
 	public final String getAudName() {
 		return audName;
 	}
@@ -45,11 +42,8 @@ public class Aud implements AudIntf {
 	 * jp.happyhacking70.cum3.presSvr.audLyr.AudIntf#sendCmd(jp.happyhacking70
 	 * .cum3.cmd.CmdAbst)
 	 */
+	@Override
 	synchronized public void sendCmd(CmdAbst cmd) {
-		try {
-			sender.sendCmd(cmd);
-		} catch (CumExcpComError e) {
-			acpter.acceptAudDisconned(audName);
-		}
+		sender.sendCmd(cmd);
 	}
 }

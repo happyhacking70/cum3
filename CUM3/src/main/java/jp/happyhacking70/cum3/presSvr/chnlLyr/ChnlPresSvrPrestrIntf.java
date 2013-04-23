@@ -12,7 +12,7 @@ import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudNotExist;
  * @author happyhacking70@gmail.com
  * 
  */
-public interface ChnlPrestrIntf {
+public interface ChnlPresSvrPrestrIntf {
 
 	/**
 	 * <UL>
