@@ -54,6 +54,7 @@ public class ResCmdJoinSeshTest extends ResCmdSeshAudTestAbst {
 	 * 
 	 * @see jp.happyhacking70.cum3.cmd.ResCmdTestIntf#getNormalRslt()
 	 */
+	@Override
 	public String getNormalRslt() {
 		return rslt.name();
 
