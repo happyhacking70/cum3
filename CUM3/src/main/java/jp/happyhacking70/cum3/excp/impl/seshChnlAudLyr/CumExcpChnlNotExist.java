@@ -9,7 +9,7 @@ import jp.happyhacking70.cum3.excp.CumExcpSeshChnlAbst;
  * @author happyhacking70@gmail.com
  * 
  */
-public class CumExcpChnlNotEixt extends CumExcpSeshChnlAbst {
+public class CumExcpChnlNotExist extends CumExcpSeshChnlAbst {
 
 	private static final long serialVersionUID = 1L;
 
@@ -17,7 +17,7 @@ public class CumExcpChnlNotEixt extends CumExcpSeshChnlAbst {
 	 * @param seshName
 	 * @param chnlName
 	 */
-	public CumExcpChnlNotEixt(String seshName, String chnlName) {
+	public CumExcpChnlNotExist(String seshName, String chnlName) {
 		super(seshName, chnlName);
 	}
 

@@ -12,7 +12,7 @@ import jp.happyhacking70.cum3.cmd.impl.NtfyCmdRegChnl;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdRjctChnl;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudNotExist;
-import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpChnlNotEixt;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpChnlNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshNotExist;
 import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderAbst;
@@ -62,12 +62,12 @@ public interface SeshMgrPresSvrAudIntf {
 	 * @param chnlName
 	 * @param audName
 	 * @throws CumExcpSeshNotExist
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpAudNotExist
 	 * @throws CumExcpAudExists
 	 */
 	public void joinChnl(String seshName, String chnlName, String audName)
-			throws CumExcpSeshNotExist, CumExcpChnlNotEixt, CumExcpAudExists,
+			throws CumExcpSeshNotExist, CumExcpChnlNotExist, CumExcpAudExists,
 			CumExcpAudNotExist;
 
 	/**
@@ -83,10 +83,10 @@ public interface SeshMgrPresSvrAudIntf {
 	 * @param audName
 	 * @throws CumExcpSeshNotExist
 	 * @throws CumExcpAudExists
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 */
 	public void rjctChnl(String seshName, String chnlName, String audName)
-			throws CumExcpSeshNotExist, CumExcpChnlNotEixt, CumExcpAudExists;
+			throws CumExcpSeshNotExist, CumExcpChnlNotExist, CumExcpAudExists;
 
 	/**
 	 * <UL>
@@ -100,11 +100,11 @@ public interface SeshMgrPresSvrAudIntf {
 	 * @param chnlName
 	 * @param audName
 	 * @throws CumExcpSeshNotExist
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpAudNotExist
 	 */
 	public void lvChnl(String seshName, String chnlName, String audName)
-			throws CumExcpSeshNotExist, CumExcpChnlNotEixt, CumExcpAudNotExist;
+			throws CumExcpSeshNotExist, CumExcpChnlNotExist, CumExcpAudNotExist;
 
 	/**
 	 * <UL>
@@ -135,10 +135,10 @@ public interface SeshMgrPresSvrAudIntf {
 	 * @param rscName
 	 * @return channel resource
 	 * @throws CumExcpSeshNotExist
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpRscNotExist
 	 */
 	public ChnlRscIntf getRsc(String seshName, String chnlName, String rscName)
-			throws CumExcpSeshNotExist, CumExcpChnlNotEixt, CumExcpRscNotExist;
+			throws CumExcpSeshNotExist, CumExcpChnlNotExist, CumExcpRscNotExist;
 
 }

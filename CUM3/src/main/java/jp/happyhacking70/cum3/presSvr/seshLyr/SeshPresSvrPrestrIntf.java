@@ -12,7 +12,7 @@ import jp.happyhacking70.cum3.cmd.impl.NtfyCmdClsSesh;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdRegChnl;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpChnlExists;
-import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpChnlNotEixt;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpChnlNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNull;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcptNullRsces;
@@ -25,11 +25,11 @@ public interface SeshPresSvrPrestrIntf {
 
 	/**
 	 * <UL>
-	 * <LI><B>send NtfyCmdClsSesh to all <U>session</U> audiences</B></LI>
-	 * <LI><B>no need to send NtfyCmdClsChnl to presenter because presenter
-	 * takes care of closing channels when session is closed</B></LI>
-	 * <LI><B>no need to send NtfyCmdClsChnl to audiences because audience takes
-	 * care of closing channels when session is closed</B></LI>
+	 * <LI>send NtfyCmdClsSesh to all <U>session</U> audiences</LI>
+	 * <LI>no need to send NtfyCmdClsChnl to presenter because presenter takes
+	 * care of closing channels when session is closed</LI>
+	 * <LI>no need to send NtfyCmdClsChnl to audiences because audience takes
+	 * care of closing channels when session is closed</LI>
 	 * </UL>
 	 * 
 	 * 
@@ -41,8 +41,8 @@ public interface SeshPresSvrPrestrIntf {
 
 	/**
 	 * <UL>
-	 * <LI><B>Create new channel</B></LI>
-	 * <LI><B>Send NtfyCmdRegChnl to <U>session</U> audiences</B></LI>
+	 * <LI>Create new channel</LI>
+	 * <LI>Send NtfyCmdRegChnl to <U>session</U> audiences</LI>
 	 * </UL>
 	 * 
 	 * @see NtfyCmdRegChnl
@@ -60,8 +60,8 @@ public interface SeshPresSvrPrestrIntf {
 
 	/**
 	 * <UL>
-	 * <LI><B>send NtfyCmdClsChnl to all <U>session</U> audiences</B></LI>
-	 * <LI><B>close channel</B></LI>
+	 * <LI>send NtfyCmdClsChnl to all <U>session</U> audiences</LI>
+	 * <LI>close channel</LI>
 	 * </UL>
 	 * Even audience rejected channel, audience will maintain channel so that
 	 * he/she can join later. Audience should be notified when channel is
@@ -72,31 +72,31 @@ public interface SeshPresSvrPrestrIntf {
 	 * @param chnlName
 	 * 
 	 */
-	public void clsChnl(String chnlName) throws CumExcpChnlNotEixt;
+	public void clsChnl(String chnlName) throws CumExcpChnlNotExist;
 
 	/**
 	 * <UL>
-	 * <LI><B>send command to <U>specific</U> audience</B></LI>
+	 * <LI>send command to <U>specific</U> audience</LI>
 	 * </UL>
 	 * 
 	 * @param cmd
 	 * @param audName
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpAudNotExist
 	 */
 	public void sendChnlCmd(CmdChnlAbst cmd, String audName)
-			throws CumExcpChnlNotEixt, CumExcpAudNotExist;
+			throws CumExcpChnlNotExist, CumExcpAudNotExist;
 
 	/**
 	 * <UL>
-	 * <LI><B>send command to all <U>channel</U> audiences</B></LI>
+	 * <LI>send command to all <U>channel</U> audiences</LI>
 	 * </UL>
 	 * 
 	 * @param cmd
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpAudNotExist
 	 */
-	public void sendChnlCmd(CmdChnlAbst cmd) throws CumExcpChnlNotEixt,
+	public void sendChnlCmd(CmdChnlAbst cmd) throws CumExcpChnlNotExist,
 			CumExcpAudNotExist;
 
 }

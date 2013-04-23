@@ -12,7 +12,7 @@ import jp.happyhacking70.cum3.cmd.impl.NtfyCmdRegChnl;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdRjctChnl;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudNotExist;
-import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpChnlNotEixt;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpChnlNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNotExist;
 import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderAbst;
 
@@ -24,10 +24,9 @@ public interface SeshPresSvrAudIntf {
 
 	/**
 	 * <UL>
-	 * <LI><B>add audience to session</B></LI>
-	 * <LI><B>send NtfyCmdJoinSesh to <U>presenter</U></B></LI>
-	 * <LI><B>send NtfyCmdRegChnl to <U>audience</U> for all existing
-	 * channels</B></LI>
+	 * <LI>add audience to session</LI>
+	 * <LI>send NtfyCmdJoinSesh to <U>presenter</U></LI>
+	 * <LI>send NtfyCmdRegChnl to <U>audience</U> for all existing channels</LI>
 	 * </UL>
 	 * 
 	 * @see NtfyCmdJoinSesh
@@ -42,14 +41,14 @@ public interface SeshPresSvrAudIntf {
 
 	/**
 	 * <UL>
-	 * <LI><B>remove audience from session</B></LI>
-	 * <LI><B>let audience leave from all the channels which audience is still
-	 * joining</B></LI>
-	 * <LI><B>no need to send NtfyCmdLvChnl to <U>presenter</U> because
-	 * presenter takes care of it</B></LI>
-	 * <LI><B>no need to send NtfyCmdLvChnl to <U>audience</U> because audience
-	 * takes care of it</B></LI>
-	 * <LI><B>send NtfyCmdLvSesh to <U>presenter</U></B></LI>
+	 * <LI>remove audience from session</LI>
+	 * <LI>let audience leave from all the channels which audience is still
+	 * joining</LI>
+	 * <LI>no need to send NtfyCmdLvChnl to <U>presenter</U> because presenter
+	 * takes care of it</LI>
+	 * <LI>no need to send NtfyCmdLvChnl to <U>audience</U> because audience
+	 * takes care of it</LI>
+	 * <LI>send NtfyCmdLvSesh to <U>presenter</U></LI>
 	 * </UL>
 	 * 
 	 * @see NtfyCmdLvChnl
@@ -62,52 +61,52 @@ public interface SeshPresSvrAudIntf {
 
 	/**
 	 * <UL>
-	 * <LI><B>add audience to channel</B></LI>
-	 * <LI><B>send NtfyCmdJoinChnl to <U>presenter</U></B></LI>
+	 * <LI>add audience to channel</LI>
+	 * <LI>send NtfyCmdJoinChnl to <U>presenter</U></LI>
 	 * </UL>
 	 * 
 	 * @see NtfyCmdJoinChnl
 	 * 
 	 * @param chnlName
 	 * @param audName
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpAudNotExist
 	 * @throws CumExcpAudExists
 	 */
 	public void joinChnl(String chnlName, String audName)
-			throws CumExcpChnlNotEixt, CumExcpAudNotExist, CumExcpAudExists;
+			throws CumExcpChnlNotExist, CumExcpAudNotExist, CumExcpAudExists;
 
 	/**
 	 * <UL>
-	 * <LI><B>remove audience from channel</B></LI>
-	 * <LI><B>send NtfyCmdLvChnl to <U>presenter</U></B></LI>
+	 * <LI>remove audience from channel</LI>
+	 * <LI>send NtfyCmdLvChnl to <U>presenter</U></LI>
 	 * </UL>
 	 * 
 	 * @see NtfyCmdLvChnl
 	 * 
 	 * @param chnlName
 	 * @param audName
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpAudNotExist
 	 */
 	public void lvChnl(String chnlName, String audName)
-			throws CumExcpChnlNotEixt, CumExcpAudNotExist;
+			throws CumExcpChnlNotExist, CumExcpAudNotExist;
 
 	/**
 	 * <UL>
-	 * <LI><B>checks if audience is new comer</B></LI>
-	 * <LI><B>send NtfyCmdRjctChnl to <U>presenter</U></B></LI>
+	 * <LI>checks if audience is new comer</LI>
+	 * <LI>send NtfyCmdRjctChnl to <U>presenter</U></LI>
 	 * </UL>
 	 * 
 	 * @see NtfyCmdRjctChnl
 	 * 
 	 * @param chnlName
 	 * @param audName
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpAudExists
 	 */
 	public void rjctChnl(String chnlName, String audName)
-			throws CumExcpChnlNotEixt, CumExcpAudExists;
+			throws CumExcpChnlNotExist, CumExcpAudExists;
 
 	/**
 	 * get channel resource
@@ -115,10 +114,10 @@ public interface SeshPresSvrAudIntf {
 	 * @param chnlName
 	 * @param rscName
 	 * @return channel resource
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpRscNotExist
 	 */
 	public ChnlRscIntf getRsc(String chnlName, String rscName)
-			throws CumExcpChnlNotEixt, CumExcpRscNotExist;
+			throws CumExcpChnlNotExist, CumExcpRscNotExist;
 
 }

@@ -17,7 +17,6 @@ public class Aud implements AudIntf {
 	/**
 	 * @param audName
 	 * @param sender
-	 * @param acpter
 	 */
 	public Aud(String audName, CmdSenderAbst sender) {
 		super();

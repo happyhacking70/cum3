@@ -20,7 +20,7 @@ import jp.happyhacking70.cum3.cmd.impl.NtfyCmdRjctChnl;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpChnlExists;
-import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpChnlNotEixt;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpChnlNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNull;
@@ -63,7 +63,7 @@ public class SeshPresSvr implements SeshPresSvrAudIntf, SeshPresSvrPrestrIntf {
 
 	/**
 	 * @param audName
-	 * @return
+	 * @return audience
 	 * @throws CumExcpAudNotExist
 	 */
 	protected AudIntf getAud(String audName) throws CumExcpAudNotExist {
@@ -77,14 +77,14 @@ public class SeshPresSvr implements SeshPresSvrAudIntf, SeshPresSvrPrestrIntf {
 
 	/**
 	 * @param chnlName
-	 * @return
-	 * @throws CumExcpChnlNotEixt
+	 * @return channel
+	 * @throws CumExcpChnlNotExist
 	 */
-	protected ChnlPresSvr getChnl(String chnlName) throws CumExcpChnlNotEixt {
+	protected ChnlPresSvr getChnl(String chnlName) throws CumExcpChnlNotExist {
 
 		ChnlPresSvr chnl = chnls.get(chnlName);
 		if (chnl == null) {
-			throw new CumExcpChnlNotEixt(seshName, chnlName);
+			throw new CumExcpChnlNotExist(seshName, chnlName);
 		}
 		return chnl;
 	}
@@ -139,7 +139,7 @@ public class SeshPresSvr implements SeshPresSvrAudIntf, SeshPresSvrPrestrIntf {
 	 */
 	@Override
 	synchronized public void sendChnlCmd(CmdChnlAbst cmd, String audName)
-			throws CumExcpChnlNotEixt, CumExcpAudNotExist {
+			throws CumExcpChnlNotExist, CumExcpAudNotExist {
 
 		String chnlName = cmd.getChnlName();
 
@@ -165,7 +165,7 @@ public class SeshPresSvr implements SeshPresSvrAudIntf, SeshPresSvrPrestrIntf {
 	 */
 	@Override
 	synchronized public void sendChnlCmd(CmdChnlAbst cmd)
-			throws CumExcpChnlNotEixt, CumExcpAudNotExist {
+			throws CumExcpChnlNotExist, CumExcpAudNotExist {
 
 		String chnlName = cmd.getChnlName();
 		ChnlPresSvr chnl;
@@ -190,7 +190,7 @@ public class SeshPresSvr implements SeshPresSvrAudIntf, SeshPresSvrPrestrIntf {
 	 * .String)
 	 */
 	@Override
-	synchronized public void clsChnl(String chnlName) throws CumExcpChnlNotEixt {
+	synchronized public void clsChnl(String chnlName) throws CumExcpChnlNotExist {
 		ChnlPresSvr chnl;
 
 		chnl = getChnl(chnlName);
@@ -246,7 +246,7 @@ public class SeshPresSvr implements SeshPresSvrAudIntf, SeshPresSvrPrestrIntf {
 	 */
 	@Override
 	synchronized public void joinChnl(String chnlName, String audName)
-			throws CumExcpChnlNotEixt, CumExcpAudExists, CumExcpAudNotExist {
+			throws CumExcpChnlNotExist, CumExcpAudExists, CumExcpAudNotExist {
 		ChnlPresSvr chnl;
 		chnl = getChnl(chnlName);
 		AudIntf aud;
@@ -277,7 +277,7 @@ public class SeshPresSvr implements SeshPresSvrAudIntf, SeshPresSvrPrestrIntf {
 	 */
 	@Override
 	synchronized public void lvChnl(String chnlName, String audName)
-			throws CumExcpChnlNotEixt, CumExcpAudNotExist {
+			throws CumExcpChnlNotExist, CumExcpAudNotExist {
 		ChnlPresSvr chnl = getChnl(chnlName);
 		AudIntf aud = null;
 		try {
@@ -302,12 +302,12 @@ public class SeshPresSvr implements SeshPresSvrAudIntf, SeshPresSvrPrestrIntf {
 	 */
 	@Override
 	synchronized public ChnlRscIntf getRsc(String chnlName, String rscName)
-			throws CumExcpChnlNotEixt, CumExcpRscNotExist {
+			throws CumExcpChnlNotExist, CumExcpRscNotExist {
 		ChnlPresSvr chnl;
 		try {
 			chnl = getChnl(chnlName);
-		} catch (CumExcpChnlNotEixt e) {
-			throw new CumExcpChnlNotEixt(seshName, chnlName);
+		} catch (CumExcpChnlNotExist e) {
+			throw new CumExcpChnlNotExist(seshName, chnlName);
 		}
 		ChnlRscIntf rsc = null;
 		try {
@@ -379,7 +379,7 @@ public class SeshPresSvr implements SeshPresSvrAudIntf, SeshPresSvrPrestrIntf {
 	 */
 	@Override
 	public void rjctChnl(String chnlName, String audName)
-			throws CumExcpChnlNotEixt, CumExcpAudExists {
+			throws CumExcpChnlNotExist, CumExcpAudExists {
 		ChnlPresSvr chnl = getChnl(chnlName);
 		try {
 			chnl.rjctChnl(audName);
@@ -387,7 +387,7 @@ public class SeshPresSvr implements SeshPresSvrAudIntf, SeshPresSvrPrestrIntf {
 			throw new CumExcpAudExists(seshName, e);
 		}
 
-		NtfyCmdRjctChnl cmd = new NtfyCmdRjctChnl(audName, chnlName, audName);
+		NtfyCmdRjctChnl cmd = new NtfyCmdRjctChnl(seshName, chnlName, audName);
 
 		sendCmdToPrestr(cmd);
 	}
@@ -399,4 +399,5 @@ public class SeshPresSvr implements SeshPresSvrAudIntf, SeshPresSvrPrestrIntf {
 		sender.sendCmd(cmd);
 
 	}
+
 }

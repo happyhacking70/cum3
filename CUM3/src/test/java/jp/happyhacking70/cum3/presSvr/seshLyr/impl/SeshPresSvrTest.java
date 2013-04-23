@@ -12,11 +12,13 @@ import java.util.ArrayList;
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscImg;
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdClsChnl;
+import jp.happyhacking70.cum3.cmd.impl.NtfyCmdClsSesh;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdJoinChnl;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdJoinSesh;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdLvChnl;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdLvSesh;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdRegChnl;
+import jp.happyhacking70.cum3.cmd.impl.NtfyCmdRjctChnl;
 import jp.happyhacking70.cum3.comLyr.DummySender;
 import jp.happyhacking70.cum3.comLyr.DummySrvAdm;
 import jp.happyhacking70.cum3.excp.impl.CumExcpComError;
@@ -24,7 +26,7 @@ import jp.happyhacking70.cum3.excp.impl.CumExcpXMLGenFailed;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpChnlExists;
-import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpChnlNotEixt;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpChnlNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNull;
@@ -70,14 +72,14 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpAudNotExist
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpAudExists
 	 * @throws CumExcpComError
 	 * @throws CumExcpXMLGenFailed
 	 */
 	@Test
 	public void testRegChnl_OK() throws CumExcpChnlExists, CumExcpRscExists,
-			CumExcptNullRsces, CumExcpRscNull, CumExcpChnlNotEixt,
+			CumExcptNullRsces, CumExcpRscNull, CumExcpChnlNotExist,
 			CumExcpAudNotExist, CumExcpAudExists, CumExcpComError,
 			CumExcpXMLGenFailed {
 		DummySender senderForPresenter = new DummySender(new DummySrvAdm());
@@ -120,13 +122,13 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpAudNotExist
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpComError
 	 */
 	@Test(expected = CumExcpChnlExists.class)
 	public void testRegChnl_ChnlExists() throws CumExcpChnlExists,
 			CumExcpRscExists, CumExcptNullRsces, CumExcpRscNull,
-			CumExcpChnlNotEixt, CumExcpAudNotExist, CumExcpComError {
+			CumExcpChnlNotExist, CumExcpAudNotExist, CumExcpComError {
 		SeshPresSvr sesh = new SeshPresSvr(seshName, new DummySender(
 				new DummySrvAdm()));
 		sesh.regChnl(chnlName, new ArrayList<ChnlRscIntf>());
@@ -143,13 +145,13 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpAudNotExist
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpComError
 	 */
 	@Test(expected = CumExcptNullRsces.class)
 	public void testRegChnl_NulRsces() throws CumExcpChnlExists,
 			CumExcpRscExists, CumExcptNullRsces, CumExcpRscNull,
-			CumExcpChnlNotEixt, CumExcpAudNotExist, CumExcpComError {
+			CumExcpChnlNotExist, CumExcpAudNotExist, CumExcpComError {
 		SeshPresSvr sesh = new SeshPresSvr(seshName, new DummySender(
 				new DummySrvAdm()));
 		sesh.regChnl(chnlName, null);
@@ -165,13 +167,13 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpAudNotExist
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpComError
 	 */
 	@Test(expected = CumExcpRscNull.class)
 	public void testRegChnl_NulRsce() throws CumExcpChnlExists,
 			CumExcpRscExists, CumExcptNullRsces, CumExcpRscNull,
-			CumExcpChnlNotEixt, CumExcpAudNotExist, CumExcpComError {
+			CumExcpChnlNotExist, CumExcpAudNotExist, CumExcpComError {
 		SeshPresSvr sesh = new SeshPresSvr(seshName, new DummySender(
 				new DummySrvAdm()));
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
@@ -192,13 +194,13 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpAudNotExist
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpComError
 	 */
 	@Test(expected = CumExcpRscExists.class)
 	public void testRegChnl_rscExists() throws CumExcpChnlExists,
 			CumExcpRscExists, CumExcptNullRsces, CumExcpRscNull,
-			CumExcpChnlNotEixt, CumExcpAudNotExist, CumExcpComError {
+			CumExcpChnlNotExist, CumExcpAudNotExist, CumExcpComError {
 		SeshPresSvr sesh = new SeshPresSvr(seshName, new DummySender(
 				new DummySrvAdm()));
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
@@ -218,12 +220,12 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpRscNotExist
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testGetRsc_OK() throws CumExcpChnlExists, CumExcpRscExists,
-			CumExcptNullRsces, CumExcpRscNull, CumExcpChnlNotEixt,
+			CumExcptNullRsces, CumExcpRscNull, CumExcpChnlNotExist,
 			CumExcpRscNotExist, CumExcpComError {
 		SeshPresSvr sesh = new SeshPresSvr(seshName, new DummySender(
 				new DummySrvAdm()));
@@ -251,13 +253,13 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpRscExists
 	 * @throws CumExcptNullRsces
 	 * @throws CumExcpRscNull
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpComError
 	 * @throws CumExcpRscNotExist
 	 */
 	@Test
 	public void testGetRsc_NoRsc() throws CumExcpChnlExists, CumExcpRscExists,
-			CumExcptNullRsces, CumExcpRscNull, CumExcpChnlNotEixt,
+			CumExcptNullRsces, CumExcpRscNull, CumExcpChnlNotExist,
 			CumExcpComError {
 		SeshPresSvr sesh = new SeshPresSvr(seshName, new DummySender(
 				new DummySrvAdm()));
@@ -295,14 +297,14 @@ public class SeshPresSvrTest {
 
 		try {
 			sesh.getRsc("NOCHNL", "junk");
-		} catch (CumExcpChnlNotEixt e) {
+		} catch (CumExcpChnlNotExist e) {
 			assertEquals(seshName, e.getSeshName());
 			assertEquals("NOCHNL", e.getChnlName());
 			ok = true;
 		}
 
 		if (ok == false) {
-			fail("CumExcpChnlNotEixt was not caught");
+			fail("CumExcpChnlNotExist was not caught");
 		}
 	}
 
@@ -316,7 +318,7 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpAudExists
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpAudNotExist
 	 * @throws CumExcpComError
 	 * @throws CumExcpXMLGenFailed
@@ -324,7 +326,7 @@ public class SeshPresSvrTest {
 	@Test
 	public void testSendChnlCmdToAud() throws CumExcpRscExists,
 			CumExcpChnlExists, CumExcptNullRsces, CumExcpRscNull,
-			CumExcpAudExists, CumExcpAudNotExist, CumExcpChnlNotEixt,
+			CumExcpAudExists, CumExcpAudNotExist, CumExcpChnlNotExist,
 			CumExcpComError, CumExcpXMLGenFailed {
 
 		DummySender senderForPrestr = new DummySender(new DummySrvAdm());
@@ -360,7 +362,7 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpAudExists
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpAudNotExist
 	 * @throws CumExcpComError
 	 */
@@ -381,7 +383,7 @@ public class SeshPresSvrTest {
 		try {
 			sesh.sendChnlCmd(cmd, "audA");
 
-		} catch (CumExcpChnlNotEixt e) {
+		} catch (CumExcpChnlNotExist e) {
 
 			assertEquals(seshName, e.getSeshName());
 			assertEquals("NOCHNL", e.getChnlName());
@@ -389,7 +391,7 @@ public class SeshPresSvrTest {
 			ok = true;
 		}
 		if (ok == false) {
-			fail("CumExcpChnlNotEixt not caught");
+			fail("CumExcpChnlNotExist not caught");
 		}
 
 	}
@@ -404,14 +406,14 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpAudExists
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpComError
 	 * @throws CumExcpAudNotExist
 	 */
 	@Test
 	public void testSendChnlCmdToAudNoAud() throws CumExcpRscExists,
 			CumExcpChnlExists, CumExcptNullRsces, CumExcpRscNull,
-			CumExcpAudExists, CumExcpChnlNotEixt, CumExcpComError {
+			CumExcpAudExists, CumExcpChnlNotExist, CumExcpComError {
 		DummySender senderForPrestr = new DummySender(new DummySrvAdm());
 		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr);
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
@@ -449,7 +451,7 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpAudExists
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpAudNotExist
 	 * @throws CumExcpComError
 	 * @throws CumExcpXMLGenFailed
@@ -457,7 +459,7 @@ public class SeshPresSvrTest {
 	@Test
 	public void testSendChnlCmdToAuds_OK() throws CumExcpRscExists,
 			CumExcpChnlExists, CumExcptNullRsces, CumExcpRscNull,
-			CumExcpAudExists, CumExcpAudNotExist, CumExcpChnlNotEixt,
+			CumExcpAudExists, CumExcpAudNotExist, CumExcpChnlNotExist,
 			CumExcpComError, CumExcpXMLGenFailed {
 		DummySender senderForPrestr = new DummySender(new DummySrvAdm());
 		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr);
@@ -497,7 +499,7 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpAudExists
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpAudNotExist
 	 * @throws CumExcpComError
 	 */
@@ -516,7 +518,7 @@ public class SeshPresSvrTest {
 		try {
 			sesh.sendChnlCmd(cmd);
 
-		} catch (CumExcpChnlNotEixt e) {
+		} catch (CumExcpChnlNotExist e) {
 
 			assertEquals(seshName, e.getSeshName());
 			assertEquals("NOCHNL", e.getChnlName());
@@ -524,7 +526,7 @@ public class SeshPresSvrTest {
 			ok = true;
 		}
 		if (ok == false) {
-			fail("CumExcpChnlNotEixt not caught");
+			fail("CumExcpChnlNotExist not caught");
 		}
 
 	}
@@ -539,7 +541,7 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpAudExists
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpAudNotExist
 	 * @throws CumExcpComError
 	 * @throws CumExcpXMLGenFailed
@@ -547,7 +549,7 @@ public class SeshPresSvrTest {
 	@Test
 	public void testClsChnl_OK() throws CumExcpRscExists, CumExcpChnlExists,
 			CumExcptNullRsces, CumExcpRscNull, CumExcpAudExists,
-			CumExcpChnlNotEixt, CumExcpAudNotExist, CumExcpComError,
+			CumExcpChnlNotExist, CumExcpAudNotExist, CumExcpComError,
 			CumExcpXMLGenFailed {
 
 		DummySender senderForPrestr = new DummySender(new DummySrvAdm());
@@ -586,7 +588,7 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpAudExists
 	 * @throws CumExcpComError
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 */
 	@Test
 	public void testClsChnl_NOCHNL() throws CumExcpAudExists, CumExcpRscExists,
@@ -605,7 +607,7 @@ public class SeshPresSvrTest {
 		boolean ok = false;
 		try {
 			sesh.clsChnl("NOCHNL");
-		} catch (CumExcpChnlNotEixt e) {
+		} catch (CumExcpChnlNotExist e) {
 			assertEquals(seshName, e.getSeshName());
 			assertEquals("NOCHNL", e.getChnlName());
 
@@ -613,7 +615,7 @@ public class SeshPresSvrTest {
 		}
 
 		if (ok == false) {
-			fail("CumExcpChnlNotEixt not caught");
+			fail("CumExcpChnlNotExist not caught");
 		}
 	}
 
@@ -702,7 +704,7 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpAudExists
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpAudNotExist
 	 * @throws CumExcpComError
 	 * @throws CumExcpXMLGenFailed
@@ -710,7 +712,7 @@ public class SeshPresSvrTest {
 	@Test
 	public void testJoinChnl_OK() throws CumExcpRscExists, CumExcpChnlExists,
 			CumExcptNullRsces, CumExcpRscNull, CumExcpAudExists,
-			CumExcpAudNotExist, CumExcpChnlNotEixt, CumExcpComError,
+			CumExcpAudNotExist, CumExcpChnlNotExist, CumExcpComError,
 			CumExcpXMLGenFailed {
 		DummySender senderForPrestr = new DummySender(new DummySrvAdm());
 		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPrestr);
@@ -740,7 +742,7 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpAudExists
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpAudNotExist
 	 * @throws CumExcpComError
 	 */
@@ -762,13 +764,13 @@ public class SeshPresSvrTest {
 		boolean ok = false;
 		try {
 			sesh.joinChnl("NOCHNL", "audA");
-		} catch (CumExcpChnlNotEixt e) {
+		} catch (CumExcpChnlNotExist e) {
 			assertEquals(seshName, e.getSeshName());
 			assertEquals("NOCHNL", e.getChnlName());
 			ok = true;
 		}
 		if (ok == false) {
-			fail("CumExcpChnlNotEixt no caught");
+			fail("CumExcpChnlNotExist no caught");
 		}
 	}
 
@@ -782,13 +784,13 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpAudExists
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpComError
 	 * @throws CumExcpAudNotExist
 	 */
 	@Test
 	public void testJoinChnl_NOAUD() throws CumExcpAudExists,
-			CumExcpChnlNotEixt, CumExcpRscExists, CumExcpChnlExists,
+			CumExcpChnlNotExist, CumExcpRscExists, CumExcpChnlExists,
 			CumExcptNullRsces, CumExcpRscNull, CumExcpComError {
 
 		DummySender senderForPrestr = new DummySender(new DummySrvAdm());
@@ -826,13 +828,13 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpAudExists
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpAudNotExist
 	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testJoinChnl_AUDEXISTS() throws CumExcpAudNotExist,
-			CumExcpChnlNotEixt, CumExcpAudExists, CumExcpRscExists,
+			CumExcpChnlNotExist, CumExcpAudExists, CumExcpRscExists,
 			CumExcpChnlExists, CumExcptNullRsces, CumExcpRscNull,
 			CumExcpComError {
 		DummySender senderForPrestr = new DummySender(new DummySrvAdm());
@@ -871,7 +873,7 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpAudExists
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpAudNotExist
 	 * @throws CumExcpComError
 	 * @throws CumExcpXMLGenFailed
@@ -879,7 +881,7 @@ public class SeshPresSvrTest {
 	@Test
 	public void testLvChnl() throws CumExcpRscExists, CumExcpChnlExists,
 			CumExcptNullRsces, CumExcpRscNull, CumExcpAudExists,
-			CumExcpAudNotExist, CumExcpChnlNotEixt, CumExcpComError,
+			CumExcpAudNotExist, CumExcpChnlNotExist, CumExcpComError,
 			CumExcpXMLGenFailed {
 
 		DummySender senderForPresenter = new DummySender(new DummySrvAdm());
@@ -913,13 +915,13 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpAudExists
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpAudNotExist
 	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testLvChnl_NOCHNL() throws CumExcpAudNotExist,
-			CumExcpAudExists, CumExcpChnlNotEixt, CumExcpRscExists,
+			CumExcpAudExists, CumExcpChnlNotExist, CumExcpRscExists,
 			CumExcpChnlExists, CumExcptNullRsces, CumExcpRscNull,
 			CumExcpComError {
 
@@ -941,14 +943,14 @@ public class SeshPresSvrTest {
 		boolean ok = false;
 		try {
 			sesh.lvChnl("NOCHNL", "audA");
-		} catch (CumExcpChnlNotEixt e) {
+		} catch (CumExcpChnlNotExist e) {
 			assertEquals(seshName, e.getSeshName());
 			assertEquals("NOCHNL", e.getChnlName());
 			ok = true;
 		}
 
 		if (ok == false) {
-			fail("CumExcpChnlNotEixt not caught");
+			fail("CumExcpChnlNotExist not caught");
 		}
 
 	}
@@ -963,14 +965,15 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpAudExists
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpAudNotExist
 	 * @throws CumExcpComError
 	 */
 	@Test
-	public void testLvChnl_NOAUD() throws CumExcpChnlNotEixt, CumExcpAudExists,
-			CumExcpAudNotExist, CumExcpRscExists, CumExcpChnlExists,
-			CumExcptNullRsces, CumExcpRscNull, CumExcpComError {
+	public void testLvChnl_NOAUD() throws CumExcpChnlNotExist,
+			CumExcpAudExists, CumExcpAudNotExist, CumExcpRscExists,
+			CumExcpChnlExists, CumExcptNullRsces, CumExcpRscNull,
+			CumExcpComError {
 
 		DummySender senderForPresenter = new DummySender(new DummySrvAdm());
 		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPresenter);
@@ -999,7 +1002,7 @@ public class SeshPresSvrTest {
 		}
 
 		if (ok == false) {
-			fail("CumExcpChnlNotEixt not caught");
+			fail("CumExcpChnlNotExist not caught");
 		}
 
 	}
@@ -1014,7 +1017,7 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpAudExists
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpAudNotExist
 	 * @throws CumExcpComError
 	 * @throws CumExcpXMLGenFailed
@@ -1022,7 +1025,7 @@ public class SeshPresSvrTest {
 	@Test
 	public void testLvSesh() throws CumExcpRscExists, CumExcpChnlExists,
 			CumExcptNullRsces, CumExcpRscNull, CumExcpAudExists,
-			CumExcpAudNotExist, CumExcpChnlNotEixt, CumExcpComError,
+			CumExcpAudNotExist, CumExcpChnlNotExist, CumExcpComError,
 			CumExcpXMLGenFailed {
 		DummySender senderForPresenter = new DummySender(new DummySrvAdm());
 		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPresenter);
@@ -1056,13 +1059,13 @@ public class SeshPresSvrTest {
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpRscExists
 	 * @throws CumExcpAudExists
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpAudNotExist
 	 * @throws CumExcpComError
 	 */
 	@Test
 	public void testLvSesh_NOAUD() throws CumExcpAudExists, CumExcpAudNotExist,
-			CumExcpChnlNotEixt, CumExcpRscExists, CumExcpChnlExists,
+			CumExcpChnlNotExist, CumExcpRscExists, CumExcpChnlExists,
 			CumExcptNullRsces, CumExcpRscNull, CumExcpComError {
 		DummySender senderForPresenter = new DummySender(new DummySrvAdm());
 		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPresenter);
@@ -1093,4 +1096,183 @@ public class SeshPresSvrTest {
 		}
 	}
 
+	/**
+	 * Test method for
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshPresSvr#clsSesh()}
+	 * .
+	 * 
+	 * @throws CumExcpRscNull
+	 * @throws CumExcptNullRsces
+	 * @throws CumExcpChnlExists
+	 * @throws CumExcpRscExists
+	 * @throws CumExcpAudExists
+	 * @throws CumExcpChnlNotExist
+	 * @throws CumExcpAudNotExist
+	 * @throws CumExcpXMLGenFailed
+	 */
+	@Test
+	public void testClsSesh() throws CumExcpRscExists, CumExcpChnlExists,
+			CumExcptNullRsces, CumExcpRscNull, CumExcpAudExists,
+			CumExcpAudNotExist, CumExcpChnlNotExist, CumExcpXMLGenFailed {
+		DummySender senderForPresenter = new DummySender(new DummySrvAdm());
+
+		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPresenter);
+
+		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
+		sesh.regChnl(chnlName, rsces);
+
+		DummySender senderForAudA = new DummySender(new DummySrvAdm());
+		sesh.joinSesh("audA", senderForAudA);
+		senderForAudA.pollCmd();
+
+		sesh.joinChnl(chnlName, "audA");
+
+		DummySender senderForAudB = new DummySender(new DummySrvAdm());
+		sesh.joinSesh("audB", senderForAudB);
+		senderForAudB.pollCmd();
+
+		sesh.rjctChnl(chnlName, "audB");
+
+		sesh.clsSesh();
+
+		NtfyCmdClsSesh cmd = new NtfyCmdClsSesh(seshName);
+
+		assertEquals(cmd.toXmlStr(), senderForAudA.pollCmd());
+		assertNull(senderForAudA.pollCmd());
+
+		assertEquals(cmd.toXmlStr(), senderForAudB.pollCmd());
+		assertNull(senderForAudB.pollCmd());
+	}
+
+	/**
+	 * Test method for
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshPresSvr#rjctChnl(java.lang.String, java.lang.String)}
+	 * .
+	 * 
+	 * @throws CumExcpRscNull
+	 * @throws CumExcptNullRsces
+	 * @throws CumExcpChnlExists
+	 * @throws CumExcpRscExists
+	 * @throws CumExcpAudExists
+	 * @throws CumExcpChnlNotExist
+	 * @throws CumExcpXMLGenFailed
+	 */
+	@Test
+	public void testRjctChnl() throws CumExcpRscExists, CumExcpChnlExists,
+			CumExcptNullRsces, CumExcpRscNull, CumExcpAudExists,
+			CumExcpChnlNotExist, CumExcpXMLGenFailed {
+		DummySender senderForPresenter = new DummySender(new DummySrvAdm());
+
+		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPresenter);
+
+		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
+		sesh.regChnl(chnlName, rsces);
+
+		DummySender senderForAudA = new DummySender(new DummySrvAdm());
+		sesh.joinSesh("audA", senderForAudA);
+		senderForAudA.pollCmd();
+		senderForPresenter.pollCmd();
+
+		sesh.rjctChnl(chnlName, "audA");
+		NtfyCmdRjctChnl cmd = new NtfyCmdRjctChnl(seshName, chnlName, "audA");
+		assertEquals(cmd.toXmlStr(), senderForPresenter.pollCmd());
+
+		assertNull(senderForPresenter.pollCmd());
+		assertNull(senderForAudA.pollCmd());
+	}
+
+	/**
+	 * Test method for
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshPresSvr#rjctChnl(java.lang.String, java.lang.String)}
+	 * .
+	 * 
+	 * @throws CumExcpRscNull
+	 * @throws CumExcptNullRsces
+	 * @throws CumExcpChnlExists
+	 * @throws CumExcpRscExists
+	 * @throws CumExcpAudExists
+	 * @throws CumExcpChnlNotExist
+	 * @throws CumExcpAudNotExist
+	 * @throws CumExcpXMLGenFailed
+	 */
+	@Test
+	public void testRjctChnl_NOCHNL() throws CumExcpAudExists,
+			CumExcpChnlNotExist, CumExcpAudNotExist, CumExcpRscExists,
+			CumExcpChnlExists, CumExcptNullRsces, CumExcpRscNull {
+		DummySender senderForPresenter = new DummySender(new DummySrvAdm());
+
+		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPresenter);
+
+		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
+		sesh.regChnl(chnlName, rsces);
+
+		DummySender senderForAudA = new DummySender(new DummySrvAdm());
+		sesh.joinSesh("audA", senderForAudA);
+		senderForAudA.pollCmd();
+		senderForPresenter.pollCmd();
+
+		boolean ok = false;
+		try {
+			sesh.rjctChnl("ZZZ", "audA");
+		} catch (CumExcpChnlNotExist e) {
+			assertEquals(seshName, e.getSeshName());
+			assertEquals("ZZZ", e.getChnlName());
+			ok = true;
+		}
+
+		assertNull(senderForPresenter.pollCmd());
+		if (ok == false) {
+			fail("CumExcpChnlNotExist not caught");
+
+		}
+	}
+
+	/**
+	 * Test method for
+	 * {@link jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshPresSvr#rjctChnl(java.lang.String, java.lang.String)}
+	 * .
+	 * 
+	 * @throws CumExcpRscNull
+	 * @throws CumExcptNullRsces
+	 * @throws CumExcpChnlExists
+	 * @throws CumExcpRscExists
+	 * @throws CumExcpAudExists
+	 * @throws CumExcpChnlNotExist
+	 * @throws CumExcpAudNotExist
+	 * @throws CumExcpXMLGenFailed
+	 */
+	@Test
+	public void testRjctChnl_AUD_EXISTS() throws CumExcpChnlNotExist,
+			CumExcpAudExists, CumExcpRscExists, CumExcpChnlExists,
+			CumExcptNullRsces, CumExcpRscNull, CumExcpAudNotExist {
+		DummySender senderForPresenter = new DummySender(new DummySrvAdm());
+
+		SeshPresSvr sesh = new SeshPresSvr(seshName, senderForPresenter);
+		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
+		sesh.regChnl(chnlName, rsces);
+
+		DummySender senderForAudA = new DummySender(new DummySrvAdm());
+		sesh.joinSesh("audA", senderForAudA);
+		senderForAudA.pollCmd();
+		senderForPresenter.pollCmd();
+		sesh.joinChnl(chnlName, "audA");
+		senderForPresenter.pollCmd();
+		boolean ok = false;
+		try {
+			sesh.rjctChnl(chnlName, "audA");
+
+		} catch (CumExcpAudExists e) {
+			assertEquals(seshName, e.getSeshName());
+			assertEquals(chnlName, e.getChnlName());
+			assertEquals("audA", e.getAudName());
+			ok = true;
+		}
+		assertNull(senderForPresenter.pollCmd());
+		assertNull(senderForAudA.pollCmd());
+		if (ok == false) {
+			fail("CumExcpAudExists not caught");
+
+		}
+	}
+	// TODO aud exists
 }

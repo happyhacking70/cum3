@@ -11,7 +11,7 @@ import jp.happyhacking70.cum3.cmd.CmdChnlAbst;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpChnlExists;
-import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpChnlNotEixt;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpChnlNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNull;
@@ -110,7 +110,7 @@ public class SeshMgrPresSvr implements SeshMgrPresSvrAudIntf,
 	 */
 	@Override
 	public void sendChnlCmd(CmdChnlAbst cmd, String audName)
-			throws CumExcpSeshNotExist, CumExcpChnlNotEixt, CumExcpAudNotExist {
+			throws CumExcpSeshNotExist, CumExcpChnlNotExist, CumExcpAudNotExist {
 		SeshPresSvr sesh = getSesh(cmd.getSeshName());
 		sesh.sendChnlCmd(cmd, audName);
 
@@ -125,7 +125,7 @@ public class SeshMgrPresSvr implements SeshMgrPresSvrAudIntf,
 	 */
 	@Override
 	public void sendChnlCmd(CmdChnlAbst cmd) throws CumExcpSeshNotExist,
-			CumExcpChnlNotEixt, CumExcpAudNotExist {
+			CumExcpChnlNotExist, CumExcpAudNotExist {
 		SeshPresSvr sesh = getSesh(cmd.getSeshName());
 		sesh.sendChnlCmd(cmd);
 
@@ -140,7 +140,7 @@ public class SeshMgrPresSvr implements SeshMgrPresSvrAudIntf,
 	 */
 	@Override
 	public void clsChnl(String seshName, String chnlName)
-			throws CumExcpSeshNotExist, CumExcpChnlNotEixt {
+			throws CumExcpSeshNotExist, CumExcpChnlNotExist {
 
 		SeshPresSvr sesh = getSesh(seshName);
 		sesh.clsChnl(chnlName);
@@ -172,7 +172,7 @@ public class SeshMgrPresSvr implements SeshMgrPresSvrAudIntf,
 	 */
 	@Override
 	public void joinChnl(String seshName, String chnlName, String audName)
-			throws CumExcpSeshNotExist, CumExcpChnlNotEixt, CumExcpAudExists,
+			throws CumExcpSeshNotExist, CumExcpChnlNotExist, CumExcpAudExists,
 			CumExcpAudNotExist {
 		SeshPresSvr sesh = getSesh(seshName);
 		sesh.joinChnl(chnlName, audName);
@@ -187,7 +187,7 @@ public class SeshMgrPresSvr implements SeshMgrPresSvrAudIntf,
 	 */
 	@Override
 	public void rjctChnl(String seshName, String chnlName, String audName)
-			throws CumExcpSeshNotExist, CumExcpChnlNotEixt, CumExcpAudExists {
+			throws CumExcpSeshNotExist, CumExcpChnlNotExist, CumExcpAudExists {
 		SeshPresSvr sesh = getSesh(seshName);
 		sesh.rjctChnl(chnlName, audName);
 	}
@@ -201,7 +201,7 @@ public class SeshMgrPresSvr implements SeshMgrPresSvrAudIntf,
 	 */
 	@Override
 	public void lvChnl(String seshName, String chnlName, String audName)
-			throws CumExcpSeshNotExist, CumExcpChnlNotEixt, CumExcpAudNotExist {
+			throws CumExcpSeshNotExist, CumExcpChnlNotExist, CumExcpAudNotExist {
 		SeshPresSvr sesh = getSesh(seshName);
 		sesh.lvChnl(chnlName, audName);
 	}
@@ -230,7 +230,7 @@ public class SeshMgrPresSvr implements SeshMgrPresSvrAudIntf,
 	 */
 	@Override
 	public ChnlRscIntf getRsc(String seshName, String chnlName, String rscName)
-			throws CumExcpSeshNotExist, CumExcpChnlNotEixt, CumExcpRscNotExist {
+			throws CumExcpSeshNotExist, CumExcpChnlNotExist, CumExcpRscNotExist {
 		SeshPresSvr sesh = getSesh(seshName);
 		ChnlRscIntf rsc = sesh.getRsc(chnlName, rscName);
 		return rsc;

@@ -12,7 +12,7 @@ import jp.happyhacking70.cum3.cmd.impl.NtfyCmdClsSesh;
 import jp.happyhacking70.cum3.cmd.impl.NtfyCmdRegChnl;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpChnlExists;
-import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpChnlNotEixt;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpChnlNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNull;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshExists;
@@ -82,11 +82,11 @@ public interface SeshMgrPresSvrPrestrIntf {
 	 * @param cmd
 	 * @param audName
 	 * @throws CumExcpAudNotExist
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpSeshNotExist
 	 */
 	public void sendChnlCmd(CmdChnlAbst cmd, String audName)
-			throws CumExcpSeshNotExist, CumExcpChnlNotEixt, CumExcpAudNotExist;
+			throws CumExcpSeshNotExist, CumExcpChnlNotExist, CumExcpAudNotExist;
 
 	/**
 	 * <UL>
@@ -95,11 +95,11 @@ public interface SeshMgrPresSvrPrestrIntf {
 	 * 
 	 * @param cmd
 	 * @throws CumExcpSeshNotExist
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 * @throws CumExcpAudNotExist
 	 */
 	public void sendChnlCmd(CmdChnlAbst cmd) throws CumExcpSeshNotExist,
-			CumExcpChnlNotEixt, CumExcpAudNotExist;
+			CumExcpChnlNotExist, CumExcpAudNotExist;
 
 	/**
 	 * <UL>
@@ -111,9 +111,9 @@ public interface SeshMgrPresSvrPrestrIntf {
 	 * @param seshName
 	 * @param chnlName
 	 * @throws CumExcpSeshNotExist
-	 * @throws CumExcpChnlNotEixt
+	 * @throws CumExcpChnlNotExist
 	 */
 	public void clsChnl(String seshName, String chnlName)
-			throws CumExcpSeshNotExist, CumExcpChnlNotEixt;
+			throws CumExcpSeshNotExist, CumExcpChnlNotExist;
 
 }
