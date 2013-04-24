@@ -1,11 +1,11 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.cmd.impl;
+package jp.happyhacking70.cum3.cmd.impl.req;
 
 import jp.happyhacking70.cum3.cmd.CmdAbst;
-import jp.happyhacking70.cum3.cmd.ResCmdSeshTestAbst;
-import jp.happyhacking70.cum3.cmd.impl.res.ResCmdClsSesh;
+import jp.happyhacking70.cum3.cmd.ReqCmdChnlTestAbst;
+import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdClsChnl;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
 import org.junit.BeforeClass;
@@ -15,10 +15,8 @@ import org.w3c.dom.Document;
  * @author happyhacking70@gmail.com
  * 
  */
-public class ResCmdClsSeshTest extends ResCmdSeshTestAbst {
-
-	static final public String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><CUM><CMD ACTION=\"ClsSesh\" RSLT=\"Clsed\" SESH=\"testSession\" TYPE=\"RES\"/></CUM>";
-	static final ResCmdClsSesh.RsltTypes rslt = ResCmdClsSesh.RsltTypes.Clsed;
+public class ReqCmdClsChnlTest extends ReqCmdChnlTestAbst {
+	static String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><CUM><CMD ACTION=\"ClsChnl\" CHNL=\"testChannel\" SESH=\"testSession\" TYPE=\"REQ\"/></CUM>";
 
 	/**
 	 * @throws java.lang.Exception
@@ -30,7 +28,7 @@ public class ResCmdClsSeshTest extends ResCmdSeshTestAbst {
 
 	@Override
 	protected CmdAbst getCmdNormal() {
-		return new ResCmdClsSesh(seshName, rslt);
+		return new ReqCmdClsChnl(seshName, chnlName);
 	}
 
 	@Override
@@ -40,7 +38,7 @@ public class ResCmdClsSeshTest extends ResCmdSeshTestAbst {
 
 	@Override
 	protected String getActionName() {
-		return "ClsSesh";
+		return "ClsChnl";
 	}
 
 	/*
@@ -51,17 +49,7 @@ public class ResCmdClsSeshTest extends ResCmdSeshTestAbst {
 	 */
 	@Override
 	protected CmdAbst getCmdNormal(Document doc) throws CumExcpIllegalCmdDoc {
-		return new ResCmdClsSesh(doc);
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see jp.happyhacking70.cum3.cmd.ResCmdTestIntf#getNormalRslt()
-	 */
-	public String getNormalRslt() {
-		return rslt.name();
-
+		return new ReqCmdClsChnl(doc);
 	}
 
 }

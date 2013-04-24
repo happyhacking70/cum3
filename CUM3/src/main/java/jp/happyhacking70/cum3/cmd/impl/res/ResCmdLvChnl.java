@@ -12,22 +12,20 @@ import org.w3c.dom.Document;
  * @author happyhacking70@gmail.com
  * 
  */
-public class ResCmdJoinChnl extends ResCmdChnlAudAbst {
-
+public class ResCmdLvChnl extends ResCmdChnlAudAbst {
 	/**
 	 * @author happyhacking70@gmail.com
 	 * 
 	 */
 	public enum RsltTypes {
-
-		/** Session Not Exist */
+		/** Session does not exist */
 		SeshNotExist,
-		/** Channel Not Exist */
+		/** Channel does not exist */
+		ChnlNotExist,
+		/** Audience is not joinning the channel */
 		NotExist,
-		/** Successfully joined */
-		Joined,
-		/** Already joined */
-		Exists
+		/** audience left successfully */
+		Left
 
 	}
 
@@ -35,11 +33,17 @@ public class ResCmdJoinChnl extends ResCmdChnlAudAbst {
 	 * @param doc
 	 * @throws CumExcpIllegalCmdDoc
 	 */
-	public ResCmdJoinChnl(Document doc) throws CumExcpIllegalCmdDoc {
+	public ResCmdLvChnl(Document doc) throws CumExcpIllegalCmdDoc {
 		super(doc);
 	}
 
-	public ResCmdJoinChnl(String seshName, String chnlName, String audName,
+	/**
+	 * @param seshName
+	 * @param chnlName
+	 * @param audName
+	 * @param rslt
+	 */
+	public ResCmdLvChnl(String seshName, String chnlName, String audName,
 			String rslt) {
 		super(seshName, chnlName, audName, rslt);
 	}
@@ -51,7 +55,8 @@ public class ResCmdJoinChnl extends ResCmdChnlAudAbst {
 	 */
 	@Override
 	protected void setActionName() {
-		actionName = "JoinChnl";
+		actionName = "LvChnl";
+
 	}
 
 }

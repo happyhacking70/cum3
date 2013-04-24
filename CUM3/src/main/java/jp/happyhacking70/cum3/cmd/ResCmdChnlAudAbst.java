@@ -13,7 +13,8 @@ import org.w3c.dom.Element;
  * @author happyhacking70@gmail.com
  * 
  */
-public abstract class ResCmdChnlAudAbst extends CmdChnlAudAbst {
+public abstract class ResCmdChnlAudAbst extends CmdChnlAudAbst implements
+		ResCmdIntf {
 	protected String rslt;
 
 	/**
@@ -50,6 +51,7 @@ public abstract class ResCmdChnlAudAbst extends CmdChnlAudAbst {
 	 * 
 	 * @see jp.happyhacking70.cum3.cmd.ResCmdIntf#getRslt()
 	 */
+	@Override
 	public final String getRslt() {
 		return rslt;
 	}

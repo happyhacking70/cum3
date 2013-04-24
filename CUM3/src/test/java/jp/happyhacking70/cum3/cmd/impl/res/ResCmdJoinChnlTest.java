@@ -1,11 +1,11 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.cmd.impl;
+package jp.happyhacking70.cum3.cmd.impl.res;
 
 import jp.happyhacking70.cum3.cmd.CmdAbst;
-import jp.happyhacking70.cum3.cmd.ResCmdChnlTestAbst;
-import jp.happyhacking70.cum3.cmd.impl.res.ResCmdClsChnl;
+import jp.happyhacking70.cum3.cmd.ResCmdChnlAudTestAbst;
+import jp.happyhacking70.cum3.cmd.impl.res.ResCmdJoinChnl;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
 import org.junit.BeforeClass;
@@ -15,9 +15,9 @@ import org.w3c.dom.Document;
  * @author happyhacking70@gmail.com
  * 
  */
-public class ResCmdClsChnlTest extends ResCmdChnlTestAbst {
-	static final public String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><CUM><CMD ACTION=\"ClsChnl\" CHNL=\"testChannel\" RSLT=\"Clsed\" SESH=\"testSession\" TYPE=\"RES\"/></CUM>";
-	static final ResCmdClsChnl.RsltTypes rslt = ResCmdClsChnl.RsltTypes.Clsed;
+public class ResCmdJoinChnlTest extends ResCmdChnlAudTestAbst {
+	static final public String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><CUM><CMD ACTION=\"JoinChnl\" AUD=\"testAudience\" CHNL=\"testChannel\" RSLT=\"Joined\" SESH=\"testSession\" TYPE=\"RES\"/></CUM>";
+	static final ResCmdJoinChnl.RsltTypes rslt = ResCmdJoinChnl.RsltTypes.Joined;
 
 	/**
 	 * @throws java.lang.Exception
@@ -29,8 +29,7 @@ public class ResCmdClsChnlTest extends ResCmdChnlTestAbst {
 
 	@Override
 	protected CmdAbst getCmdNormal() {
-		return new ResCmdClsChnl(seshName, chnlName,
-				ResCmdClsChnl.RsltTypes.Clsed);
+		return new ResCmdJoinChnl(seshName, chnlName, audName, rslt.name());
 	}
 
 	@Override
@@ -40,7 +39,7 @@ public class ResCmdClsChnlTest extends ResCmdChnlTestAbst {
 
 	@Override
 	protected String getActionName() {
-		return "ClsChnl";
+		return "JoinChnl";
 	}
 
 	/*
@@ -51,7 +50,7 @@ public class ResCmdClsChnlTest extends ResCmdChnlTestAbst {
 	 */
 	@Override
 	protected CmdAbst getCmdNormal(Document doc) throws CumExcpIllegalCmdDoc {
-		return new ResCmdClsChnl(doc);
+		return new ResCmdJoinChnl(doc);
 	}
 
 	/*
@@ -59,8 +58,9 @@ public class ResCmdClsChnlTest extends ResCmdChnlTestAbst {
 	 * 
 	 * @see jp.happyhacking70.cum3.cmd.ResCmdTestIntf#getNormalRslt()
 	 */
+	@Override
 	public String getNormalRslt() {
 		return rslt.name();
-	}
 
+	}
 }

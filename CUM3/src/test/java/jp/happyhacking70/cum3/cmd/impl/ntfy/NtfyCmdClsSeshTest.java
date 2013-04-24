@@ -1,11 +1,11 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.cmd.impl;
+package jp.happyhacking70.cum3.cmd.impl.ntfy;
 
 import jp.happyhacking70.cum3.cmd.CmdAbst;
-import jp.happyhacking70.cum3.cmd.NtfyCmdChnlAudTestAbst;
-import jp.happyhacking70.cum3.cmd.impl.ntfy.NtfyCmdJoinChnl;
+import jp.happyhacking70.cum3.cmd.NtfyCmdSeshTestAbst;
+import jp.happyhacking70.cum3.cmd.impl.ntfy.NtfyCmdClsSesh;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
 import org.junit.BeforeClass;
@@ -15,8 +15,8 @@ import org.w3c.dom.Document;
  * @author happyhacking70@gmail.com
  * 
  */
-public class NtfyCmdJoinChnlTest extends NtfyCmdChnlAudTestAbst {
-	static String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><CUM><CMD ACTION=\"JoinChnl\" AUD=\"testAudience\" CHNL=\"testChannel\" SESH=\"testSession\" TYPE=\"NTFY\"/></CUM>";
+public class NtfyCmdClsSeshTest extends NtfyCmdSeshTestAbst {
+	static String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><CUM><CMD ACTION=\"ClsSesh\" SESH=\"testSession\" TYPE=\"NTFY\"/></CUM>";
 
 	/**
 	 * @throws java.lang.Exception
@@ -33,7 +33,7 @@ public class NtfyCmdJoinChnlTest extends NtfyCmdChnlAudTestAbst {
 	 */
 	@Override
 	protected CmdAbst getCmdNormal() {
-		return new NtfyCmdJoinChnl(seshName, chnlName, audName);
+		return new NtfyCmdClsSesh(seshName);
 	}
 
 	/*
@@ -53,7 +53,7 @@ public class NtfyCmdJoinChnlTest extends NtfyCmdChnlAudTestAbst {
 	 */
 	@Override
 	protected String getActionName() {
-		return "JoinChnl";
+		return "ClsSesh";
 	}
 
 	/*
@@ -64,8 +64,7 @@ public class NtfyCmdJoinChnlTest extends NtfyCmdChnlAudTestAbst {
 	 */
 	@Override
 	protected CmdAbst getCmdNormal(Document doc) throws CumExcpIllegalCmdDoc {
-
-		return new NtfyCmdJoinChnl(doc);
+		return new NtfyCmdClsSesh(doc);
 	}
 
 }

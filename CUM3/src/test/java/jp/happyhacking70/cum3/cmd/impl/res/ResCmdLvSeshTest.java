@@ -1,11 +1,10 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.cmd.impl;
+package jp.happyhacking70.cum3.cmd.impl.res;
 
 import jp.happyhacking70.cum3.cmd.CmdAbst;
 import jp.happyhacking70.cum3.cmd.ResCmdSeshAudTestAbst;
-import jp.happyhacking70.cum3.cmd.impl.res.ResCmdJoinSesh;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
 import org.junit.BeforeClass;
@@ -15,9 +14,10 @@ import org.w3c.dom.Document;
  * @author happyhacking70@gmail.com
  * 
  */
-public class ResCmdJoinSeshTest extends ResCmdSeshAudTestAbst {
-	static final public String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><CUM><CMD ACTION=\"JoinSesh\" AUD=\"testAudience\" RSLT=\"Exists\" SESH=\"testSession\" TYPE=\"RES\"/></CUM>";
-	static final ResCmdJoinSesh.RsltTypes rslt = ResCmdJoinSesh.RsltTypes.Exists;
+public class ResCmdLvSeshTest extends ResCmdSeshAudTestAbst {
+
+	static final public String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><CUM><CMD ACTION=\"LvSesh\" AUD=\"testAudience\" RSLT=\"Left\" SESH=\"testSession\" TYPE=\"RES\"/></CUM>";
+	static final ResCmdLvSesh.RsltTypes rslt = ResCmdLvSesh.RsltTypes.Left;
 
 	@Override
 	protected String getXMLNormal() {
@@ -26,7 +26,7 @@ public class ResCmdJoinSeshTest extends ResCmdSeshAudTestAbst {
 
 	@Override
 	protected String getActionName() {
-		return "JoinSesh";
+		return "LvSesh";
 	}
 
 	@BeforeClass
@@ -36,7 +36,7 @@ public class ResCmdJoinSeshTest extends ResCmdSeshAudTestAbst {
 
 	@Override
 	protected CmdAbst getCmdNormal() {
-		return new ResCmdJoinSesh(seshName, audName, rslt);
+		return new ResCmdLvSesh(seshName, audName, rslt.name());
 	}
 
 	/*
@@ -47,7 +47,7 @@ public class ResCmdJoinSeshTest extends ResCmdSeshAudTestAbst {
 	 */
 	@Override
 	protected CmdAbst getCmdNormal(Document doc) throws CumExcpIllegalCmdDoc {
-		return new ResCmdJoinSesh(doc);
+		return new ResCmdLvSesh(doc);
 	}
 
 	/*

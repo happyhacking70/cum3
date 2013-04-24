@@ -1,11 +1,10 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.cmd.impl;
+package jp.happyhacking70.cum3.cmd.impl.res;
 
 import jp.happyhacking70.cum3.cmd.CmdAbst;
-import jp.happyhacking70.cum3.cmd.ResCmdSeshTestAbst;
-import jp.happyhacking70.cum3.cmd.impl.res.ResCmdRegSesh;
+import jp.happyhacking70.cum3.cmd.ResCmdChnlAudTestAbst;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
 import org.junit.BeforeClass;
@@ -15,10 +14,10 @@ import org.w3c.dom.Document;
  * @author happyhacking70@gmail.com
  * 
  */
-public class ResCmdRegSeshTest extends ResCmdSeshTestAbst {
+public class ResCmdRjctChnlTest extends ResCmdChnlAudTestAbst {
 
-	static final public String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><CUM><CMD ACTION=\"RegSesh\" RSLT=\"Reged\" SESH=\"testSession\" TYPE=\"RES\"/></CUM>";
-	static final ResCmdRegSesh.RsltTypes rslt = ResCmdRegSesh.RsltTypes.Reged;
+	static final public String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><CUM><CMD ACTION=\"RjctChnl\" AUD=\"testAudience\" CHNL=\"testChannel\" RSLT=\"Rjcted\" SESH=\"testSession\" TYPE=\"RES\"/></CUM>";
+	static final ResCmdRjctChnl.RsltTypes rslt = ResCmdRjctChnl.RsltTypes.Rjcted;
 
 	/**
 	 * @throws java.lang.Exception
@@ -30,7 +29,7 @@ public class ResCmdRegSeshTest extends ResCmdSeshTestAbst {
 
 	@Override
 	protected CmdAbst getCmdNormal() {
-		return new ResCmdRegSesh(seshName, rslt);
+		return new ResCmdRjctChnl(seshName, chnlName, audName, rslt.name());
 	}
 
 	@Override
@@ -40,7 +39,7 @@ public class ResCmdRegSeshTest extends ResCmdSeshTestAbst {
 
 	@Override
 	protected String getActionName() {
-		return "RegSesh";
+		return "RjctChnl";
 	}
 
 	/*
@@ -51,7 +50,7 @@ public class ResCmdRegSeshTest extends ResCmdSeshTestAbst {
 	 */
 	@Override
 	protected CmdAbst getCmdNormal(Document doc) throws CumExcpIllegalCmdDoc {
-		return new ResCmdRegSesh(doc);
+		return new ResCmdRjctChnl(doc);
 	}
 
 	/*
@@ -59,8 +58,10 @@ public class ResCmdRegSeshTest extends ResCmdSeshTestAbst {
 	 * 
 	 * @see jp.happyhacking70.cum3.cmd.ResCmdTestIntf#getNormalRslt()
 	 */
+	@Override
 	public String getNormalRslt() {
 		return rslt.name();
 
 	}
+
 }

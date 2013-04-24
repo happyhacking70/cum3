@@ -1,11 +1,11 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.cmd.impl;
+package jp.happyhacking70.cum3.cmd.impl.ntfy;
 
 import jp.happyhacking70.cum3.cmd.CmdAbst;
-import jp.happyhacking70.cum3.cmd.ReqCmdChnlTestAbst;
-import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdClsChnl;
+import jp.happyhacking70.cum3.cmd.NtfyCmdChnlTestAbst;
+import jp.happyhacking70.cum3.cmd.impl.ntfy.NtfyCmdClsChnl;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
 import org.junit.BeforeClass;
@@ -15,8 +15,8 @@ import org.w3c.dom.Document;
  * @author happyhacking70@gmail.com
  * 
  */
-public class ReqCmdClsChnlTest extends ReqCmdChnlTestAbst {
-	static String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><CUM><CMD ACTION=\"ClsChnl\" CHNL=\"testChannel\" SESH=\"testSession\" TYPE=\"REQ\"/></CUM>";
+public class NtfyCmdClsChnlTest extends NtfyCmdChnlTestAbst {
+	static String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><CUM><CMD ACTION=\"ClsChnl\" CHNL=\"testChannel\" SESH=\"testSession\" TYPE=\"NTFY\"/></CUM>";
 
 	/**
 	 * @throws java.lang.Exception
@@ -28,7 +28,7 @@ public class ReqCmdClsChnlTest extends ReqCmdChnlTestAbst {
 
 	@Override
 	protected CmdAbst getCmdNormal() {
-		return new ReqCmdClsChnl(seshName, chnlName);
+		return new NtfyCmdClsChnl(seshName, chnlName);
 	}
 
 	@Override
@@ -49,7 +49,8 @@ public class ReqCmdClsChnlTest extends ReqCmdChnlTestAbst {
 	 */
 	@Override
 	protected CmdAbst getCmdNormal(Document doc) throws CumExcpIllegalCmdDoc {
-		return new ReqCmdClsChnl(doc);
+
+		return new NtfyCmdClsChnl(doc);
 	}
 
 }

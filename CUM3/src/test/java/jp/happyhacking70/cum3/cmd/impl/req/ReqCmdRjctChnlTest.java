@@ -1,11 +1,10 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.cmd.impl;
+package jp.happyhacking70.cum3.cmd.impl.req;
 
 import jp.happyhacking70.cum3.cmd.CmdAbst;
 import jp.happyhacking70.cum3.cmd.ReqCmdChnlAudTestAbst;
-import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdJoinChnl;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
 import org.junit.BeforeClass;
@@ -15,8 +14,9 @@ import org.w3c.dom.Document;
  * @author happyhacking70@gmail.com
  * 
  */
-public class ReqCmdJoinChnlTest extends ReqCmdChnlAudTestAbst {
-	static final public String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><CUM><CMD ACTION=\"JoinChnl\" AUD=\"testAudience\" CHNL=\"testChannel\" SESH=\"testSession\" TYPE=\"REQ\"/></CUM>";
+public class ReqCmdRjctChnlTest extends ReqCmdChnlAudTestAbst {
+
+	static final public String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><CUM><CMD ACTION=\"RjctChnl\" AUD=\"testAudience\" CHNL=\"testChannel\" SESH=\"testSession\" TYPE=\"REQ\"/></CUM>";
 
 	/**
 	 * @throws java.lang.Exception
@@ -33,7 +33,7 @@ public class ReqCmdJoinChnlTest extends ReqCmdChnlAudTestAbst {
 	 */
 	@Override
 	protected CmdAbst getCmdNormal() {
-		return new ReqCmdJoinChnl(seshName, chnlName, audName);
+		return new ReqCmdRjctChnl(seshName, chnlName, audName);
 	}
 
 	/*
@@ -44,7 +44,7 @@ public class ReqCmdJoinChnlTest extends ReqCmdChnlAudTestAbst {
 	 */
 	@Override
 	protected CmdAbst getCmdNormal(Document doc) throws CumExcpIllegalCmdDoc {
-		return new ReqCmdJoinChnl(doc);
+		return new ReqCmdRjctChnl(doc);
 	}
 
 	/*
@@ -64,7 +64,7 @@ public class ReqCmdJoinChnlTest extends ReqCmdChnlAudTestAbst {
 	 */
 	@Override
 	protected String getActionName() {
-		return "JoinChnl";
+		return "RjctChnl";
 	}
 
 }

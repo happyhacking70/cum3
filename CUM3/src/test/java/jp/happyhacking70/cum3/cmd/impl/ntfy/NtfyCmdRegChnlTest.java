@@ -1,7 +1,7 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.cmd.impl;
+package jp.happyhacking70.cum3.cmd.impl.ntfy;
 
 import java.util.ArrayList;
 

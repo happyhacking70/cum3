@@ -3,7 +3,7 @@
  */
 package jp.happyhacking70.cum3.cmd.impl.res;
 
-import jp.happyhacking70.cum3.cmd.ResCmdChnlAudAbst;
+import jp.happyhacking70.cum3.cmd.ResCmdSeshAudAbst;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
 import org.w3c.dom.Document;
@@ -12,22 +12,18 @@ import org.w3c.dom.Document;
  * @author happyhacking70@gmail.com
  * 
  */
-public class ResCmdJoinChnl extends ResCmdChnlAudAbst {
-
+public class ResCmdLvSesh extends ResCmdSeshAudAbst {
 	/**
 	 * @author happyhacking70@gmail.com
 	 * 
 	 */
 	public enum RsltTypes {
-
-		/** Session Not Exist */
+		/** Session does not exist */
 		SeshNotExist,
-		/** Channel Not Exist */
+		/** Audience is not joining the session */
 		NotExist,
-		/** Successfully joined */
-		Joined,
-		/** Already joined */
-		Exists
+		/** Audience succesfully left the session */
+		Left
 
 	}
 
@@ -35,13 +31,17 @@ public class ResCmdJoinChnl extends ResCmdChnlAudAbst {
 	 * @param doc
 	 * @throws CumExcpIllegalCmdDoc
 	 */
-	public ResCmdJoinChnl(Document doc) throws CumExcpIllegalCmdDoc {
+	public ResCmdLvSesh(Document doc) throws CumExcpIllegalCmdDoc {
 		super(doc);
 	}
 
-	public ResCmdJoinChnl(String seshName, String chnlName, String audName,
-			String rslt) {
-		super(seshName, chnlName, audName, rslt);
+	/**
+	 * @param seshName
+	 * @param audName
+	 * @param rslt
+	 */
+	public ResCmdLvSesh(String seshName, String audName, String rslt) {
+		super(seshName, audName, rslt);
 	}
 
 	/*
@@ -51,7 +51,8 @@ public class ResCmdJoinChnl extends ResCmdChnlAudAbst {
 	 */
 	@Override
 	protected void setActionName() {
-		actionName = "JoinChnl";
+		actionName = "LvSesh";
+
 	}
 
 }
