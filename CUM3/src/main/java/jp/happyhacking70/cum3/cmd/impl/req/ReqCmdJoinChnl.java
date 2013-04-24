@@ -3,6 +3,7 @@
  */
 package jp.happyhacking70.cum3.cmd.impl.req;
 
+import jp.happyhacking70.cum3.cmd.CmdActions;
 import jp.happyhacking70.cum3.cmd.ReqCmdChnlAudAbst;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
@@ -29,7 +30,7 @@ public class ReqCmdJoinChnl extends ReqCmdChnlAudAbst {
 	 */
 	@Override
 	protected void setActionName() {
-		actionName = "JoinChnl";
+		actionName = CmdActions.JoinChnl.name();
 
 	}
 }

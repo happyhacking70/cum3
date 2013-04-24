@@ -3,6 +3,7 @@
  */
 package jp.happyhacking70.cum3.cmd.impl.ntfy;
 
+import jp.happyhacking70.cum3.cmd.CmdActions;
 import jp.happyhacking70.cum3.cmd.NtfyCmdSeshAudAbst;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
@@ -37,7 +38,7 @@ public class NtfyCmdJoinSesh extends NtfyCmdSeshAudAbst {
 	 */
 	@Override
 	protected void setActionName() {
-		actionName = "JoinSesh";
+		actionName = CmdActions.JoinSesh.name();
 	}
 
 }

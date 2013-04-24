@@ -3,6 +3,7 @@
  */
 package jp.happyhacking70.cum3.cmd.impl.req;
 
+import jp.happyhacking70.cum3.cmd.CmdActions;
 import jp.happyhacking70.cum3.cmd.ReqCmdSeshAbst;
 
 import org.w3c.dom.Document;
@@ -29,7 +30,7 @@ public class ReqCmdClsSesh extends ReqCmdSeshAbst {
 
 	@Override
 	protected void setActionName() {
-		actionName = "ClsSesh";
+		actionName = CmdActions.ClsSesh.name();
 	}
 
 }

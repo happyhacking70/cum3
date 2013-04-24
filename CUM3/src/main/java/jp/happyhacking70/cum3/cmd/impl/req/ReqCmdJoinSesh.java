@@ -3,6 +3,7 @@
  */
 package jp.happyhacking70.cum3.cmd.impl.req;
 
+import jp.happyhacking70.cum3.cmd.CmdActions;
 import jp.happyhacking70.cum3.cmd.ReqCmdSeshAudAbst;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
@@ -32,7 +33,7 @@ public class ReqCmdJoinSesh extends ReqCmdSeshAudAbst {
 
 	@Override
 	protected void setActionName() {
-		actionName = "JoinSesh";
+		actionName = CmdActions.JoinSesh.name();
 	}
 
 }

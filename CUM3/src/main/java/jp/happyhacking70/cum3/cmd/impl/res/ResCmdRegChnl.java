@@ -6,6 +6,7 @@ package jp.happyhacking70.cum3.cmd.impl.res;
 import java.util.ArrayList;
 
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
+import jp.happyhacking70.cum3.cmd.CmdActions;
 import jp.happyhacking70.cum3.cmd.ResCmdChnlRscAbst;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
@@ -51,7 +52,7 @@ public class ResCmdRegChnl extends ResCmdChnlRscAbst {
 	 */
 	@Override
 	protected void setActionName() {
-		actionName = "RegChnl";
+		actionName = CmdActions.RegChnl.name();
 	}
 
 }

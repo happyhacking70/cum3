@@ -3,6 +3,7 @@
  */
 package jp.happyhacking70.cum3.cmd.impl.res;
 
+import jp.happyhacking70.cum3.cmd.CmdActions;
 import jp.happyhacking70.cum3.cmd.ResCmdChnlAbst;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
@@ -45,7 +46,7 @@ public class ResCmdClsChnl extends ResCmdChnlAbst {
 	 */
 	@Override
 	protected void setActionName() {
-		actionName = "ClsChnl";
+		actionName = CmdActions.ClsChnl.name();
 	}
 
 }

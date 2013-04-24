@@ -3,6 +3,7 @@
  */
 package jp.happyhacking70.cum3.cmd.impl.res;
 
+import jp.happyhacking70.cum3.cmd.CmdActions;
 import jp.happyhacking70.cum3.cmd.ResCmdSeshAudAbst;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
@@ -51,7 +52,7 @@ public class ResCmdLvSesh extends ResCmdSeshAudAbst {
 	 */
 	@Override
 	protected void setActionName() {
-		actionName = "LvSesh";
+		actionName = CmdActions.LvSesh.name();
 
 	}
 
