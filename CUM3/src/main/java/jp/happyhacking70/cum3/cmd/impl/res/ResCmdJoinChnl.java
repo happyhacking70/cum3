@@ -1,7 +1,7 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.cmd.impl;
+package jp.happyhacking70.cum3.cmd.impl.res;
 
 import jp.happyhacking70.cum3.cmd.ResCmdChnlAudAbst;
 import jp.happyhacking70.cum3.cmd.ResCmdIntf;

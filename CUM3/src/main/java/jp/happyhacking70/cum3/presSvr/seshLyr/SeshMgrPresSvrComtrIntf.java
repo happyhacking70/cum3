@@ -3,16 +3,16 @@
  */
 package jp.happyhacking70.cum3.presSvr.seshLyr;
 
-import jp.happyhacking70.cum3.cmd.impl.ReqCmdClsChnl;
-import jp.happyhacking70.cum3.cmd.impl.ReqCmdClsSesh;
-import jp.happyhacking70.cum3.cmd.impl.ReqCmdJoinSesh;
-import jp.happyhacking70.cum3.cmd.impl.ReqCmdRegChnl;
-import jp.happyhacking70.cum3.cmd.impl.ReqCmdRegSesh;
-import jp.happyhacking70.cum3.cmd.impl.ResCmdClsChnl;
-import jp.happyhacking70.cum3.cmd.impl.ResCmdClsSesh;
-import jp.happyhacking70.cum3.cmd.impl.ResCmdJoinSesh;
-import jp.happyhacking70.cum3.cmd.impl.ResCmdRegChnl;
-import jp.happyhacking70.cum3.cmd.impl.ResCmdRegSesh;
+import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdClsChnl;
+import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdClsSesh;
+import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdJoinSesh;
+import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdRegChnl;
+import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdRegSesh;
+import jp.happyhacking70.cum3.cmd.impl.res.ResCmdClsChnl;
+import jp.happyhacking70.cum3.cmd.impl.res.ResCmdClsSesh;
+import jp.happyhacking70.cum3.cmd.impl.res.ResCmdJoinSesh;
+import jp.happyhacking70.cum3.cmd.impl.res.ResCmdRegChnl;
+import jp.happyhacking70.cum3.cmd.impl.res.ResCmdRegSesh;
 
 /**
  * @author happyhacking70@gmail.com

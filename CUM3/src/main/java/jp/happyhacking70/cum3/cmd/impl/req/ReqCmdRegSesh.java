@@ -1,7 +1,7 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.cmd.impl;
+package jp.happyhacking70.cum3.cmd.impl.req;
 
 import jp.happyhacking70.cum3.cmd.ReqCmdSeshAbst;
 
@@ -11,25 +11,30 @@ import org.w3c.dom.Document;
  * @author happyhacking70@gmail.com
  * 
  */
-public class ReqCmdClsSesh extends ReqCmdSeshAbst {
+public class ReqCmdRegSesh extends ReqCmdSeshAbst {
 
 	/**
 	 * @param seshName
 	 */
-	public ReqCmdClsSesh(String seshName) {
+	public ReqCmdRegSesh(String seshName) {
 		super(seshName);
 	}
 
 	/**
 	 * @param doc
 	 */
-	public ReqCmdClsSesh(Document doc) {
+	public ReqCmdRegSesh(Document doc) {
 		super(doc);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see jp.happyhacking70.cum3.cmd.CmdAbst#setActionName()
+	 */
 	@Override
 	protected void setActionName() {
-		actionName = "ClsSesh";
+		actionName = "RegSesh";
 	}
 
 }

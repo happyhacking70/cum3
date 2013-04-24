@@ -1,9 +1,9 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.cmd.impl;
+package jp.happyhacking70.cum3.cmd.impl.ntfy;
 
-import jp.happyhacking70.cum3.cmd.NtfyCmdSeshAbst;
+import jp.happyhacking70.cum3.cmd.NtfyCmdSeshAudAbst;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
 import org.w3c.dom.Document;
@@ -12,18 +12,22 @@ import org.w3c.dom.Document;
  * @author happyhacking70@gmail.com
  * 
  */
-public class NtfyCmdSeshDisconned extends NtfyCmdSeshAbst {
+public class NtfyCmdJoinSesh extends NtfyCmdSeshAudAbst {
 
 	/**
 	 * @param doc
 	 * @throws CumExcpIllegalCmdDoc
 	 */
-	public NtfyCmdSeshDisconned(Document doc) throws CumExcpIllegalCmdDoc {
+	public NtfyCmdJoinSesh(Document doc) throws CumExcpIllegalCmdDoc {
 		super(doc);
 	}
 
-	public NtfyCmdSeshDisconned(String seshName) {
-		super(seshName);
+	/**
+	 * @param seshName
+	 * @param audName
+	 */
+	public NtfyCmdJoinSesh(String seshName, String audName) {
+		super(seshName, audName);
 	}
 
 	/*
@@ -33,8 +37,7 @@ public class NtfyCmdSeshDisconned extends NtfyCmdSeshAbst {
 	 */
 	@Override
 	protected void setActionName() {
-		actionName = "SeshDisconned";
-
+		actionName = "JoinSesh";
 	}
 
 }

@@ -5,6 +5,7 @@ package jp.happyhacking70.cum3.cmd.impl;
 
 import jp.happyhacking70.cum3.cmd.CmdAbst;
 import jp.happyhacking70.cum3.cmd.ReqCmdSeshTestAbst;
+import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdRegSesh;
 
 import org.junit.BeforeClass;
 import org.w3c.dom.Document;

@@ -71,7 +71,7 @@ abstract public class CmdTestAbst {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.cmd.impl.ReqCmdClsChnl#ReqCmdClsChnl(org.w3c.dom.Document)}
+	 * {@link jp.happyhacking70.cum3.cmd.impl.req.ReqCmdClsChnl#ReqCmdClsChnl(org.w3c.dom.Document)}
 	 * .
 	 * 
 	 * @throws ParserConfigurationException

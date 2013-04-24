@@ -1,9 +1,9 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.cmd.impl;
+package jp.happyhacking70.cum3.cmd.impl.res;
 
-import jp.happyhacking70.cum3.cmd.ResCmdSeshAbst;
+import jp.happyhacking70.cum3.cmd.ResCmdSeshAudAbst;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
 import org.w3c.dom.Document;
@@ -12,28 +12,30 @@ import org.w3c.dom.Document;
  * @author happyhacking70@gmail.com
  * 
  */
-public class ResCmdClsSesh extends ResCmdSeshAbst {
+public class ResCmdJoinSesh extends ResCmdSeshAudAbst {
 	/**
 	 * @author happyhacking70@gmail.com
 	 * 
 	 */
 	public enum RsltTypes {
-		Clsed, NotExist, NotEmp
+		NotExist, Joined, Exists
 	}
 
 	/**
 	 * @param seshName
+	 * @param audName
 	 * @param rslt
 	 */
-	public ResCmdClsSesh(String seshName, RsltTypes rslt) {
-		super(seshName, rslt.name());
+	public ResCmdJoinSesh(String seshName, String audName, RsltTypes rslt) {
+		super(seshName, audName, rslt.name());
+
 	}
 
 	/**
 	 * @param doc
 	 * @throws CumExcpIllegalCmdDoc
 	 */
-	public ResCmdClsSesh(Document doc) throws CumExcpIllegalCmdDoc {
+	public ResCmdJoinSesh(Document doc) throws CumExcpIllegalCmdDoc {
 		super(doc);
 	}
 
@@ -44,7 +46,7 @@ public class ResCmdClsSesh extends ResCmdSeshAbst {
 	 */
 	@Override
 	protected void setActionName() {
-		actionName = "ClsSesh";
+		actionName = "JoinSesh";
 	}
 
 }

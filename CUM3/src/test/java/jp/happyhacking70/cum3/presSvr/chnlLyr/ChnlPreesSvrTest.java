@@ -14,12 +14,12 @@ import javax.imageio.ImageIO;
 
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscImg;
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
-import jp.happyhacking70.cum3.cmd.impl.NtfyCmdClsChnl;
-import jp.happyhacking70.cum3.cmd.impl.NtfyCmdJoinChnl;
-import jp.happyhacking70.cum3.cmd.impl.NtfyCmdLvChnl;
-import jp.happyhacking70.cum3.cmd.impl.NtfyCmdRegChnl;
-import jp.happyhacking70.cum3.cmd.impl.ReqCmdClsChnl;
-import jp.happyhacking70.cum3.cmd.impl.ReqCmdRegChnl;
+import jp.happyhacking70.cum3.cmd.impl.ntfy.NtfyCmdClsChnl;
+import jp.happyhacking70.cum3.cmd.impl.ntfy.NtfyCmdJoinChnl;
+import jp.happyhacking70.cum3.cmd.impl.ntfy.NtfyCmdLvChnl;
+import jp.happyhacking70.cum3.cmd.impl.ntfy.NtfyCmdRegChnl;
+import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdClsChnl;
+import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdRegChnl;
 import jp.happyhacking70.cum3.comLyr.DummySender;
 import jp.happyhacking70.cum3.comLyr.DummySrvAdm;
 import jp.happyhacking70.cum3.excp.impl.CumExcpComError;

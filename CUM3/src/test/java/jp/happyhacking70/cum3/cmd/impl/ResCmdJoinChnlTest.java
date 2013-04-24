@@ -5,6 +5,7 @@ package jp.happyhacking70.cum3.cmd.impl;
 
 import jp.happyhacking70.cum3.cmd.CmdAbst;
 import jp.happyhacking70.cum3.cmd.ResCmdChnlAudTestAbst;
+import jp.happyhacking70.cum3.cmd.impl.res.ResCmdJoinChnl;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
 import org.junit.BeforeClass;

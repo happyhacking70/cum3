@@ -1,7 +1,7 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.cmd.impl;
+package jp.happyhacking70.cum3.cmd.impl.req;
 
 import jp.happyhacking70.cum3.cmd.ReqCmdChnlAudAbst;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
@@ -12,13 +12,22 @@ import org.w3c.dom.Document;
  * @author happyhacking70@gmail.com
  * 
  */
-public class ReqCmdJoinChnl extends ReqCmdChnlAudAbst {
+public class ReqCmdLvChnl extends ReqCmdChnlAudAbst {
 
-	public ReqCmdJoinChnl(Document doc) throws CumExcpIllegalCmdDoc {
+	/**
+	 * @param doc
+	 * @throws CumExcpIllegalCmdDoc
+	 */
+	public ReqCmdLvChnl(Document doc) throws CumExcpIllegalCmdDoc {
 		super(doc);
 	}
 
-	public ReqCmdJoinChnl(String seshName, String chnlName, String audName) {
+	/**
+	 * @param seshName
+	 * @param chnlName
+	 * @param audName
+	 */
+	public ReqCmdLvChnl(String seshName, String chnlName, String audName) {
 		super(seshName, chnlName, audName);
 	}
 
@@ -29,7 +38,7 @@ public class ReqCmdJoinChnl extends ReqCmdChnlAudAbst {
 	 */
 	@Override
 	protected void setActionName() {
-		actionName = "JoinChnl";
-
+		actionName = "LvChnl";
 	}
+
 }

@@ -1,9 +1,12 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.cmd.impl;
+package jp.happyhacking70.cum3.cmd.impl.res;
 
-import jp.happyhacking70.cum3.cmd.ResCmdChnlAbst;
+import java.util.ArrayList;
+
+import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
+import jp.happyhacking70.cum3.cmd.ResCmdChnlRscAbst;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
 import org.w3c.dom.Document;
@@ -12,13 +15,14 @@ import org.w3c.dom.Document;
  * @author happyhacking70@gmail.com
  * 
  */
-public class ResCmdClsChnl extends ResCmdChnlAbst {
+public class ResCmdRegChnl extends ResCmdChnlRscAbst {
+
 	/**
 	 * @author happyhacking70@gmail.com
 	 * 
 	 */
 	public enum RsltTypes {
-		Clsed, NotExist
+		Reged, Exists, DupRsc
 	}
 
 	/**
@@ -26,16 +30,18 @@ public class ResCmdClsChnl extends ResCmdChnlAbst {
 	 * @param chnlName
 	 * @param rslt
 	 */
-	public ResCmdClsChnl(String seshName, String chnlName, RsltTypes rslt) {
+	public ResCmdRegChnl(String seshName, String chnlName, RsltTypes rslt) {
 		super(seshName, chnlName, rslt.name());
+
 	}
 
 	/**
 	 * @param doc
 	 * @throws CumExcpIllegalCmdDoc
 	 */
-	public ResCmdClsChnl(Document doc) throws CumExcpIllegalCmdDoc {
-		super(doc);
+	public ResCmdRegChnl(Document doc, ArrayList<ChnlRscIntf> rcses)
+			throws CumExcpIllegalCmdDoc {
+		super(doc, rcses);
 	}
 
 	/*
@@ -45,7 +51,7 @@ public class ResCmdClsChnl extends ResCmdChnlAbst {
 	 */
 	@Override
 	protected void setActionName() {
-		actionName = "ClsChnl";
+		actionName = "RegChnl";
 	}
 
 }

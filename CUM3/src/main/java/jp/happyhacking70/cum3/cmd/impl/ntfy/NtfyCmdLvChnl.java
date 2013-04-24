@@ -1,7 +1,7 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.cmd.impl;
+package jp.happyhacking70.cum3.cmd.impl.ntfy;
 
 import jp.happyhacking70.cum3.cmd.NtfyCmdChnlAudAbst;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
@@ -12,22 +12,13 @@ import org.w3c.dom.Document;
  * @author happyhacking70@gmail.com
  * 
  */
-public class NtfyCmdRjctChnl extends NtfyCmdChnlAudAbst {
+public class NtfyCmdLvChnl extends NtfyCmdChnlAudAbst {
 
-	/**
-	 * @param seshName
-	 * @param chnlName
-	 * @param audName
-	 */
-	public NtfyCmdRjctChnl(String seshName, String chnlName, String audName) {
+	public NtfyCmdLvChnl(String seshName, String chnlName, String audName) {
 		super(seshName, chnlName, audName);
 	}
 
-	/**
-	 * @param doc
-	 * @throws CumExcpIllegalCmdDoc
-	 */
-	public NtfyCmdRjctChnl(Document doc) throws CumExcpIllegalCmdDoc {
+	public NtfyCmdLvChnl(Document doc) throws CumExcpIllegalCmdDoc {
 		super(doc);
 	}
 
@@ -38,7 +29,6 @@ public class NtfyCmdRjctChnl extends NtfyCmdChnlAudAbst {
 	 */
 	@Override
 	protected void setActionName() {
-		actionName = "RjctChnl";
+		actionName = "LvChnl";
 	}
-
 }

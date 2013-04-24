@@ -8,10 +8,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
 import jp.happyhacking70.cum3.cmd.CmdChnlAbst;
-import jp.happyhacking70.cum3.cmd.impl.NtfyCmdClsChnl;
-import jp.happyhacking70.cum3.cmd.impl.NtfyCmdJoinChnl;
-import jp.happyhacking70.cum3.cmd.impl.NtfyCmdLvChnl;
-import jp.happyhacking70.cum3.cmd.impl.NtfyCmdRegChnl;
+import jp.happyhacking70.cum3.cmd.impl.ntfy.NtfyCmdClsChnl;
+import jp.happyhacking70.cum3.cmd.impl.ntfy.NtfyCmdJoinChnl;
+import jp.happyhacking70.cum3.cmd.impl.ntfy.NtfyCmdLvChnl;
+import jp.happyhacking70.cum3.cmd.impl.ntfy.NtfyCmdRegChnl;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscExists;

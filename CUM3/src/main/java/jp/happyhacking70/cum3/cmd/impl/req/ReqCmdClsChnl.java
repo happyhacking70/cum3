@@ -1,9 +1,9 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.cmd.impl;
+package jp.happyhacking70.cum3.cmd.impl.req;
 
-import jp.happyhacking70.cum3.cmd.NtfyCmdChnlAbst;
+import jp.happyhacking70.cum3.cmd.ReqCmdChnlAbst;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
 import org.w3c.dom.Document;
@@ -12,22 +12,19 @@ import org.w3c.dom.Document;
  * @author happyhacking70@gmail.com
  * 
  */
-public class NtfyCmdClsChnl extends NtfyCmdChnlAbst {
+public class ReqCmdClsChnl extends ReqCmdChnlAbst {
 
 	/**
 	 * @param seshName
 	 * @param chnlName
 	 */
-	public NtfyCmdClsChnl(String seshName, String chnlName) {
+	public ReqCmdClsChnl(String seshName, String chnlName) {
 		super(seshName, chnlName);
 	}
 
-	/**
-	 * @param doc
-	 * @throws CumExcpIllegalCmdDoc
-	 */
-	public NtfyCmdClsChnl(Document doc) throws CumExcpIllegalCmdDoc {
+	public ReqCmdClsChnl(Document doc) throws CumExcpIllegalCmdDoc {
 		super(doc);
+
 	}
 
 	@Override

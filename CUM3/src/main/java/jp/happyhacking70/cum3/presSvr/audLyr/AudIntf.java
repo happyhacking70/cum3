@@ -4,7 +4,7 @@
 package jp.happyhacking70.cum3.presSvr.audLyr;
 
 import jp.happyhacking70.cum3.cmd.CmdAbst;
-import jp.happyhacking70.cum3.cmd.impl.NtfyCmdAudDisconned;
+import jp.happyhacking70.cum3.cmd.impl.ntfy.NtfyCmdAudDisconned;
 
 /**
  * @author happyhacking70@gmail.com

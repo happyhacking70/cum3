@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscImg;
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
-import jp.happyhacking70.cum3.cmd.impl.NtfyCmdClsChnl;
+import jp.happyhacking70.cum3.cmd.impl.ntfy.NtfyCmdClsChnl;
 import jp.happyhacking70.cum3.comLyr.DummySender;
 import jp.happyhacking70.cum3.comLyr.DummySrvAdm;
 import jp.happyhacking70.cum3.excp.impl.CumExcpComError;

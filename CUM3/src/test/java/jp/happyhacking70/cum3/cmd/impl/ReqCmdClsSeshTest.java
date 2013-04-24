@@ -6,6 +6,7 @@ package jp.happyhacking70.cum3.cmd.impl;
 import jp.happyhacking70.cum3.cmd.CmdAbst;
 import jp.happyhacking70.cum3.cmd.CmdSeshTestAbst;
 import jp.happyhacking70.cum3.cmd.ReqCmdSeshTestAbst;
+import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdClsSesh;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
 import org.junit.BeforeClass;
