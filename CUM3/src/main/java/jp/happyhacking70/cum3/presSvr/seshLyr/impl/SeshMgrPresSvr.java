@@ -18,7 +18,6 @@ import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNull;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcptNullRsces;
-import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderAbst;
 import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf;
 import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAllIntf;
 import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAudIntf;
@@ -158,7 +157,7 @@ public class SeshMgrPresSvr implements SeshMgrPresSvrAudIntf,
 	 * jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderAbst)
 	 */
 	@Override
-	public void joinSesh(String seshName, String audName, CmdSenderAbst sender)
+	public void joinSesh(String seshName, String audName, CmdSenderIntf sender)
 			throws CumExcpSeshNotExist, CumExcpAudExists {
 		SeshPresSvr sesh = getSesh(seshName);
 		// sesh.joinSesh(audName, sender, haudDisconnedAcpter);

@@ -29,7 +29,6 @@ import jp.happyhacking70.cum3.presSvr.audLyr.Aud;
 import jp.happyhacking70.cum3.presSvr.audLyr.AudIntf;
 import jp.happyhacking70.cum3.presSvr.chnlLyr.ChnlPresSvr;
 import jp.happyhacking70.cum3.presSvr.chnlLyr.ChnlPresSvrPrestrIntf;
-import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderAbst;
 import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf;
 import jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvrAudIntf;
 import jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvrPrestrIntf;
@@ -190,7 +189,8 @@ public class SeshPresSvr implements SeshPresSvrAudIntf, SeshPresSvrPrestrIntf {
 	 * .String)
 	 */
 	@Override
-	synchronized public void clsChnl(String chnlName) throws CumExcpChnlNotExist {
+	synchronized public void clsChnl(String chnlName)
+			throws CumExcpChnlNotExist {
 		ChnlPresSvr chnl;
 
 		chnl = getChnl(chnlName);
@@ -216,7 +216,7 @@ public class SeshPresSvr implements SeshPresSvrAudIntf, SeshPresSvrPrestrIntf {
 	 * .lang.String, jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderAbst)
 	 */
 	@Override
-	synchronized public void joinSesh(String audName, CmdSenderAbst sender)
+	synchronized public void joinSesh(String audName, CmdSenderIntf sender)
 			throws CumExcpAudExists {
 
 		if (auds.containsKey(audName) == true) {

@@ -15,7 +15,7 @@ import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpChnlNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshNotExist;
-import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderAbst;
+import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf;
 
 /**
  * @author happyhacking70@gmail.com
@@ -48,7 +48,7 @@ public interface SeshMgrPresSvrAudIntf {
 	 * @throws CumExcpAudExists
 	 * @throws CumExcpSeshNotExist
 	 */
-	public void joinSesh(String seshName, String audName, CmdSenderAbst sender)
+	public void joinSesh(String seshName, String audName, CmdSenderIntf sender)
 			throws CumExcpSeshNotExist, CumExcpAudExists;
 
 	/**
