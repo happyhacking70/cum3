@@ -20,6 +20,7 @@ import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcptNullRsces;
 import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderAbst;
 import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf;
+import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAllIntf;
 import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAudIntf;
 import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrPrestrIntf;
 
@@ -35,7 +36,7 @@ import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrPrestrIntf;
  * 
  */
 public class SeshMgrPresSvr implements SeshMgrPresSvrAudIntf,
-		SeshMgrPresSvrPrestrIntf {
+		SeshMgrPresSvrPrestrIntf, SeshMgrPresSvrAllIntf {
 	protected ConcurrentHashMap<String, SeshPresSvr> seshes = new ConcurrentHashMap<String, SeshPresSvr>();
 
 	/**

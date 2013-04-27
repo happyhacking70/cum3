@@ -19,7 +19,7 @@ public class ResCmdClsSesh extends ResCmdSeshAbst {
 	 * 
 	 */
 	public enum RsltTypes {
-		Clsed, NotExist, NotEmp
+		Clsed, NotExist
 	}
 
 	/**

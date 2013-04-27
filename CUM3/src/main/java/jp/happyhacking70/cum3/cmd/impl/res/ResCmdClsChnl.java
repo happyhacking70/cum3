@@ -19,7 +19,12 @@ public class ResCmdClsChnl extends ResCmdChnlAbst {
 	 * 
 	 */
 	public enum RsltTypes {
-		Clsed, NotExist
+		/** closed Successfully */
+		Clsed,
+		/** Channle not exists */
+		NotExist,
+		/** Session does not exits */
+		SeshNotExist
 	}
 
 	/**
