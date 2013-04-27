@@ -29,9 +29,14 @@ abstract public class ReqCmdChnlRscAbst extends CmdChnlRscAbst implements
 	 * @throws CumExcpIllegalCmdDoc
 	 * 
 	 */
-	public ReqCmdChnlRscAbst(Document doc, ArrayList<ChnlRscIntf> rsces)
-			throws CumExcpIllegalCmdDoc {
-		super(doc, rsces);
+	public ReqCmdChnlRscAbst(Document doc) throws CumExcpIllegalCmdDoc {
+		super(doc);
+	}
+
+	public void addRsces(ArrayList<ChnlRscIntf> rsces) {
+		for (ChnlRscIntf rsc : rsces) {
+			addRscData(rsc);
+		}
 	}
 
 	@Override

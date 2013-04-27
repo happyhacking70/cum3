@@ -19,6 +19,7 @@ import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcptNullRsces;
 import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderAbst;
+import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf;
 import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAudIntf;
 import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrPrestrIntf;
 
@@ -58,7 +59,7 @@ public class SeshMgrPresSvr implements SeshMgrPresSvrAudIntf,
 	 * (java.lang.String, jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderAbst)
 	 */
 	@Override
-	public void regSesh(String seshName, CmdSenderAbst sender)
+	public void regSesh(String seshName, CmdSenderIntf sender)
 			throws CumExcpSeshExists {
 
 		if (seshes.containsKey(seshName) == true) {

@@ -30,9 +30,8 @@ abstract public class NtfyCmdChnlRscAbst extends CmdChnlRscAbst implements
 	 * @throws CumExcpIllegalCmdDoc
 	 * 
 	 */
-	public NtfyCmdChnlRscAbst(Document doc, ArrayList<ChnlRscIntf> rsces)
-			throws CumExcpIllegalCmdDoc {
-		super(doc, rsces);
+	public NtfyCmdChnlRscAbst(Document doc) throws CumExcpIllegalCmdDoc {
+		super(doc);
 	}
 
 	@Override

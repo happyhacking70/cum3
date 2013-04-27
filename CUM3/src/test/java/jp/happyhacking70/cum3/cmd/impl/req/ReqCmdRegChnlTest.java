@@ -12,7 +12,6 @@ import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscImg;
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
 import jp.happyhacking70.cum3.cmd.CmdAbst;
 import jp.happyhacking70.cum3.cmd.ReqCmdChnlTestAbst;
-import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdRegChnl;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
 import org.junit.BeforeClass;
@@ -86,6 +85,8 @@ public class ReqCmdRegChnlTest extends ReqCmdChnlTestAbst {
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		rsces.add(new ChnlRscImg("a", null));
 		rsces.add(new ChnlRscImg("b", null));
-		return new ReqCmdRegChnl(doc, rsces);
+		ReqCmdRegChnl cmd = new ReqCmdRegChnl(doc);
+		cmd.addRsces(rsces);
+		return cmd;
 	}
 }

@@ -3,9 +3,6 @@
  */
 package jp.happyhacking70.cum3.cmd.impl.ntfy;
 
-import java.util.ArrayList;
-
-import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
 import jp.happyhacking70.cum3.cmd.CmdActions;
 import jp.happyhacking70.cum3.cmd.NtfyCmdChnlRscAbst;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
@@ -31,9 +28,8 @@ public class NtfyCmdRegChnl extends NtfyCmdChnlRscAbst {
 	 * @param doc
 	 * @throws CumExcpIllegalCmdDoc
 	 */
-	public NtfyCmdRegChnl(Document doc, ArrayList<ChnlRscIntf> rsces)
-			throws CumExcpIllegalCmdDoc {
-		super(doc, rsces);
+	public NtfyCmdRegChnl(Document doc) throws CumExcpIllegalCmdDoc {
+		super(doc);
 	}
 
 	@Override

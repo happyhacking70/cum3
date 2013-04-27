@@ -9,7 +9,6 @@ import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscImg;
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
 import jp.happyhacking70.cum3.cmd.CmdAbst;
 import jp.happyhacking70.cum3.cmd.ResCmdChnlTestAbst;
-import jp.happyhacking70.cum3.cmd.impl.res.ResCmdRegChnl;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
 import org.junit.BeforeClass;
@@ -60,7 +59,7 @@ public class ResCmdRegChnlTest extends ResCmdChnlTestAbst {
 		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
 		rsces.add(new ChnlRscImg("a", null));
 		rsces.add(new ChnlRscImg("b", null));
-		ResCmdRegChnl cmd = new ResCmdRegChnl(doc, rsces);
+		ResCmdRegChnl cmd = new ResCmdRegChnl(doc);
 		return cmd;
 	}
 
@@ -69,6 +68,7 @@ public class ResCmdRegChnlTest extends ResCmdChnlTestAbst {
 	 * 
 	 * @see jp.happyhacking70.cum3.cmd.ResCmdTestIntf#getNormalRslt()
 	 */
+	@Override
 	public String getNormalRslt() {
 		return rslt.name();
 

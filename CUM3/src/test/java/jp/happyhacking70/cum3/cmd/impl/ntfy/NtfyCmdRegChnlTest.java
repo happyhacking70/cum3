@@ -3,13 +3,9 @@
  */
 package jp.happyhacking70.cum3.cmd.impl.ntfy;
 
-import java.util.ArrayList;
-
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscImg;
-import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
 import jp.happyhacking70.cum3.cmd.CmdAbst;
 import jp.happyhacking70.cum3.cmd.NtfyCmdChnlTestAbst;
-import jp.happyhacking70.cum3.cmd.impl.ntfy.NtfyCmdRegChnl;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
 import org.junit.BeforeClass;
@@ -57,10 +53,8 @@ public class NtfyCmdRegChnlTest extends NtfyCmdChnlTestAbst {
 	 */
 	@Override
 	protected CmdAbst getCmdNormal(Document doc) throws CumExcpIllegalCmdDoc {
-		ArrayList<ChnlRscIntf> rsces = new ArrayList<ChnlRscIntf>();
-		rsces.add(new ChnlRscImg("a", null));
-		rsces.add(new ChnlRscImg("b", null));
-		return new NtfyCmdRegChnl(doc, rsces);
+
+		return new NtfyCmdRegChnl(doc);
 	}
 
 }

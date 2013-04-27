@@ -3,9 +3,6 @@
  */
 package jp.happyhacking70.cum3.cmd.impl.req;
 
-import java.util.ArrayList;
-
-import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
 import jp.happyhacking70.cum3.cmd.CmdActions;
 import jp.happyhacking70.cum3.cmd.ReqCmdChnlRscAbst;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
@@ -31,9 +28,8 @@ public class ReqCmdRegChnl extends ReqCmdChnlRscAbst {
 	 * @param rcses
 	 * @throws CumExcpIllegalCmdDoc
 	 */
-	public ReqCmdRegChnl(Document doc, ArrayList<ChnlRscIntf> rcses)
-			throws CumExcpIllegalCmdDoc {
-		super(doc, rcses);
+	public ReqCmdRegChnl(Document doc) throws CumExcpIllegalCmdDoc {
+		super(doc);
 	}
 
 	/*

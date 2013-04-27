@@ -3,9 +3,6 @@
  */
 package jp.happyhacking70.cum3.cmd;
 
-import java.util.ArrayList;
-
-import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 import jp.happyhacking70.cum3.excp.impl.CumExcpXMLGenFailed;
 
@@ -30,13 +27,8 @@ abstract public class ResCmdChnlRscAbst extends CmdChnlRscAbst implements
 		this.rslt = rslt;
 	}
 
-	/**
-	 * @throws CumExcpIllegalCmdDoc
-	 * 
-	 */
-	public ResCmdChnlRscAbst(Document doc, ArrayList<ChnlRscIntf> rsces)
-			throws CumExcpIllegalCmdDoc {
-		super(doc, rsces);
+	public ResCmdChnlRscAbst(Document doc) throws CumExcpIllegalCmdDoc {
+		super(doc);
 	}
 
 	/*
@@ -55,6 +47,7 @@ abstract public class ResCmdChnlRscAbst extends CmdChnlRscAbst implements
 	 * 
 	 * @see jp.happyhacking70.cum3.cmd.ResCmdIntf#getRslt()
 	 */
+	@Override
 	public final String getRslt() {
 		return rslt;
 	}
