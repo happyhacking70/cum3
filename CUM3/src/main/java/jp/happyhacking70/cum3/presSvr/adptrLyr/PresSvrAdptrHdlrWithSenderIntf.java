@@ -13,7 +13,8 @@ import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAllIntf;
  * @author happyhacking70@gmail.com
  * 
  */
-public interface PresSvrAdptrHdlrWithSenderIntf {
+public interface PresSvrAdptrHdlrWithSenderIntf extends
+		PresSvrAdptrHdlrIntfBase {
 	public CmdAbst hndlCmd(CmdAbst cmd, CmdSenderIntf sender,
 			SeshMgrPresSvrAllIntf seshMgr) throws CumExcpIllegalCmdXML,
 			CumExcpIllegalCmdDoc;
