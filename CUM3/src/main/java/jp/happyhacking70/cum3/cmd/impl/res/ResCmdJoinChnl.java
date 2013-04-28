@@ -23,12 +23,14 @@ public class ResCmdJoinChnl extends ResCmdChnlAudAbst {
 
 		/** Session Not Exist */
 		SeshNotExist,
-		/** Channel Not Exist */
-		NotExist,
 		/** Successfully joined */
 		Joined,
 		/** Already joined */
-		Exists
+		Exists,
+		/** Audience is not joiningg session */
+		AudNotExist,
+		/** Channel not exist */
+		ChnlNotExist
 
 	}
 

@@ -4,6 +4,7 @@
 package jp.happyhacking70.cum3.cmd.impl.req;
 
 import jp.happyhacking70.cum3.cmd.CmdActions;
+import jp.happyhacking70.cum3.cmd.PrstCmdIntf;
 import jp.happyhacking70.cum3.cmd.ReqCmdSeshAbst;
 
 import org.w3c.dom.Document;
@@ -12,7 +13,7 @@ import org.w3c.dom.Document;
  * @author happyhacking70@gmail.com
  * 
  */
-public class ReqCmdRegSesh extends ReqCmdSeshAbst {
+public class ReqCmdRegSesh extends ReqCmdSeshAbst implements PrstCmdIntf {
 
 	/**
 	 * @param seshName
