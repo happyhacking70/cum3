@@ -1,7 +1,7 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.presSvr.comLyr.adaptor;
+package jp.happyhacking70.cum3.presSvr.adptrLyr.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -16,28 +16,41 @@ import jp.happyhacking70.cum3.excp.impl.CumExcpXMLGenFailed;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshNotExist;
+import jp.happyhacking70.cum3.presSvr.adptrLyr.impl.PresSvrAdptrHdlrJoinSesh;
 import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAllIntf;
 import jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr;
 import jp.happyhacking70.cum3.test.CumTestBast;
 
+import org.junit.Before;
 import org.junit.Test;
 
 /**
  * @author happyhacking70@gmail.com
  * 
  */
-public class PresSvrAdaptorHdlrWithSenderJoinSeshTest extends CumTestBast {
+public class PresSvrAdptrHdlrJoinSeshTest extends CumTestBast {
 
 	/**
 	 * @throws IOException
 	 */
-	public PresSvrAdaptorHdlrWithSenderJoinSeshTest() throws IOException {
+	public PresSvrAdptrHdlrJoinSeshTest() throws IOException {
 		super();
 	}
 
 	/**
+	 * @throws java.lang.Exception
+	 */
+	@Before
+	public void setUp() throws Exception {
+		senderForAudA.clearQueue();
+		senderForAudB.clearQueue();
+		senderForPrestr.clearQueue();
+
+	}
+
+	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.comLyr.adaptor.PresSvrAdaptorHdlrWithSenderJoinSesh#hndlCmd(jp.happyhacking70.cum3.cmd.CmdAbst, jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf, jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAllIntf)}
+	 * {@link jp.happyhacking70.cum3.presSvr.adptrLyr.impl.PresSvrAdptrHdlrJoinSesh#hndlCmd(jp.happyhacking70.cum3.cmd.CmdAbst, jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf, jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAllIntf)}
 	 * .
 	 * 
 	 * @throws CumExcpSeshExists
@@ -52,7 +65,7 @@ public class PresSvrAdaptorHdlrWithSenderJoinSeshTest extends CumTestBast {
 
 		seshMgr.regSesh(seshName, senderForPrestr);
 
-		PresSvrAdaptorHdlrWithSenderJoinSesh hdlr = new PresSvrAdaptorHdlrWithSenderJoinSesh();
+		PresSvrAdptrHdlrJoinSesh hdlr = new PresSvrAdptrHdlrJoinSesh();
 		ReqCmdJoinSesh reqCmd = new ReqCmdJoinSesh(seshName, audName);
 		ResCmdJoinSesh resCmd = null;
 		resCmd = (ResCmdJoinSesh) hdlr.hndlCmd(reqCmd, senderForAudA, seshMgr);
@@ -72,7 +85,7 @@ public class PresSvrAdaptorHdlrWithSenderJoinSeshTest extends CumTestBast {
 
 		seshMgr.regSesh(seshName, senderForPrestr);
 
-		PresSvrAdaptorHdlrWithSenderJoinSesh hdlr = new PresSvrAdaptorHdlrWithSenderJoinSesh();
+		PresSvrAdptrHdlrJoinSesh hdlr = new PresSvrAdptrHdlrJoinSesh();
 		ReqCmdJoinSesh reqCmd = new ReqCmdJoinSesh("XXX", audName);
 		ResCmdJoinSesh resCmd = null;
 		resCmd = (ResCmdJoinSesh) hdlr.hndlCmd(reqCmd, senderForAudA, seshMgr);
@@ -91,7 +104,7 @@ public class PresSvrAdaptorHdlrWithSenderJoinSeshTest extends CumTestBast {
 		seshMgr.regSesh(seshName, senderForPrestr);
 		seshMgr.joinSesh(seshName, audName, senderForAudA);
 
-		PresSvrAdaptorHdlrWithSenderJoinSesh hdlr = new PresSvrAdaptorHdlrWithSenderJoinSesh();
+		PresSvrAdptrHdlrJoinSesh hdlr = new PresSvrAdptrHdlrJoinSesh();
 		ReqCmdJoinSesh reqCmd = new ReqCmdJoinSesh(seshName, audName);
 		ResCmdJoinSesh resCmd = null;
 		resCmd = (ResCmdJoinSesh) hdlr.hndlCmd(reqCmd, senderForAudA, seshMgr);

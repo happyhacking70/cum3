@@ -31,7 +31,7 @@ public abstract class CumTestBast {
 	protected BufferedImage bImgA;
 	protected ChnlRscImg rscImgA;
 
-	protected static final String rscNameb = "b";
+	protected static final String rscNameB = "b";
 	protected BufferedImage bImgB;
 	protected ChnlRscImg rscImgB;
 
@@ -48,7 +48,7 @@ public abstract class CumTestBast {
 		bImgB = ImageIO.read(new File("src/test/resources/2.jpg"));
 
 		rscImgA = new ChnlRscImg(rscNameA, bImgA);
-		rscImgB = new ChnlRscImg(rscNameb, bImgB);
+		rscImgB = new ChnlRscImg(rscNameB, bImgB);
 		rscesArray.add(rscImgA);
 		rscesArray.add(rscImgB);
 	}

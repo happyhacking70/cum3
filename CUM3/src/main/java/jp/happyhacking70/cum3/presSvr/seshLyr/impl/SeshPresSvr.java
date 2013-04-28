@@ -3,7 +3,7 @@
  */
 package jp.happyhacking70.cum3.presSvr.seshLyr.impl;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
@@ -24,7 +24,6 @@ import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpChnlNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNull;
-import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcptNullRsces;
 import jp.happyhacking70.cum3.presSvr.audLyr.Aud;
 import jp.happyhacking70.cum3.presSvr.audLyr.AudIntf;
 import jp.happyhacking70.cum3.presSvr.chnlLyr.ChnlPresSvr;
@@ -97,8 +96,8 @@ public class SeshPresSvr implements SeshPresSvrAudIntf, SeshPresSvrPrestrIntf {
 	 */
 	@Override
 	synchronized public void regChnl(String chnlName,
-			ArrayList<ChnlRscIntf> chnlRsces) throws CumExcpChnlExists,
-			CumExcpRscExists, CumExcptNullRsces, CumExcpRscNull {
+			List<ChnlRscIntf> chnlRsces) throws CumExcpChnlExists,
+			CumExcpRscExists, CumExcpRscNull {
 
 		if (chnls.containsKey(chnlName) == true) {
 			throw new CumExcpChnlExists(seshName, chnlName);
@@ -110,8 +109,6 @@ public class SeshPresSvr implements SeshPresSvrAudIntf, SeshPresSvrPrestrIntf {
 			newChnl = new ChnlPresSvr(seshName, chnlName, chnlRsces);
 		} catch (CumExcpRscExists e) {
 			throw new CumExcpRscExists(seshName, e);
-		} catch (CumExcptNullRsces e) {
-			throw new CumExcptNullRsces(seshName, e);
 		} catch (CumExcpRscNull e) {
 			throw new CumExcpRscNull(seshName, e);
 		}

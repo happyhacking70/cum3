@@ -41,4 +41,8 @@ public class DummySender extends CmdSenderAbst {
 		cmdsSent.add(xmledCmd);
 	}
 
+	public void clearQueue() {
+		cmdsSent = new ConcurrentLinkedQueue<String>();
+	}
+
 }

@@ -3,7 +3,7 @@
  */
 package jp.happyhacking70.cum3.presSvr.seshLyr.impl;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
@@ -17,7 +17,6 @@ import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNull;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshNotExist;
-import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcptNullRsces;
 import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf;
 import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAllIntf;
 import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAudIntf;
@@ -25,11 +24,10 @@ import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrPrestrIntf;
 
 /**
  * <UL>
- * <LI><B>SeshMgrPresSvr maintains all sessions on presentation server</B></LI>
- * <LI><B>All the detailed management is delegated to SeshPresSvr</B></LI>
+ * <LI>SeshMgrPresSvr maintains all sessions on presentation server</LI>
+ * <LI>All the detailed management is delegated to {@link SeshPresSvr}</LI>
  * </UL>
  * 
- * @see SeshPresSvr
  * 
  * @author happyhacking70@gmail.com
  * 
@@ -80,9 +78,8 @@ public class SeshMgrPresSvr implements SeshMgrPresSvrAudIntf,
 	 */
 	@Override
 	public void regChnl(String seshName, String chnlName,
-			ArrayList<ChnlRscIntf> chnlRsces) throws CumExcpSeshNotExist,
-			CumExcpRscExists, CumExcpChnlExists, CumExcptNullRsces,
-			CumExcpRscNull {
+			List<ChnlRscIntf> chnlRsces) throws CumExcpSeshNotExist,
+			CumExcpRscExists, CumExcpChnlExists, CumExcpRscNull {
 
 		SeshPresSvr sesh = getSesh(seshName);
 		sesh.regChnl(chnlName, chnlRsces);

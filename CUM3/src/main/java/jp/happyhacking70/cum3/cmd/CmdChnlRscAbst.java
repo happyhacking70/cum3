@@ -3,6 +3,7 @@
  */
 package jp.happyhacking70.cum3.cmd;
 
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
@@ -23,19 +24,18 @@ import org.w3c.dom.NodeList;
 abstract public class CmdChnlRscAbst extends CmdChnlAbst {
 	final protected CopyOnWriteArrayList<ChnlRscIntf> rscData = new CopyOnWriteArrayList<ChnlRscIntf>();
 
+	public CmdChnlRscAbst(String seshName, String chnlName,
+			List<ChnlRscIntf> rsces) {
+		super(seshName, chnlName);
+		for (ChnlRscIntf rsc : rsces) {
+			addRscData(rsc);
+		}
+	}
+
 	public CmdChnlRscAbst(String seshName, String chnlName) {
 		super(seshName, chnlName);
 	}
 
-	// /**
-	// * @param doc
-	// * @throws CumExcpIllegalCmdDoc
-	// */
-	// public CmdChnlRscAbst(Document doc, ArrayList<ChnlRscIntf> rsces)
-	// throws CumExcpIllegalCmdDoc {
-	// super(doc);
-	// setChnlNameFromDoc(rsces);
-	// }
 	/**
 	 * @param doc
 	 * @throws CumExcpIllegalCmdDoc
@@ -84,7 +84,7 @@ abstract public class CmdChnlRscAbst extends CmdChnlAbst {
 		rscData.add(chnlRsc);
 	}
 
-	final public CopyOnWriteArrayList<ChnlRscIntf> getRscData() {
+	final public List<ChnlRscIntf> getRscData() {
 		return rscData;
 	}
 

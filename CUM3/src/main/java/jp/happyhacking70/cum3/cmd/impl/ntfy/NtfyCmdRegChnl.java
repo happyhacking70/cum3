@@ -3,6 +3,9 @@
  */
 package jp.happyhacking70.cum3.cmd.impl.ntfy;
 
+import java.util.ArrayList;
+
+import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
 import jp.happyhacking70.cum3.cmd.CmdActions;
 import jp.happyhacking70.cum3.cmd.NtfyCmdChnlRscAbst;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
@@ -14,6 +17,11 @@ import org.w3c.dom.Document;
  * 
  */
 public class NtfyCmdRegChnl extends NtfyCmdChnlRscAbst {
+
+	public NtfyCmdRegChnl(String seshName, String chnlName,
+			ArrayList<ChnlRscIntf> rsces) {
+		super(seshName, chnlName, rsces);
+	}
 
 	/**
 	 * @param seshName

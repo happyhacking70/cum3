@@ -6,7 +6,7 @@ package jp.happyhacking70.cum3.cmd;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.List;
 
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
 import jp.happyhacking70.cum3.cmd.impl.ntfy.NtfyCmdClsChnl;
@@ -114,7 +114,7 @@ public class CmdFactoryTest {
 
 	}
 
-	protected void checkRsces(CopyOnWriteArrayList<ChnlRscIntf> rsces) {
+	protected void checkRsces(List<ChnlRscIntf> rsces) {
 
 		assertEquals(2, rsces.size());
 		boolean a = false;

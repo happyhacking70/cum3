@@ -25,12 +25,10 @@ public interface SeshPresSvrAudIntf {
 	/**
 	 * <UL>
 	 * <LI>add audience to session</LI>
-	 * <LI>send NtfyCmdJoinSesh to <U>presenter</U></LI>
-	 * <LI>send NtfyCmdRegChnl to <U>audience</U> for all existing channels</LI>
+	 * <LI>send {@link NtfyCmdJoinSesh} to <U>presenter</U></LI>
+	 * <LI>send {@link NtfyCmdRegChnl} to <U>audience</U> for all existing
+	 * channels</LI>
 	 * </UL>
-	 * 
-	 * @see NtfyCmdJoinSesh
-	 * @see NtfyCmdRegChnl
 	 * 
 	 * @param audName
 	 * @param sender
@@ -44,15 +42,12 @@ public interface SeshPresSvrAudIntf {
 	 * <LI>remove audience from session</LI>
 	 * <LI>let audience leave from all the channels which audience is still
 	 * joining</LI>
-	 * <LI>no need to send NtfyCmdLvChnl to <U>presenter</U> because presenter
-	 * takes care of it</LI>
-	 * <LI>no need to send NtfyCmdLvChnl to <U>audience</U> because audience
-	 * takes care of it</LI>
-	 * <LI>send NtfyCmdLvSesh to <U>presenter</U></LI>
+	 * <LI>no need to send {@link NtfyCmdLvChnl} to <U>presenter</U> because
+	 * presenter takes care of it</LI>
+	 * <LI>no need to send {@link NtfyCmdLvChnl} to <U>audience</U> because
+	 * audience takes care of it</LI>
+	 * <LI>send {@link NtfyCmdLvSesh} to <U>presenter</U></LI>
 	 * </UL>
-	 * 
-	 * @see NtfyCmdLvChnl
-	 * @see NtfyCmdLvSesh
 	 * 
 	 * @param audName
 	 * @throws CumExcpAudNotExist
@@ -62,10 +57,8 @@ public interface SeshPresSvrAudIntf {
 	/**
 	 * <UL>
 	 * <LI>add audience to channel</LI>
-	 * <LI>send NtfyCmdJoinChnl to <U>presenter</U></LI>
+	 * <LI>send {@link NtfyCmdJoinChnl} to <U>presenter</U></LI>
 	 * </UL>
-	 * 
-	 * @see NtfyCmdJoinChnl
 	 * 
 	 * @param chnlName
 	 * @param audName
@@ -79,10 +72,8 @@ public interface SeshPresSvrAudIntf {
 	/**
 	 * <UL>
 	 * <LI>remove audience from channel</LI>
-	 * <LI>send NtfyCmdLvChnl to <U>presenter</U></LI>
+	 * <LI>send {@link NtfyCmdLvChnl} to <U>presenter</U></LI>
 	 * </UL>
-	 * 
-	 * @see NtfyCmdLvChnl
 	 * 
 	 * @param chnlName
 	 * @param audName
@@ -95,10 +86,8 @@ public interface SeshPresSvrAudIntf {
 	/**
 	 * <UL>
 	 * <LI>checks if audience is new comer</LI>
-	 * <LI>send NtfyCmdRjctChnl to <U>presenter</U></LI>
+	 * <LI>send {@link NtfyCmdRjctChnl} to <U>presenter</U></LI>
 	 * </UL>
-	 * 
-	 * @see NtfyCmdRjctChnl
 	 * 
 	 * @param chnlName
 	 * @param audName

@@ -3,6 +3,9 @@
  */
 package jp.happyhacking70.cum3.cmd;
 
+import java.util.List;
+
+import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 import jp.happyhacking70.cum3.excp.impl.CumExcpXMLGenFailed;
 
@@ -29,6 +32,18 @@ abstract public class ResCmdChnlRscAbst extends CmdChnlRscAbst implements
 
 	public ResCmdChnlRscAbst(Document doc) throws CumExcpIllegalCmdDoc {
 		super(doc);
+	}
+
+	/**
+	 * @param seshName
+	 * @param chnlName
+	 * @param rsces
+	 * @param name
+	 */
+	public ResCmdChnlRscAbst(String seshName, String chnlName,
+			List<ChnlRscIntf> rsces, String rslt) {
+		super(seshName, chnlName, rsces);
+		this.rslt = rslt;
 	}
 
 	/*

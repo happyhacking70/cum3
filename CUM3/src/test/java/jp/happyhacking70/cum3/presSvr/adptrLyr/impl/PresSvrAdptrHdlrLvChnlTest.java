@@ -1,7 +1,7 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.presSvr.comLyr.adaptor;
+package jp.happyhacking70.cum3.presSvr.adptrLyr.impl;
 
 import static org.junit.Assert.assertEquals;
 
@@ -19,7 +19,7 @@ import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNull;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshNotExist;
-import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcptNullRsces;
+import jp.happyhacking70.cum3.presSvr.adptrLyr.impl.PresSvrAdptrHdlrLvChnl;
 import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAllIntf;
 import jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr;
 import jp.happyhacking70.cum3.test.CumTestBast;
@@ -30,19 +30,19 @@ import org.junit.Test;
  * @author happyhacking70@gmail.com
  * 
  */
-public class PresSvrAdaptorHdlrLvChnlTest extends CumTestBast {
+public class PresSvrAdptrHdlrLvChnlTest extends CumTestBast {
 
 	/**
 	 * @throws IOException
 	 */
-	public PresSvrAdaptorHdlrLvChnlTest() throws IOException {
+	public PresSvrAdptrHdlrLvChnlTest() throws IOException {
 		super();
 
 	}
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.comLyr.adaptor.PresSvrAdaptorHdlrClsSesh#hndlCmd(jp.happyhacking70.cum3.cmd.CmdAbst, jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAllIntf)}
+	 * {@link jp.happyhacking70.cum3.presSvr.adptrLyr.impl.PresSvrAdptrHdlrClsSesh#hndlCmd(jp.happyhacking70.cum3.cmd.CmdAbst, jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAllIntf)}
 	 * .
 	 * 
 	 * @throws CumExcpSeshExists
@@ -59,7 +59,30 @@ public class PresSvrAdaptorHdlrLvChnlTest extends CumTestBast {
 	 */
 	@Test
 	public void testHndlCmd() throws CumExcpSeshExists, CumExcpRscExists,
-			CumExcpChnlExists, CumExcptNullRsces, CumExcpRscNull,
+			CumExcpChnlExists, CumExcpRscNull, CumExcpSeshNotExist,
+			CumExcpAudExists, CumExcpAudNotExist, CumExcpChnlNotExist,
+			CumExcpIllegalCmdXML, CumExcpIllegalCmdDoc {
+
+		SeshMgrPresSvrAllIntf seshMgr = new SeshMgrPresSvr();
+
+		seshMgr.regSesh(seshName, senderForPrestr);
+		seshMgr.regChnl(seshName, chnlName, rscesArray);
+
+		seshMgr.joinSesh(seshName, audName, senderForAudA);
+		seshMgr.joinChnl(seshName, chnlName, audName);
+
+		PresSvrAdptrHdlrLvChnl hdlr = new PresSvrAdptrHdlrLvChnl();
+
+		ResCmdLvChnl resCmd = (ResCmdLvChnl) hdlr.hndlCmd(new ReqCmdLvChnl(
+				seshName, chnlName, audName), seshMgr);
+
+		assertEquals(ResCmdLvChnl.class, resCmd.getClass());
+		assertEquals(ResCmdLvChnl.RsltTypes.Left.name(), resCmd.getRslt());
+	}
+
+	@Test
+	public void testHndlCmd_NOSESH() throws CumExcpSeshExists,
+			CumExcpRscExists, CumExcpChnlExists, CumExcpRscNull,
 			CumExcpSeshNotExist, CumExcpAudExists, CumExcpAudNotExist,
 			CumExcpChnlNotExist, CumExcpIllegalCmdXML, CumExcpIllegalCmdDoc {
 
@@ -71,31 +94,7 @@ public class PresSvrAdaptorHdlrLvChnlTest extends CumTestBast {
 		seshMgr.joinSesh(seshName, audName, senderForAudA);
 		seshMgr.joinChnl(seshName, chnlName, audName);
 
-		PresSvrAdaptorHdlrLvChnl hdlr = new PresSvrAdaptorHdlrLvChnl();
-
-		ResCmdLvChnl resCmd = (ResCmdLvChnl) hdlr.hndlCmd(new ReqCmdLvChnl(
-				seshName, chnlName, audName), seshMgr);
-
-		assertEquals(ResCmdLvChnl.class, resCmd.getClass());
-		assertEquals(ResCmdLvChnl.RsltTypes.Left.name(), resCmd.getRslt());
-	}
-
-	@Test
-	public void testHndlCmd_NOSESH() throws CumExcpSeshExists,
-			CumExcpRscExists, CumExcpChnlExists, CumExcptNullRsces,
-			CumExcpRscNull, CumExcpSeshNotExist, CumExcpAudExists,
-			CumExcpAudNotExist, CumExcpChnlNotExist, CumExcpIllegalCmdXML,
-			CumExcpIllegalCmdDoc {
-
-		SeshMgrPresSvrAllIntf seshMgr = new SeshMgrPresSvr();
-
-		seshMgr.regSesh(seshName, senderForPrestr);
-		seshMgr.regChnl(seshName, chnlName, rscesArray);
-
-		seshMgr.joinSesh(seshName, audName, senderForAudA);
-		seshMgr.joinChnl(seshName, chnlName, audName);
-
-		PresSvrAdaptorHdlrLvChnl hdlr = new PresSvrAdaptorHdlrLvChnl();
+		PresSvrAdptrHdlrLvChnl hdlr = new PresSvrAdptrHdlrLvChnl();
 
 		ResCmdLvChnl resCmd = (ResCmdLvChnl) hdlr.hndlCmd(new ReqCmdLvChnl("A",
 				chnlName, audName), seshMgr);
@@ -107,32 +106,7 @@ public class PresSvrAdaptorHdlrLvChnlTest extends CumTestBast {
 
 	@Test
 	public void testHndlCmd_NOCHNL() throws CumExcpSeshExists,
-			CumExcpRscExists, CumExcpChnlExists, CumExcptNullRsces,
-			CumExcpRscNull, CumExcpSeshNotExist, CumExcpAudExists,
-			CumExcpAudNotExist, CumExcpChnlNotExist, CumExcpIllegalCmdXML,
-			CumExcpIllegalCmdDoc {
-
-		SeshMgrPresSvrAllIntf seshMgr = new SeshMgrPresSvr();
-
-		seshMgr.regSesh(seshName, senderForPrestr);
-		seshMgr.regChnl(seshName, chnlName, rscesArray);
-
-		seshMgr.joinSesh(seshName, audName, senderForAudA);
-		seshMgr.joinChnl(seshName, chnlName, audName);
-
-		PresSvrAdaptorHdlrLvChnl hdlr = new PresSvrAdaptorHdlrLvChnl();
-
-		ResCmdLvChnl resCmd = (ResCmdLvChnl) hdlr.hndlCmd(new ReqCmdLvChnl(
-				seshName, "XXX", audName), seshMgr);
-
-		assertEquals(ResCmdLvChnl.class, resCmd.getClass());
-		assertEquals(ResCmdLvChnl.RsltTypes.ChnlNotExist.name(),
-				resCmd.getRslt());
-	}
-
-	@Test
-	public void testHndlCmd_NOAUD() throws CumExcpSeshExists, CumExcpRscExists,
-			CumExcpChnlExists, CumExcptNullRsces, CumExcpRscNull,
+			CumExcpRscExists, CumExcpChnlExists, CumExcpRscNull,
 			CumExcpSeshNotExist, CumExcpAudExists, CumExcpAudNotExist,
 			CumExcpChnlNotExist, CumExcpIllegalCmdXML, CumExcpIllegalCmdDoc {
 
@@ -144,7 +118,31 @@ public class PresSvrAdaptorHdlrLvChnlTest extends CumTestBast {
 		seshMgr.joinSesh(seshName, audName, senderForAudA);
 		seshMgr.joinChnl(seshName, chnlName, audName);
 
-		PresSvrAdaptorHdlrLvChnl hdlr = new PresSvrAdaptorHdlrLvChnl();
+		PresSvrAdptrHdlrLvChnl hdlr = new PresSvrAdptrHdlrLvChnl();
+
+		ResCmdLvChnl resCmd = (ResCmdLvChnl) hdlr.hndlCmd(new ReqCmdLvChnl(
+				seshName, "XXX", audName), seshMgr);
+
+		assertEquals(ResCmdLvChnl.class, resCmd.getClass());
+		assertEquals(ResCmdLvChnl.RsltTypes.ChnlNotExist.name(),
+				resCmd.getRslt());
+	}
+
+	@Test
+	public void testHndlCmd_NOAUD() throws CumExcpSeshExists, CumExcpRscExists,
+			CumExcpChnlExists, CumExcpRscNull, CumExcpSeshNotExist,
+			CumExcpAudExists, CumExcpAudNotExist, CumExcpChnlNotExist,
+			CumExcpIllegalCmdXML, CumExcpIllegalCmdDoc {
+
+		SeshMgrPresSvrAllIntf seshMgr = new SeshMgrPresSvr();
+
+		seshMgr.regSesh(seshName, senderForPrestr);
+		seshMgr.regChnl(seshName, chnlName, rscesArray);
+
+		seshMgr.joinSesh(seshName, audName, senderForAudA);
+		seshMgr.joinChnl(seshName, chnlName, audName);
+
+		PresSvrAdptrHdlrLvChnl hdlr = new PresSvrAdptrHdlrLvChnl();
 
 		ResCmdLvChnl resCmd = (ResCmdLvChnl) hdlr.hndlCmd(new ReqCmdLvChnl(
 				seshName, chnlName, "XXX"), seshMgr);

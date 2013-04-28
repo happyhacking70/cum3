@@ -33,14 +33,12 @@ public interface SeshMgrPresSvrAudIntf {
 
 	/**
 	 * <UL>
-	 * <LI><B>add audience to session</B></LI>
-	 * <LI><B>send NtfyCmdJoinSesh to <U>presenter</U></B></LI>
-	 * <LI><B>send NtfyCmdRegChnl to <U>audience</U> for all existing
-	 * channels</B></LI>
+	 * <LI>add audience to session</LI>
+	 * <LI>send {@link NtfyCmdJoinSesh} to <U>presenter</U></LI>
+	 * <LI>send {@link NtfyCmdRegChnl} to <U>audience</U> for all existing
+	 * channels</LI>
 	 * </UL>
 	 * 
-	 * @see NtfyCmdJoinSesh
-	 * @see NtfyCmdRegChnl
 	 * 
 	 * @param seshName
 	 * @param audName
@@ -53,11 +51,10 @@ public interface SeshMgrPresSvrAudIntf {
 
 	/**
 	 * <UL>
-	 * <LI><B>add audience to channel</B></LI>
-	 * <LI><B>send NtfyCmdJoinChnl to <U>presenter</U></B></LI>
+	 * <LI>add audience to channel</LI>
+	 * <LI>send {@link NtfyCmdJoinChnl} to <U>presenter</U></LI>
 	 * </UL>
 	 * 
-	 * @see NtfyCmdJoinChnl
 	 * 
 	 * @param chnlName
 	 * @param audName
@@ -73,10 +70,9 @@ public interface SeshMgrPresSvrAudIntf {
 	/**
 	 * 
 	 * <UL>
-	 * <LI><B>send NtfyCmdRjctChnl to <U>presenter</U></B></LI>
+	 * <LI>send {@link NtfyCmdRjctChnl} to <U>presenter</U></LI>
 	 * </UL>
 	 * 
-	 * @see NtfyCmdRjctChnl
 	 * 
 	 * @param seshName
 	 * @param chnlName
@@ -90,11 +86,10 @@ public interface SeshMgrPresSvrAudIntf {
 
 	/**
 	 * <UL>
-	 * <LI><B>remove audience from channel</B></LI>
-	 * <LI><B>send NtfyCmdLvChnl to <U>presenter</U></B></LI>
+	 * <LI>remove audience from channel</LI>
+	 * <LI>send {@link NtfyCmdLvChnl} to <U>presenter</U></LI>
 	 * </UL>
 	 * 
-	 * @see NtfyCmdLvChnl
 	 * 
 	 * @param seshName
 	 * @param chnlName
@@ -108,18 +103,16 @@ public interface SeshMgrPresSvrAudIntf {
 
 	/**
 	 * <UL>
-	 * <LI><B>remove audience from session</B></LI>
-	 * <LI><B>let audience leave from all the channels which audience is still
-	 * joining</B></LI>
-	 * <LI><B>no need to send NtfyCmdLvChnl to <U>presenter</U> because
-	 * presenter takes care of it</B></LI>
-	 * <LI><B>no need to send NtfyCmdLvChnl to <U>audience</U> because audience
-	 * takes care of it</B></LI>
-	 * <LI><B>send NtfyCmdLvSesh to <U>presenter</U></B></LI>
+	 * <LI>remove audience from session</LI>
+	 * <LI>let audience leave from all the channels which audience is still
+	 * joining</LI>
+	 * <LI>no need to send {@link NtfyCmdLvChnl} to <U>presenter</U> because
+	 * presenter takes care of it</LI>
+	 * <LI>no need to send {@link NtfyCmdLvChnl} to <U>audience</U> because
+	 * audience takes care of it</LI>
+	 * <LI>send {@link NtfyCmdLvSesh} to <U>presenter</U></LI>
 	 * </UL>
 	 * 
-	 * @see NtfyCmdLvChnl
-	 * @see NtfyCmdLvSesh
 	 * 
 	 * @param audName
 	 * @throws CumExcpSeshNotExist

@@ -1,7 +1,7 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.presSvr.comLyr.adaptor;
+package jp.happyhacking70.cum3.presSvr.adptrLyr.impl;
 
 import jp.happyhacking70.cum3.cmd.CmdAbst;
 import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdClsSesh;
@@ -9,13 +9,14 @@ import jp.happyhacking70.cum3.cmd.impl.res.ResCmdClsSesh;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdXML;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshNotExist;
+import jp.happyhacking70.cum3.presSvr.adptrLyr.PresSvrAdptrHdlrIntf;
 import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAllIntf;
 
 /**
  * @author happyhacking70@gmail.com
  * 
  */
-public class PresSvrAdaptorHdlrClsSesh implements PresSvrAdaptorHdlrIntf {
+public class PresSvrAdptrHdlrClsSesh implements PresSvrAdptrHdlrIntf {
 
 	/*
 	 * (non-Javadoc)

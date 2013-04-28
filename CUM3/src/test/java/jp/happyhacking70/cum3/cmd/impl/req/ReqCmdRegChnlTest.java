@@ -6,7 +6,7 @@ package jp.happyhacking70.cum3.cmd.impl.req;
 import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.List;
 
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscImg;
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
@@ -58,7 +58,7 @@ public class ReqCmdRegChnlTest extends ReqCmdChnlTestAbst {
 	@Test
 	public void testGetRscData() {
 		ReqCmdRegChnl cmd = (ReqCmdRegChnl) getCmdNormal();
-		CopyOnWriteArrayList<ChnlRscIntf> rscData = cmd.getRscData();
+		List<ChnlRscIntf> rscData = cmd.getRscData();
 
 		if (rscData.size() != 2) {
 			fail("Too Many Resources:" + rscData.size());

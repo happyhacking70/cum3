@@ -16,7 +16,7 @@ public interface ChnlPresSvrPrestrIntf {
 
 	/**
 	 * <UL>
-	 * <LI><B>send command to <U>specific</U> audience</B></LI>
+	 * <LI>send command to <U>specific</U> audience</LI>
 	 * </UL>
 	 * 
 	 * @param cmd
@@ -28,7 +28,7 @@ public interface ChnlPresSvrPrestrIntf {
 
 	/**
 	 * <UL>
-	 * <LI><B>send command to all <U>channel</U> audiences</B></LI>
+	 * <LI>send command to all <U>channel</U> audiences</LI>
 	 * </UL>
 	 * 
 	 * @param cmd

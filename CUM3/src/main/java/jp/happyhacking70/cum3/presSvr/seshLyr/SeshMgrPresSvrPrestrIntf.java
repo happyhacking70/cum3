@@ -3,7 +3,7 @@
  */
 package jp.happyhacking70.cum3.presSvr.seshLyr;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
 import jp.happyhacking70.cum3.cmd.CmdChnlAbst;
@@ -17,7 +17,6 @@ import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNull;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshNotExist;
-import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcptNullRsces;
 import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf;
 
 /**
@@ -28,8 +27,8 @@ public interface SeshMgrPresSvrPrestrIntf {
 
 	/**
 	 * <UL>
-	 * <LI><B>create new session</B></LI>
-	 * <LI><B> register to sessions</B></LI>
+	 * <LI>create new session</LI>
+	 * <LI>register to sessions</LI>
 	 * </UL>
 	 * 
 	 * @param seshName
@@ -41,16 +40,15 @@ public interface SeshMgrPresSvrPrestrIntf {
 
 	/**
 	 * <UL>
-	 * <LI><B>create new channel</B></LI>
-	 * <LI><B>register to appropriate session</B></LI>
-	 * <LI><B>send NtfyCmdRegChnl to <U>session</U> audiences </B></LI>
+	 * <LI>create new channel</LI>
+	 * <LI>register to appropriate session</LI>
+	 * <LI>send {@link NtfyCmdRegChnl} to <U>session</U> audiences</LI>
 	 * </UL>
 	 * 
-	 * @see NtfyCmdRegChnl
 	 * 
 	 * @param seshName
 	 * @param chnlName
-	 * @param chnlRsces
+	 * @param lrscesist
 	 * @throws CumExcpSeshNotExist
 	 * @throws CumExcpChnlExists
 	 * @throws CumExcpRscExists
@@ -58,17 +56,15 @@ public interface SeshMgrPresSvrPrestrIntf {
 	 * @throws CumExcpRscNull
 	 */
 	public void regChnl(String seshName, String chnlName,
-			ArrayList<ChnlRscIntf> chnlRsces) throws CumExcpSeshNotExist,
-			CumExcpChnlExists, CumExcpRscExists, CumExcptNullRsces,
-			CumExcpRscNull;
+			List<ChnlRscIntf> lrscesist) throws CumExcpSeshNotExist,
+			CumExcpChnlExists, CumExcpRscExists, CumExcpRscNull;
 
 	/**
 	 * <UL>
-	 * <LI><B>send NtfyCmdClsSesh to <U>session</U> audiences </B></LI>
-	 * <LI><B>remove session from sessions</B></LI>
+	 * <LI>send {@link NtfyCmdClsSesh} to <U>session</U> audiences</LI>
+	 * <LI>remove session from sessions</LI>
 	 * </UL>
 	 * 
-	 * @see NtfyCmdClsSesh
 	 * @param seshName
 	 * @throws CumExcpSeshNotExist
 	 */
@@ -76,7 +72,7 @@ public interface SeshMgrPresSvrPrestrIntf {
 
 	/**
 	 * <UL>
-	 * <LI><B>send command to specific audience of specific <U>channel</U> </B></LI>
+	 * <LI>send command to specific audience of specific <U>channel</U></LI>
 	 * </UL>
 	 * 
 	 * @param cmd
@@ -90,7 +86,7 @@ public interface SeshMgrPresSvrPrestrIntf {
 
 	/**
 	 * <UL>
-	 * <LI><B>send command to all audiences of specific <U>channel</U> </B></LI>
+	 * <LI>send command to all audiences of specific <U>channel</U></LI>
 	 * </UL>
 	 * 
 	 * @param cmd
@@ -103,11 +99,10 @@ public interface SeshMgrPresSvrPrestrIntf {
 
 	/**
 	 * <UL>
-	 * <LI><B>send NtfyCmdClsChnl to all <U>channel</U> audiences</B></LI>
-	 * <LI><B>close channel</B></LI>
+	 * <LI>send {@link NtfyCmdClsChnl} to all <U>channel</U> audiences</LI>
+	 * <LI>close channel</LI>
 	 * </UL>
 	 * 
-	 * @see NtfyCmdClsChnl
 	 * @param seshName
 	 * @param chnlName
 	 * @throws CumExcpSeshNotExist

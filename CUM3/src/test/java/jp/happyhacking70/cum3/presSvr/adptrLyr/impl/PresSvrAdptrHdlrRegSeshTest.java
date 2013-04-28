@@ -1,7 +1,7 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.presSvr.comLyr.adaptor;
+package jp.happyhacking70.cum3.presSvr.adptrLyr.impl;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -13,6 +13,7 @@ import jp.happyhacking70.cum3.cmd.impl.res.ResCmdRegSesh;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdXML;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshExists;
+import jp.happyhacking70.cum3.presSvr.adptrLyr.impl.PresSvrAdptrHdlrRegSesh;
 import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAllIntf;
 import jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr;
 import jp.happyhacking70.cum3.test.CumTestBast;
@@ -23,19 +24,19 @@ import org.junit.Test;
  * @author happyhacking70@gmail.com
  * 
  */
-public class PresSvrAdaptorHdlrWithSenderRegSeshTest extends CumTestBast {
+public class PresSvrAdptrHdlrRegSeshTest extends CumTestBast {
 
 	/**
 	 * @throws IOException
 	 */
-	public PresSvrAdaptorHdlrWithSenderRegSeshTest() throws IOException {
+	public PresSvrAdptrHdlrRegSeshTest() throws IOException {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.comLyr.adaptor.PresSvrAdaptorHdlrWithSenderRegSesh#hndlCmd(jp.happyhacking70.cum3.cmd.CmdAbst, jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf, jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAllIntf)}
+	 * {@link jp.happyhacking70.cum3.presSvr.adptrLyr.impl.PresSvrAdptrHdlrRegSesh#hndlCmd(jp.happyhacking70.cum3.cmd.CmdAbst, jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf, jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAllIntf)}
 	 * .
 	 * 
 	 * @throws CumExcpIllegalCmdDoc
@@ -44,7 +45,7 @@ public class PresSvrAdaptorHdlrWithSenderRegSeshTest extends CumTestBast {
 	@Test
 	public void testHndlCmd() throws CumExcpIllegalCmdXML, CumExcpIllegalCmdDoc {
 		SeshMgrPresSvrAllIntf seshMgr = new SeshMgrPresSvr();
-		PresSvrAdaptorHdlrWithSenderRegSesh hdlr = new PresSvrAdaptorHdlrWithSenderRegSesh();
+		PresSvrAdptrHdlrRegSesh hdlr = new PresSvrAdptrHdlrRegSesh();
 
 		ReqCmdRegSesh reqCmd = new ReqCmdRegSesh(seshName);
 		ResCmdRegSesh resCmd = null;
@@ -60,7 +61,7 @@ public class PresSvrAdaptorHdlrWithSenderRegSeshTest extends CumTestBast {
 		SeshMgrPresSvrAllIntf seshMgr = new SeshMgrPresSvr();
 
 		seshMgr.regSesh(seshName, senderForPrestr);
-		PresSvrAdaptorHdlrWithSenderRegSesh hdlr = new PresSvrAdaptorHdlrWithSenderRegSesh();
+		PresSvrAdptrHdlrRegSesh hdlr = new PresSvrAdptrHdlrRegSesh();
 
 		ReqCmdRegSesh reqCmd = new ReqCmdRegSesh(seshName);
 		ResCmdRegSesh resCmd = null;

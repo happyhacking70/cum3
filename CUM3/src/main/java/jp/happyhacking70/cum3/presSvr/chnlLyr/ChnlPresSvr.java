@@ -3,7 +3,7 @@
  */
 package jp.happyhacking70.cum3.presSvr.chnlLyr;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
@@ -17,7 +17,6 @@ import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNull;
-import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcptNullRsces;
 import jp.happyhacking70.cum3.presSvr.audLyr.AudIntf;
 
 /**
@@ -47,9 +46,8 @@ public class ChnlPresSvr implements ChnlPresSvrAudIntf, ChnlPresSvrPrestrIntf {
 	 * @throws CumExcptNullRsces
 	 * @throws CumExcpRscNull
 	 */
-	public ChnlPresSvr(String seshName, String chnlName,
-			ArrayList<ChnlRscIntf> rsces) throws CumExcpRscExists,
-			CumExcptNullRsces, CumExcpRscNull {
+	public ChnlPresSvr(String seshName, String chnlName, List<ChnlRscIntf> rsces)
+			throws CumExcpRscExists, CumExcpRscNull {
 		super();
 		this.seshName = seshName;
 		this.chnlName = chnlName;
@@ -64,14 +62,13 @@ public class ChnlPresSvr implements ChnlPresSvrAudIntf, ChnlPresSvrPrestrIntf {
 	 * @throws CumExcptNullRsces
 	 * @throws CumExcpRscNull
 	 */
-	protected void addRsces(ArrayList<ChnlRscIntf> rsces)
-			throws CumExcpRscExists, CumExcptNullRsces, CumExcpRscNull {
+	protected void addRsces(List<ChnlRscIntf> rsces) throws CumExcpRscExists,
+			CumExcpRscNull {
 
-		if (rsces == null) {
-			throw new CumExcptNullRsces(chnlName);
-		}
-		for (ChnlRscIntf rsc : rsces) {
-			addRsc(rsc);
+		if (rsces != null) {
+			for (ChnlRscIntf rsc : rsces) {
+				addRsc(rsc);
+			}
 		}
 	}
 

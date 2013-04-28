@@ -22,9 +22,8 @@ public interface ChnlPresSvrAudIntf {
 
 	/**
 	 * <UL>
-	 * <LI><B>add audience to channel</B></LI>
-	 * <LI><B>return NtfyCmdJoinChnl so that session can sent it to
-	 * presenter</B></LI>
+	 * <LI>add audience to channel</LI>
+	 * <LI>return NtfyCmdJoinChnl so that session can sent it to presenter</LI>
 	 * </UL>
 	 * 
 	 * @param aud
@@ -35,8 +34,8 @@ public interface ChnlPresSvrAudIntf {
 
 	/**
 	 * <UL>
-	 * <LI><B>remove audience from channel</B></LI>
-	 * <LI><B>return NtfyCmdLvChnl so that session can sent it to presenter</B></LI>
+	 * <LI>remove audience from channel</LI>
+	 * <LI>return NtfyCmdLvChnl so that session can sent it to presenter</LI>
 	 * </UL>
 	 * 
 	 * @param aud
@@ -47,7 +46,7 @@ public interface ChnlPresSvrAudIntf {
 
 	/**
 	 * <UL>
-	 * <LI><B>get channel resource</B></LI>
+	 * <LI>get channel resource</LI>
 	 * </UL>
 	 * 
 	 * @param rscName
@@ -58,7 +57,7 @@ public interface ChnlPresSvrAudIntf {
 
 	/**
 	 * <UL>
-	 * <LI><B>just check if audience is new comer</B></LI>
+	 * <LI>just check if audience is new comer</LI>
 	 * </UL>
 	 * 
 	 * @param audName
