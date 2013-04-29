@@ -21,7 +21,8 @@ import org.w3c.dom.NodeList;
  * @author happyhacking70@gmail.com
  * 
  */
-abstract public class CmdChnlRscAbst extends CmdChnlAbst {
+abstract public class CmdChnlRscAbst extends CmdChnlAbst implements
+		CmdWithRscIntf {
 	final protected CopyOnWriteArrayList<ChnlRscIntf> rscData = new CopyOnWriteArrayList<ChnlRscIntf>();
 
 	public CmdChnlRscAbst(String seshName, String chnlName,
@@ -80,10 +81,24 @@ abstract public class CmdChnlRscAbst extends CmdChnlAbst {
 		return n.getNodeValue();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * jp.happyhacking70.cum3.cmd.CmdWithRscIntf#addRscData(jp.happyhacking70
+	 * .cum3.chnlLyr.rsc.ChnlRscIntf)
+	 */
+	@Override
 	final public void addRscData(ChnlRscIntf chnlRsc) {
 		rscData.add(chnlRsc);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see jp.happyhacking70.cum3.cmd.CmdWithRscIntf#getRscData()
+	 */
+	@Override
 	final public List<ChnlRscIntf> getRscData() {
 		return rscData;
 	}
