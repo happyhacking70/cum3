@@ -3,9 +3,10 @@
  */
 package jp.happyhacking70.cum3.cmd.impl.ntfy;
 
+import java.io.IOException;
+
 import jp.happyhacking70.cum3.cmd.CmdAbst;
 import jp.happyhacking70.cum3.cmd.NtfyCmdSeshTestAbst;
-import jp.happyhacking70.cum3.cmd.impl.ntfy.NtfyCmdSeshDisconned;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
 import org.junit.BeforeClass;
@@ -16,6 +17,13 @@ import org.w3c.dom.Document;
  * 
  */
 public class NtfyCmdSeshDisconnedTest extends NtfyCmdSeshTestAbst {
+	/**
+	 * @throws IOException
+	 */
+	public NtfyCmdSeshDisconnedTest() throws IOException {
+		super();
+	}
+
 	static String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><CUM><CMD ACTION=\"SeshDisconned\" SESH=\"testSession\" TYPE=\"NTFY\"/></CUM>";
 
 	/**

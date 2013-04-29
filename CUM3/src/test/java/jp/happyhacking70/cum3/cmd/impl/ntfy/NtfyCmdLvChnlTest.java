@@ -3,9 +3,10 @@
  */
 package jp.happyhacking70.cum3.cmd.impl.ntfy;
 
+import java.io.IOException;
+
 import jp.happyhacking70.cum3.cmd.CmdAbst;
 import jp.happyhacking70.cum3.cmd.NtfyCmdChnlAudTestAbst;
-import jp.happyhacking70.cum3.cmd.impl.ntfy.NtfyCmdLvChnl;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
 import org.junit.BeforeClass;
@@ -16,6 +17,13 @@ import org.w3c.dom.Document;
  * 
  */
 public class NtfyCmdLvChnlTest extends NtfyCmdChnlAudTestAbst {
+	/**
+	 * @throws IOException
+	 */
+	public NtfyCmdLvChnlTest() throws IOException {
+		super();
+	}
+
 	static String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><CUM><CMD ACTION=\"LvChnl\" AUD=\"testAudience\" CHNL=\"testChannel\" SESH=\"testSession\" TYPE=\"NTFY\"/></CUM>";
 
 	/**

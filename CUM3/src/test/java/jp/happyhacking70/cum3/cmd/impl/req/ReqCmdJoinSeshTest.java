@@ -3,9 +3,10 @@
  */
 package jp.happyhacking70.cum3.cmd.impl.req;
 
+import java.io.IOException;
+
 import jp.happyhacking70.cum3.cmd.CmdAbst;
 import jp.happyhacking70.cum3.cmd.ReqCmdSeshAudTestAbst;
-import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdJoinSesh;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
 import org.junit.BeforeClass;
@@ -16,6 +17,13 @@ import org.w3c.dom.Document;
  * 
  */
 public class ReqCmdJoinSeshTest extends ReqCmdSeshAudTestAbst {
+	/**
+	 * @throws IOException
+	 */
+	public ReqCmdJoinSeshTest() throws IOException {
+		super();
+	}
+
 	static final public String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><CUM><CMD ACTION=\"JoinSesh\" AUD=\"testAudience\" SESH=\"testSession\" TYPE=\"REQ\"/></CUM>";
 
 	@Override

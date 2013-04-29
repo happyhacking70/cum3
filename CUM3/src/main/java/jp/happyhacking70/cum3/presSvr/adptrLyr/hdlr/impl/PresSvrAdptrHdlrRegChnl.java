@@ -1,9 +1,10 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.presSvr.adptrLyr.impl;
+package jp.happyhacking70.cum3.presSvr.adptrLyr.hdlr.impl;
 
 import jp.happyhacking70.cum3.cmd.CmdAbst;
+import jp.happyhacking70.cum3.cmd.ResCmdIntf;
 import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdRegChnl;
 import jp.happyhacking70.cum3.cmd.impl.res.ResCmdRegChnl;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
@@ -29,7 +30,7 @@ public class PresSvrAdptrHdlrRegChnl implements PresSvrAdptrHdlrIntf {
 	 * #hndlCmd(jp.happyhacking70.cum3.cmd.CmdAbst, java.util.ArrayList)
 	 */
 	@Override
-	public CmdAbst hndlCmd(CmdAbst cmd, SeshMgrPresSvrAllIntf seshMgr)
+	public ResCmdIntf hndlCmd(CmdAbst cmd, SeshMgrPresSvrAllIntf seshMgr)
 			throws CumExcpIllegalCmdXML, CumExcpIllegalCmdDoc {
 
 		ReqCmdRegChnl reqCmd = (ReqCmdRegChnl) cmd;

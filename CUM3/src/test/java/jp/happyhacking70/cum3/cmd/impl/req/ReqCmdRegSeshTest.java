@@ -3,9 +3,10 @@
  */
 package jp.happyhacking70.cum3.cmd.impl.req;
 
+import java.io.IOException;
+
 import jp.happyhacking70.cum3.cmd.CmdAbst;
 import jp.happyhacking70.cum3.cmd.ReqCmdSeshTestAbst;
-import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdRegSesh;
 
 import org.junit.BeforeClass;
 import org.w3c.dom.Document;
@@ -15,6 +16,13 @@ import org.w3c.dom.Document;
  * 
  */
 public class ReqCmdRegSeshTest extends ReqCmdSeshTestAbst {
+	/**
+	 * @throws IOException
+	 */
+	public ReqCmdRegSeshTest() throws IOException {
+		super();
+	}
+
 	static final public String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><CUM><CMD ACTION=\"RegSesh\" SESH=\"testSession\" TYPE=\"REQ\"/></CUM>";
 
 	/**

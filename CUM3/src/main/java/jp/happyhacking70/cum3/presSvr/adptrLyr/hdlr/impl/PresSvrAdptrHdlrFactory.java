@@ -1,7 +1,7 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.presSvr.adptrLyr.impl;
+package jp.happyhacking70.cum3.presSvr.adptrLyr.hdlr.impl;
 
 import java.util.HashMap;
 
@@ -46,7 +46,7 @@ public class PresSvrAdptrHdlrFactory {
 		hdlrs.put(ReqCmdJoinSesh.class, new PresSvrAdptrHdlrJoinSesh());
 	}
 
-	PresSvrAdptrHdlrIntfBase getHdlr(CmdAbst cmd)
+	public PresSvrAdptrHdlrIntfBase getHdlr(CmdAbst cmd)
 			throws CumExcptAdptrHdlrNotFound {
 		PresSvrAdptrHdlrIntfBase hdlr = hdlrs.get(cmd.getClass());
 		if (hdlr == null) {

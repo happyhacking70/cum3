@@ -3,9 +3,10 @@
  */
 package jp.happyhacking70.cum3.cmd.impl.req;
 
+import java.io.IOException;
+
 import jp.happyhacking70.cum3.cmd.CmdAbst;
 import jp.happyhacking70.cum3.cmd.ReqCmdChnlAudTestAbst;
-import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdJoinChnl;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
 import org.junit.BeforeClass;
@@ -16,6 +17,13 @@ import org.w3c.dom.Document;
  * 
  */
 public class ReqCmdJoinChnlTest extends ReqCmdChnlAudTestAbst {
+	/**
+	 * @throws IOException
+	 */
+	public ReqCmdJoinChnlTest() throws IOException {
+		super();
+	}
+
 	static final public String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><CUM><CMD ACTION=\"JoinChnl\" AUD=\"testAudience\" CHNL=\"testChannel\" SESH=\"testSession\" TYPE=\"REQ\"/></CUM>";
 
 	/**

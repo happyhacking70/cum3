@@ -4,6 +4,9 @@
 package jp.happyhacking70.cum3.cmd;
 
 import static org.junit.Assert.assertEquals;
+
+import java.io.IOException;
+
 import jp.happyhacking70.cum3.cmd.CmdAbst.CmdTypes;
 
 import org.junit.Test;
@@ -14,6 +17,13 @@ import org.junit.Test;
  */
 abstract public class ResCmdChnlAudTestAbst extends CmdChnlAudTestAbst
 		implements ResCmdTestIntf {
+
+	/**
+	 * @throws IOException
+	 */
+	public ResCmdChnlAudTestAbst() throws IOException {
+		super();
+	}
 
 	@Override
 	final protected CmdTypes getCmdType() {

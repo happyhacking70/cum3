@@ -51,15 +51,15 @@ public class ResCmdRegChnl extends ResCmdChnlRscAbst {
 
 	}
 
-	/**
-	 * @param seshName
-	 * @param chnlName
-	 * @param rslt
-	 */
-	public ResCmdRegChnl(String seshName, String chnlName, RsltTypes rslt) {
-		super(seshName, chnlName, rslt.name());
-
-	}
+	// /**
+	// * @param seshName
+	// * @param chnlName
+	// * @param rslt
+	// */
+	// public ResCmdRegChnl(String seshName, String chnlName, RsltTypes rslt) {
+	// super(seshName, chnlName, rslt.name());
+	//
+	// }
 
 	/**
 	 * @param doc

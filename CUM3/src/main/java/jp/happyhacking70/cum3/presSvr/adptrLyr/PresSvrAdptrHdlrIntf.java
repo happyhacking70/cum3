@@ -4,6 +4,7 @@
 package jp.happyhacking70.cum3.presSvr.adptrLyr;
 
 import jp.happyhacking70.cum3.cmd.CmdAbst;
+import jp.happyhacking70.cum3.cmd.ResCmdIntf;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdXML;
 import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAllIntf;
@@ -13,6 +14,6 @@ import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAllIntf;
  * 
  */
 public interface PresSvrAdptrHdlrIntf extends PresSvrAdptrHdlrIntfBase {
-	public CmdAbst hndlCmd(CmdAbst cmd, SeshMgrPresSvrAllIntf seshMgr)
+	public ResCmdIntf hndlCmd(CmdAbst cmd, SeshMgrPresSvrAllIntf seshMgr)
 			throws CumExcpIllegalCmdXML, CumExcpIllegalCmdDoc;
 }

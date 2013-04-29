@@ -3,6 +3,8 @@
  */
 package jp.happyhacking70.cum3.cmd.impl.ntfy;
 
+import java.io.IOException;
+
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscImg;
 import jp.happyhacking70.cum3.cmd.CmdAbst;
 import jp.happyhacking70.cum3.cmd.NtfyCmdChnlTestAbst;
@@ -16,6 +18,13 @@ import org.w3c.dom.Document;
  * 
  */
 public class NtfyCmdRegChnlTest extends NtfyCmdChnlTestAbst {
+	/**
+	 * @throws IOException
+	 */
+	public NtfyCmdRegChnlTest() throws IOException {
+		super();
+	}
+
 	static String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><CUM><CMD ACTION=\"RegChnl\" CHNL=\"testChannel\" SESH=\"testSession\" TYPE=\"NTFY\"><RSC NAME=\"a\"/><RSC NAME=\"b\"/></CMD></CUM>";
 
 	/**

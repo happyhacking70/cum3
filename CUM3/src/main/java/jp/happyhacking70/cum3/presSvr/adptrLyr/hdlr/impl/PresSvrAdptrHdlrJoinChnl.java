@@ -1,13 +1,15 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.presSvr.adptrLyr.impl;
+package jp.happyhacking70.cum3.presSvr.adptrLyr.hdlr.impl;
 
 import jp.happyhacking70.cum3.cmd.CmdAbst;
-import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdLvChnl;
-import jp.happyhacking70.cum3.cmd.impl.res.ResCmdLvChnl;
+import jp.happyhacking70.cum3.cmd.ResCmdIntf;
+import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdJoinChnl;
+import jp.happyhacking70.cum3.cmd.impl.res.ResCmdJoinChnl;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdXML;
+import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpChnlNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshNotExist;
@@ -18,7 +20,7 @@ import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAllIntf;
  * @author happyhacking70@gmail.com
  * 
  */
-public class PresSvrAdptrHdlrLvChnl implements PresSvrAdptrHdlrIntf {
+public class PresSvrAdptrHdlrJoinChnl implements PresSvrAdptrHdlrIntf {
 
 	/*
 	 * (non-Javadoc)
@@ -28,32 +30,35 @@ public class PresSvrAdptrHdlrLvChnl implements PresSvrAdptrHdlrIntf {
 	 * hndlCmd(java.lang.String)
 	 */
 	@Override
-	public CmdAbst hndlCmd(CmdAbst cmd, SeshMgrPresSvrAllIntf seshMgr)
+	public ResCmdIntf hndlCmd(CmdAbst cmd, SeshMgrPresSvrAllIntf seshMgr)
 			throws CumExcpIllegalCmdXML, CumExcpIllegalCmdDoc {
 
-		ReqCmdLvChnl reqCmd = (ReqCmdLvChnl) cmd;
-		ResCmdLvChnl resCmd;
+		ReqCmdJoinChnl reqCmd = (ReqCmdJoinChnl) cmd;
+		ResCmdJoinChnl resCmd;
 
 		try {
-			seshMgr.lvChnl(reqCmd.getSeshName(), reqCmd.getChnlName(),
+			seshMgr.joinChnl(reqCmd.getSeshName(), reqCmd.getChnlName(),
 					reqCmd.getAudName());
-
-			resCmd = new ResCmdLvChnl(reqCmd.getSeshName(),
+			resCmd = new ResCmdJoinChnl(reqCmd.getSeshName(),
 					reqCmd.getChnlName(), reqCmd.getAudName(),
-					ResCmdLvChnl.RsltTypes.Left.name());
+					ResCmdJoinChnl.RsltTypes.Joined.name());
 
+		} catch (CumExcpAudExists e) {
+			resCmd = new ResCmdJoinChnl(reqCmd.getSeshName(),
+					reqCmd.getChnlName(), reqCmd.getAudName(),
+					ResCmdJoinChnl.RsltTypes.Exists.name());
 		} catch (CumExcpAudNotExist e) {
-			resCmd = new ResCmdLvChnl(reqCmd.getSeshName(),
+			resCmd = new ResCmdJoinChnl(reqCmd.getSeshName(),
 					reqCmd.getChnlName(), reqCmd.getAudName(),
-					ResCmdLvChnl.RsltTypes.NotExist.name());
+					ResCmdJoinChnl.RsltTypes.AudNotExist.name());
 		} catch (CumExcpChnlNotExist e) {
-			resCmd = new ResCmdLvChnl(reqCmd.getSeshName(),
+			resCmd = new ResCmdJoinChnl(reqCmd.getSeshName(),
 					reqCmd.getChnlName(), reqCmd.getAudName(),
-					ResCmdLvChnl.RsltTypes.ChnlNotExist.name());
+					ResCmdJoinChnl.RsltTypes.ChnlNotExist.name());
 		} catch (CumExcpSeshNotExist e) {
-			resCmd = new ResCmdLvChnl(reqCmd.getSeshName(),
+			resCmd = new ResCmdJoinChnl(reqCmd.getSeshName(),
 					reqCmd.getChnlName(), reqCmd.getAudName(),
-					ResCmdLvChnl.RsltTypes.SeshNotExist.name());
+					ResCmdJoinChnl.RsltTypes.SeshNotExist.name());
 		}
 
 		return resCmd;

@@ -3,6 +3,7 @@
  */
 package jp.happyhacking70.cum3.cmd.impl.res;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscImg;
@@ -19,6 +20,13 @@ import org.w3c.dom.Document;
  * 
  */
 public class ResCmdRegChnlTest extends ResCmdChnlTestAbst {
+
+	/**
+	 * @throws IOException
+	 */
+	public ResCmdRegChnlTest() throws IOException {
+		super();
+	}
 
 	static final public String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><CUM><CMD ACTION=\"RegChnl\" CHNL=\"testChannel\" RSLT=\"Reged\" SESH=\"testSession\" TYPE=\"RES\"><RSC NAME=\"a\"/><RSC NAME=\"b\"/></CMD></CUM>";
 	static final ResCmdRegChnl.RsltTypes rslt = ResCmdRegChnl.RsltTypes.Reged;
@@ -40,10 +48,8 @@ public class ResCmdRegChnlTest extends ResCmdChnlTestAbst {
 
 	@Override
 	protected CmdAbst getCmdNormal() {
-		ResCmdRegChnl cmd = new ResCmdRegChnl(seshName, chnlName, rslt);
-
-		cmd.addRscData(new ChnlRscImg("a", null));
-		cmd.addRscData(new ChnlRscImg("b", null));
+		ResCmdRegChnl cmd = new ResCmdRegChnl(seshName, chnlName, rscesArray,
+				rslt);
 
 		return cmd;
 	}

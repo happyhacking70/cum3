@@ -7,6 +7,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 
+import jp.happyhacking70.cum3.cmd.CmdAbst;
 import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdClsChnl;
 import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdClsSesh;
 import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdJoinChnl;
@@ -16,8 +17,19 @@ import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdLvSesh;
 import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdRegChnl;
 import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdRegSesh;
 import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdRjctChnl;
+import jp.happyhacking70.cum3.cmd.impl.res.ResCmdUnknowCmd;
 import jp.happyhacking70.cum3.excp.impl.CumExcptAdptrHdlrNotFound;
 import jp.happyhacking70.cum3.presSvr.adptrLyr.PresSvrAdptrHdlrIntfBase;
+import jp.happyhacking70.cum3.presSvr.adptrLyr.hdlr.impl.PresSvrAdptrHdlrClsChnl;
+import jp.happyhacking70.cum3.presSvr.adptrLyr.hdlr.impl.PresSvrAdptrHdlrClsSesh;
+import jp.happyhacking70.cum3.presSvr.adptrLyr.hdlr.impl.PresSvrAdptrHdlrFactory;
+import jp.happyhacking70.cum3.presSvr.adptrLyr.hdlr.impl.PresSvrAdptrHdlrJoinChnl;
+import jp.happyhacking70.cum3.presSvr.adptrLyr.hdlr.impl.PresSvrAdptrHdlrJoinSesh;
+import jp.happyhacking70.cum3.presSvr.adptrLyr.hdlr.impl.PresSvrAdptrHdlrLvChnl;
+import jp.happyhacking70.cum3.presSvr.adptrLyr.hdlr.impl.PresSvrAdptrHdlrLvSesh;
+import jp.happyhacking70.cum3.presSvr.adptrLyr.hdlr.impl.PresSvrAdptrHdlrRegChnl;
+import jp.happyhacking70.cum3.presSvr.adptrLyr.hdlr.impl.PresSvrAdptrHdlrRegSesh;
+import jp.happyhacking70.cum3.presSvr.adptrLyr.hdlr.impl.PresSvrAdptrHdlrRjctChnl;
 import jp.happyhacking70.cum3.test.CumTestBast;
 
 import org.junit.Test;
@@ -97,5 +109,11 @@ public class PresSvrAdptrHdlrFactoryTest extends CumTestBast {
 		ReqCmdJoinSesh reqCmd = new ReqCmdJoinSesh(seshName, audName);
 		PresSvrAdptrHdlrIntfBase hdlr = f.getHdlr(reqCmd);
 		assertEquals(PresSvrAdptrHdlrJoinSesh.class, hdlr.getClass());
+	}
+
+	@Test(expected = CumExcptAdptrHdlrNotFound.class)
+	public void testUnknown() throws CumExcptAdptrHdlrNotFound {
+		CmdAbst reqCmd = new ResCmdUnknowCmd();
+		f.getHdlr(reqCmd);
 	}
 }

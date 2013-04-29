@@ -5,6 +5,8 @@ package jp.happyhacking70.cum3.cmd;
 
 import static org.junit.Assert.assertEquals;
 
+import java.io.IOException;
+
 import org.junit.Test;
 
 /**
@@ -12,6 +14,13 @@ import org.junit.Test;
  * 
  */
 abstract public class CmdChnlAudTestAbst extends CmdChnlTestAbst {
+	/**
+	 * @throws IOException
+	 */
+	public CmdChnlAudTestAbst() throws IOException {
+		super();
+	}
+
 	static final protected String audName = "testAudience";
 
 	/**

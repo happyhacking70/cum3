@@ -17,6 +17,7 @@ import jp.happyhacking70.cum3.cmd.CmdAbst.CmdTypes;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdXML;
 import jp.happyhacking70.cum3.excp.impl.CumExcpXMLGenFailed;
+import jp.happyhacking70.cum3.test.CumTestBast;
 
 import org.junit.Test;
 import org.w3c.dom.Document;
@@ -26,7 +27,14 @@ import org.xml.sax.SAXException;
  * @author happyhacking70@gmail.com
  * 
  */
-abstract public class CmdTestAbst {
+abstract public class CmdTestAbst extends CumTestBast {
+
+	/**
+	 * @throws IOException
+	 */
+	public CmdTestAbst() throws IOException {
+		super();
+	}
 
 	abstract protected CmdAbst getCmdNormal();
 
@@ -45,7 +53,7 @@ abstract public class CmdTestAbst {
 	 */
 	@Test
 	final public void testGetActionName() {
-		CmdSeshAbst cmd = (CmdSeshAbst) getCmdNormal();
+		CmdAbst cmd = getCmdNormal();
 		assertEquals(getActionName(), cmd.getActionName());
 	}
 
@@ -54,7 +62,7 @@ abstract public class CmdTestAbst {
 	 */
 	@Test
 	final public void testGetCmdType() {
-		CmdSeshAbst cmd = (CmdSeshAbst) getCmdNormal();
+		CmdAbst cmd = getCmdNormal();
 		assertEquals(getCmdType(), cmd.getCmdType());
 	}
 
@@ -66,6 +74,7 @@ abstract public class CmdTestAbst {
 	@Test
 	final public void testToXmlStr() throws CumExcpXMLGenFailed {
 		CmdAbst cmd = getCmdNormal();
+		System.out.println(cmd.toXmlStr());
 		assertEquals(getXMLNormal(), cmd.toXmlStr());
 	}
 

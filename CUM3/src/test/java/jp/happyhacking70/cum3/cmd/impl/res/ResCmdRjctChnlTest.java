@@ -3,6 +3,8 @@
  */
 package jp.happyhacking70.cum3.cmd.impl.res;
 
+import java.io.IOException;
+
 import jp.happyhacking70.cum3.cmd.CmdAbst;
 import jp.happyhacking70.cum3.cmd.ResCmdChnlAudTestAbst;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
@@ -15,6 +17,13 @@ import org.w3c.dom.Document;
  * 
  */
 public class ResCmdRjctChnlTest extends ResCmdChnlAudTestAbst {
+
+	/**
+	 * @throws IOException
+	 */
+	public ResCmdRjctChnlTest() throws IOException {
+		super();
+	}
 
 	static final public String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><CUM><CMD ACTION=\"RjctChnl\" AUD=\"testAudience\" CHNL=\"testChannel\" RSLT=\"Rjcted\" SESH=\"testSession\" TYPE=\"RES\"/></CUM>";
 	static final ResCmdRjctChnl.RsltTypes rslt = ResCmdRjctChnl.RsltTypes.Rjcted;

@@ -5,6 +5,7 @@ package jp.happyhacking70.cum3.cmd.impl.req;
 
 import static org.junit.Assert.fail;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +24,13 @@ import org.w3c.dom.Document;
  * 
  */
 public class ReqCmdRegChnlTest extends ReqCmdChnlTestAbst {
+	/**
+	 * @throws IOException
+	 */
+	public ReqCmdRegChnlTest() throws IOException {
+		super();
+	}
+
 	static final public String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><CUM><CMD ACTION=\"RegChnl\" CHNL=\"testChannel\" SESH=\"testSession\" TYPE=\"REQ\"><RSC NAME=\"a\"/><RSC NAME=\"b\"/></CMD></CUM>";
 
 	static protected ChnlRscImg rscA = new ChnlRscImg("a", null);

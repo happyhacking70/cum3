@@ -3,9 +3,10 @@
  */
 package jp.happyhacking70.cum3.cmd.impl.res;
 
+import java.io.IOException;
+
 import jp.happyhacking70.cum3.cmd.CmdAbst;
 import jp.happyhacking70.cum3.cmd.ResCmdSeshTestAbst;
-import jp.happyhacking70.cum3.cmd.impl.res.ResCmdRegSesh;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 
 import org.junit.BeforeClass;
@@ -16,6 +17,13 @@ import org.w3c.dom.Document;
  * 
  */
 public class ResCmdRegSeshTest extends ResCmdSeshTestAbst {
+
+	/**
+	 * @throws IOException
+	 */
+	public ResCmdRegSeshTest() throws IOException {
+		super();
+	}
 
 	static final public String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><CUM><CMD ACTION=\"RegSesh\" RSLT=\"Reged\" SESH=\"testSession\" TYPE=\"RES\"/></CUM>";
 	static final ResCmdRegSesh.RsltTypes rslt = ResCmdRegSesh.RsltTypes.Reged;
@@ -59,6 +67,7 @@ public class ResCmdRegSeshTest extends ResCmdSeshTestAbst {
 	 * 
 	 * @see jp.happyhacking70.cum3.cmd.ResCmdTestIntf#getNormalRslt()
 	 */
+	@Override
 	public String getNormalRslt() {
 		return rslt.name();
 

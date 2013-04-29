@@ -1,9 +1,10 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.presSvr.adptrLyr.impl;
+package jp.happyhacking70.cum3.presSvr.adptrLyr.hdlr.impl;
 
 import jp.happyhacking70.cum3.cmd.CmdAbst;
+import jp.happyhacking70.cum3.cmd.ResCmdIntf;
 import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdJoinSesh;
 import jp.happyhacking70.cum3.cmd.impl.res.ResCmdJoinSesh;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
@@ -18,8 +19,7 @@ import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAllIntf;
  * @author happyhacking70@gmail.com
  * 
  */
-public class PresSvrAdptrHdlrJoinSesh implements
-		PresSvrAdptrHdlrWithSenderIntf {
+public class PresSvrAdptrHdlrJoinSesh implements PresSvrAdptrHdlrWithSenderIntf {
 
 	/*
 	 * (non-Javadoc)
@@ -31,7 +31,7 @@ public class PresSvrAdptrHdlrJoinSesh implements
 	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAllIntf)
 	 */
 	@Override
-	public CmdAbst hndlCmd(CmdAbst cmd, CmdSenderIntf sender,
+	public ResCmdIntf hndlCmd(CmdAbst cmd, CmdSenderIntf sender,
 			SeshMgrPresSvrAllIntf seshMgr) throws CumExcpIllegalCmdXML,
 			CumExcpIllegalCmdDoc {
 

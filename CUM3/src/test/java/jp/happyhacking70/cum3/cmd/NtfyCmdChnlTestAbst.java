@@ -3,6 +3,8 @@
  */
 package jp.happyhacking70.cum3.cmd;
 
+import java.io.IOException;
+
 import jp.happyhacking70.cum3.cmd.CmdAbst.CmdTypes;
 
 /**
@@ -10,6 +12,13 @@ import jp.happyhacking70.cum3.cmd.CmdAbst.CmdTypes;
  * 
  */
 abstract public class NtfyCmdChnlTestAbst extends CmdChnlTestAbst {
+
+	/**
+	 * @throws IOException
+	 */
+	public NtfyCmdChnlTestAbst() throws IOException {
+		super();
+	}
 
 	@Override
 	final protected CmdTypes getCmdType() {

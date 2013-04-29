@@ -16,7 +16,7 @@ import jp.happyhacking70.cum3.excp.impl.CumExcpXMLGenFailed;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshNotExist;
-import jp.happyhacking70.cum3.presSvr.adptrLyr.impl.PresSvrAdptrHdlrJoinSesh;
+import jp.happyhacking70.cum3.presSvr.adptrLyr.hdlr.impl.PresSvrAdptrHdlrJoinSesh;
 import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAllIntf;
 import jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr;
 import jp.happyhacking70.cum3.test.CumTestBast;
@@ -50,7 +50,7 @@ public class PresSvrAdptrHdlrJoinSeshTest extends CumTestBast {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.presSvr.adptrLyr.impl.PresSvrAdptrHdlrJoinSesh#hndlCmd(jp.happyhacking70.cum3.cmd.CmdAbst, jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf, jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAllIntf)}
+	 * {@link jp.happyhacking70.cum3.presSvr.adptrLyr.hdlr.impl.PresSvrAdptrHdlrJoinSesh#hndlCmd(jp.happyhacking70.cum3.cmd.CmdAbst, jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf, jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAllIntf)}
 	 * .
 	 * 
 	 * @throws CumExcpSeshExists

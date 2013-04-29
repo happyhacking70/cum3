@@ -4,6 +4,9 @@
 package jp.happyhacking70.cum3.cmd.impl.res;
 
 import static org.junit.Assert.assertEquals;
+
+import java.io.IOException;
+
 import jp.happyhacking70.cum3.cmd.CmdAbst;
 import jp.happyhacking70.cum3.cmd.CmdAbst.CmdTypes;
 import jp.happyhacking70.cum3.cmd.CmdTestAbst;
@@ -18,6 +21,13 @@ import org.w3c.dom.Document;
  * 
  */
 public class ResCmdXMLGenFailedTest extends CmdTestAbst {
+	/**
+	 * @throws IOException
+	 */
+	public ResCmdXMLGenFailedTest() throws IOException {
+		super();
+	}
+
 	static final String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><CUM><CMD ACTION=\"XMLGenFailed\" RSLT=\"Failed\" TYPE=\"RES\"/></CUM>";
 
 	/**
