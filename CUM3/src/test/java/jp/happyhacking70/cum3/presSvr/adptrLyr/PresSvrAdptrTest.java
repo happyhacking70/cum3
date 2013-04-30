@@ -16,7 +16,7 @@ import jp.happyhacking70.cum3.cmd.impl.res.ResCmdUnknowCmd;
 import jp.happyhacking70.cum3.excp.impl.CumExcpXMLGenFailed;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshExists;
 import jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr;
-import jp.happyhacking70.cum3.test.CumTestBast;
+import jp.happyhacking70.cum3.test.CumTestAbst;
 
 import org.junit.Test;
 
@@ -24,7 +24,7 @@ import org.junit.Test;
  * @author happyhacking70@gmail.com
  * 
  */
-public class PresSvrAdptrTest extends CumTestBast {
+public class PresSvrAdptrTest extends CumTestAbst {
 
 	protected PresSvrAdptr adptr = new PresSvrAdptr(new SeshMgrPresSvr());
 
@@ -76,6 +76,7 @@ public class PresSvrAdptrTest extends CumTestBast {
 	@Test
 	public void testHndlCmdStringUnknownCmd() throws CumExcpSeshExists,
 			CumExcpXMLGenFailed {
+		senderForPrestr.clearQueue();
 		String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><CUM><CMD ACTION=\"ClsSesh\" RSLT=\"Clsed\" SESH=\"testSession\" TYPE=\"RES\"/></CUM>";
 		SeshMgrPresSvr seshMgr = new SeshMgrPresSvr();
 

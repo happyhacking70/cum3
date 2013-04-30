@@ -35,13 +35,18 @@ public class ChnlRscImg extends ChnlRscAbst {
 
 		ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
 		try {
-			ImageIO.write(bImg, "jpg", byteArray);
+
+			ImageIO.write(bImg, "jpeg", byteArray);
+
 		} catch (IOException e) {
 			throw new CumExcpRscBinariseFailed(e);
 		}
 		byte[] byteImage = byteArray.toByteArray();
-
 		return byteImage;
+	}
+
+	public BufferedImage getImg() {
+		return bImg;
 	}
 
 }

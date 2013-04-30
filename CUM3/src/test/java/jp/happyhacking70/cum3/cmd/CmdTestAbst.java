@@ -17,7 +17,7 @@ import jp.happyhacking70.cum3.cmd.CmdAbst.CmdTypes;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdXML;
 import jp.happyhacking70.cum3.excp.impl.CumExcpXMLGenFailed;
-import jp.happyhacking70.cum3.test.CumTestBast;
+import jp.happyhacking70.cum3.test.CumTestAbst;
 
 import org.junit.Test;
 import org.w3c.dom.Document;
@@ -27,7 +27,7 @@ import org.xml.sax.SAXException;
  * @author happyhacking70@gmail.com
  * 
  */
-abstract public class CmdTestAbst extends CumTestBast {
+abstract public class CmdTestAbst extends CumTestAbst {
 
 	/**
 	 * @throws IOException

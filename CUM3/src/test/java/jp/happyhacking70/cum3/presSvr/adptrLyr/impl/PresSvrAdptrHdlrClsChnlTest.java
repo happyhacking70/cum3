@@ -19,7 +19,7 @@ import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshNotExist;
 import jp.happyhacking70.cum3.presSvr.adptrLyr.hdlr.impl.PresSvrAdptrHdlrClsChnl;
 import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAllIntf;
 import jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr;
-import jp.happyhacking70.cum3.test.CumTestBast;
+import jp.happyhacking70.cum3.test.CumTestAbst;
 
 import org.junit.Test;
 
@@ -27,7 +27,7 @@ import org.junit.Test;
  * @author happyhacking70@gmail.com
  * 
  */
-public class PresSvrAdptrHdlrClsChnlTest extends CumTestBast {
+public class PresSvrAdptrHdlrClsChnlTest extends CumTestAbst {
 
 	/**
 	 * @throws IOException

@@ -30,7 +30,7 @@ import jp.happyhacking70.cum3.presSvr.adptrLyr.hdlr.impl.PresSvrAdptrHdlrLvSesh;
 import jp.happyhacking70.cum3.presSvr.adptrLyr.hdlr.impl.PresSvrAdptrHdlrRegChnl;
 import jp.happyhacking70.cum3.presSvr.adptrLyr.hdlr.impl.PresSvrAdptrHdlrRegSesh;
 import jp.happyhacking70.cum3.presSvr.adptrLyr.hdlr.impl.PresSvrAdptrHdlrRjctChnl;
-import jp.happyhacking70.cum3.test.CumTestBast;
+import jp.happyhacking70.cum3.test.CumTestAbst;
 
 import org.junit.Test;
 
@@ -38,7 +38,7 @@ import org.junit.Test;
  * @author happyhacking70@gmail.com
  * 
  */
-public class PresSvrAdptrHdlrFactoryTest extends CumTestBast {
+public class PresSvrAdptrHdlrFactoryTest extends CumTestAbst {
 	protected PresSvrAdptrHdlrFactory f = new PresSvrAdptrHdlrFactory();
 
 	/**

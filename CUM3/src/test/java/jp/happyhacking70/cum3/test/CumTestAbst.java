@@ -19,7 +19,7 @@ import jp.happyhacking70.cum3.comLyr.DummySrvAdm;
  * @author happyhacking70@gmail.com
  * 
  */
-public abstract class CumTestBast {
+public abstract class CumTestAbst {
 
 	protected static final String seshName = "testSession";
 	protected static final String chnlName = "testChannel";
@@ -42,7 +42,7 @@ public abstract class CumTestBast {
 	protected static final DummySender senderForAudA = new DummySender(srvAdm);
 	protected static final DummySender senderForAudB = new DummySender(srvAdm);
 
-	public CumTestBast() throws IOException {
+	public CumTestAbst() throws IOException {
 		super();
 		bImgA = ImageIO.read(new File("src/test/resources/1.jpg"));
 		bImgB = ImageIO.read(new File("src/test/resources/2.jpg"));
