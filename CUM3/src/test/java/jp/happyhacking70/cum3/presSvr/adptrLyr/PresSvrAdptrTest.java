@@ -62,7 +62,7 @@ public class PresSvrAdptrTest extends CumTestAbst {
 	@Test
 	public void testHndlCmdStringBrokenXML() throws CumExcpSeshExists,
 			CumExcpXMLGenFailed {
-		String xml = "XXXX";
+		String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?><A></A>";
 		SeshMgrPresSvr seshMgr = new SeshMgrPresSvr();
 
 		seshMgr.regSesh(seshName, senderForPrestr);

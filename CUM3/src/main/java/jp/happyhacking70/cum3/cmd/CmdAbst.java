@@ -1,6 +1,7 @@
 package jp.happyhacking70.cum3.cmd;
 
 import java.io.ByteArrayOutputStream;
+import java.io.UnsupportedEncodingException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -31,6 +32,8 @@ import org.w3c.dom.NodeList;
 public abstract class CmdAbst implements XMLableCmdIntf {
 
 	/**
+	 * Command Types
+	 * 
 	 * @author happyhacking70@gmail.com
 	 * 
 	 */
@@ -43,10 +46,21 @@ public abstract class CmdAbst implements XMLableCmdIntf {
 		NTFY
 	}
 
+	/**
+	 * Command Type of this command
+	 */
 	protected CmdTypes cmdType;
 
+	/**
+	 * action name of this command
+	 */
 	protected String actionName;
 
+	/**
+	 * {@link CmdAbst#setActionName()} and {@link CmdAbst#setActionName()},
+	 * which are implemented by implementation class,are called.
+	 * 
+	 */
 	public CmdAbst() {
 		super();
 
@@ -164,6 +178,7 @@ public abstract class CmdAbst implements XMLableCmdIntf {
 	 * 
 	 * @see jp.happyhacking70.cum3.cmd.XMLableCmdIntf#toXmlStr()
 	 */
+	@Override
 	final public String toXmlStr() throws CumExcpXMLGenFailed {
 		String xmlStr = null;
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -174,13 +189,17 @@ public abstract class CmdAbst implements XMLableCmdIntf {
 
 			DOMSource source = new DOMSource(toXmlDom());
 			transformer.transform(source, new StreamResult(baos));
-			xmlStr = baos.toString();
+			xmlStr = baos.toString("UTF-8");
 		} catch (TransformerConfigurationException e) {
 			e.printStackTrace();
 			throw new CumExcpXMLGenFailed();
 		} catch (TransformerException e) {
 			e.printStackTrace();
 			throw new CumExcpXMLGenFailed();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+			throw new CumExcpXMLGenFailed();
+
 		}
 		return xmlStr;
 	}
@@ -190,6 +209,7 @@ public abstract class CmdAbst implements XMLableCmdIntf {
 	 * 
 	 * @see jp.happyhacking70.cum3.cmd.XMLableCmdIntf#toXmlDom()
 	 */
+	@Override
 	public Document toXmlDom() throws CumExcpXMLGenFailed {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder = null;
