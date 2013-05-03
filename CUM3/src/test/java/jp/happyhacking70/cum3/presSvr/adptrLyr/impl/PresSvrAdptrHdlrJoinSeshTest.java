@@ -4,12 +4,11 @@
 package jp.happyhacking70.cum3.presSvr.adptrLyr.impl;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 import java.io.IOException;
 
-import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdJoinSesh;
-import jp.happyhacking70.cum3.cmd.impl.res.ResCmdJoinSesh;
+import jp.happyhacking70.cum3.cmd.req.impl.ReqCmdJoinSesh;
+import jp.happyhacking70.cum3.cmd.res.impl.ResCmdJoinSesh;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdXML;
 import jp.happyhacking70.cum3.excp.impl.CumExcpXMLGenFailed;
@@ -69,13 +68,15 @@ public class PresSvrAdptrHdlrJoinSeshTest extends CumTestAbst {
 		ReqCmdJoinSesh reqCmd = new ReqCmdJoinSesh(seshName, audName);
 		ResCmdJoinSesh resCmd = null;
 		resCmd = (ResCmdJoinSesh) hdlr.hndlCmd(reqCmd, senderForAudA, seshMgr);
-		assertNull(resCmd);
-		String resCmdXML = senderForAudA.pollCmd();
-		ResCmdJoinSesh resCmdShouldBe = new ResCmdJoinSesh(seshName, audName,
-				ResCmdJoinSesh.RsltTypes.Joined);
-
-		assertEquals(resCmdShouldBe.toXmlStr(), resCmdXML);
-
+		// assertNull(resCmd);
+		// String resCmdXML = senderForAudA.pollCmd();
+		// ResCmdJoinSesh resCmdShouldBe = new ResCmdJoinSesh(seshName, audName,
+		// ResCmdJoinSesh.RsltTypes.Joined);
+		//
+		// assertEquals(resCmdShouldBe.toXmlStr(), resCmdXML);
+		assertEquals(seshName, resCmd.getSeshName());
+		assertEquals(audName, resCmd.getAudName());
+		assertEquals(ResCmdJoinSesh.RsltTypes.Joined.name(), resCmd.getRslt());
 	}
 
 	@Test

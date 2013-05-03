@@ -8,6 +8,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 
 import jp.happyhacking70.cum3.cmd.CmdAbst.CmdTypes;
+import jp.happyhacking70.cum3.cmd.res.ResCmdIntf;
 
 import org.junit.Test;
 

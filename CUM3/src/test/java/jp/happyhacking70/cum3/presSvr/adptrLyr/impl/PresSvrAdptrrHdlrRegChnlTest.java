@@ -9,8 +9,8 @@ import static org.junit.Assert.assertNull;
 import java.io.IOException;
 
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
-import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdRegChnl;
-import jp.happyhacking70.cum3.cmd.impl.res.ResCmdRegChnl;
+import jp.happyhacking70.cum3.cmd.req.impl.ReqCmdRegChnl;
+import jp.happyhacking70.cum3.cmd.res.impl.ResCmdRegChnl;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdXML;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpChnlExists;

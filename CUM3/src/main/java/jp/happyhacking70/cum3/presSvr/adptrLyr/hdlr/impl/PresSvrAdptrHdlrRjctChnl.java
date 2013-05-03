@@ -4,9 +4,9 @@
 package jp.happyhacking70.cum3.presSvr.adptrLyr.hdlr.impl;
 
 import jp.happyhacking70.cum3.cmd.CmdAbst;
-import jp.happyhacking70.cum3.cmd.ResCmdIntf;
-import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdRjctChnl;
-import jp.happyhacking70.cum3.cmd.impl.res.ResCmdRjctChnl;
+import jp.happyhacking70.cum3.cmd.req.impl.ReqCmdRjctChnl;
+import jp.happyhacking70.cum3.cmd.res.ResCmdIntf;
+import jp.happyhacking70.cum3.cmd.res.impl.ResCmdRjctChnl;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdXML;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudExists;

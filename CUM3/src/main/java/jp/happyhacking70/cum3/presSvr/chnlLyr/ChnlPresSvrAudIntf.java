@@ -4,8 +4,8 @@
 package jp.happyhacking70.cum3.presSvr.chnlLyr;
 
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
-import jp.happyhacking70.cum3.cmd.impl.ntfy.NtfyCmdJoinChnl;
-import jp.happyhacking70.cum3.cmd.impl.ntfy.NtfyCmdLvChnl;
+import jp.happyhacking70.cum3.cmd.ntfy.impl.NtfyCmdJoinChnl;
+import jp.happyhacking70.cum3.cmd.ntfy.impl.NtfyCmdLvChnl;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNotExist;

@@ -9,17 +9,24 @@ import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
 import jp.happyhacking70.cum3.cmd.CmdAbst;
 import jp.happyhacking70.cum3.cmd.CmdFactory;
 import jp.happyhacking70.cum3.cmd.CmdWithRscIntf;
-import jp.happyhacking70.cum3.cmd.ResCmdIntf;
-import jp.happyhacking70.cum3.cmd.impl.res.ResCmdIllegalXML;
-import jp.happyhacking70.cum3.cmd.impl.res.ResCmdUnknowCmd;
-import jp.happyhacking70.cum3.cmd.impl.res.ResCmdXMLGenFailed;
+import jp.happyhacking70.cum3.cmd.req.ReqCmdFromAudIntf;
+import jp.happyhacking70.cum3.cmd.req.ReqCmdFromPrestrIntf;
+import jp.happyhacking70.cum3.cmd.res.ResCmdIntf;
+import jp.happyhacking70.cum3.cmd.res.impl.ResCmdIllegalXML;
+import jp.happyhacking70.cum3.cmd.res.impl.ResCmdUnknowCmd;
+import jp.happyhacking70.cum3.cmd.res.impl.ResCmdXMLGenFailed;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdXML;
 import jp.happyhacking70.cum3.excp.impl.CumExcpXMLGenFailed;
 import jp.happyhacking70.cum3.excp.impl.CumExcptAdptrHdlrNotFound;
+import jp.happyhacking70.cum3.presSvr.adptrLyr.disconHdlr.DisconHdlrAbst;
+import jp.happyhacking70.cum3.presSvr.adptrLyr.disconHdlr.DisconHdlrAud;
+import jp.happyhacking70.cum3.presSvr.adptrLyr.disconHdlr.DisconHdlrPrestr;
 import jp.happyhacking70.cum3.presSvr.adptrLyr.hdlr.impl.PresSvrAdptrHdlrFactory;
 import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf;
 import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrAllIntf;
+
+import org.javatuples.Pair;
 
 /**
  * @author happyhacking70@gmail.com
@@ -45,9 +52,10 @@ public class PresSvrAdptr implements PresSvrAdptrIntf {
 	 * happyhacking70.cum3.cmd.ReqCmdIntf)
 	 */
 	@Override
-	public String hndlCmd(String xml) {
+	public Pair<String, DisconHdlrAbst> hndlCmd(String xml) {
 		ResCmdIntf resCmd;
 		CmdAbst cmd = getCmdIntsnace(xml);
+		DisconHdlrAbst discnHdlr = getDisconHdlr(cmd);
 
 		if (cmd instanceof ResCmdIllegalXML) {
 			resCmd = (ResCmdIntf) cmd;
@@ -55,7 +63,7 @@ public class PresSvrAdptr implements PresSvrAdptrIntf {
 			resCmd = hndlCmd(cmd);
 		}
 
-		return toString(resCmd);
+		return new Pair<String, DisconHdlrAbst>(toString(resCmd), discnHdlr);
 	}
 
 	/*
@@ -66,10 +74,10 @@ public class PresSvrAdptr implements PresSvrAdptrIntf {
 	 * jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf)
 	 */
 	@Override
-	public String hndlCmd(String xml, CmdSenderIntf sender) {
+	public Pair<String, DisconHdlrAbst> hndlCmd(String xml, CmdSenderIntf sender) {
 		ResCmdIntf resCmd;
 		CmdAbst cmd = getCmdIntsnace(xml);
-
+		DisconHdlrAbst discnHdlr = getDisconHdlr(cmd);
 		if (cmd instanceof ResCmdIllegalXML) {
 			resCmd = (ResCmdIntf) cmd;
 		} else {
@@ -92,11 +100,7 @@ public class PresSvrAdptr implements PresSvrAdptrIntf {
 
 		}
 
-		String ret = null;
-		if (resCmd != null) {
-			ret = toString(resCmd);
-		}
-		return ret;
+		return new Pair<String, DisconHdlrAbst>(toString(resCmd), discnHdlr);
 	}
 
 	/*
@@ -106,8 +110,11 @@ public class PresSvrAdptr implements PresSvrAdptrIntf {
 	 * happyhacking70.cum3.cmd.ReqCmdIntf, java.util.ArrayList)
 	 */
 	@Override
-	public String hndlCmd(String xml, ArrayList<ChnlRscIntf> rsces) {
+	public Pair<String, DisconHdlrAbst> hndlCmd(String xml,
+			ArrayList<ChnlRscIntf> rsces) {
 		CmdAbst cmd = getCmdIntsnace(xml);
+		DisconHdlrAbst discnHdlr = getDisconHdlr(cmd);
+
 		ResCmdIntf resCmd;
 
 		if (cmd instanceof ResCmdIllegalXML) {
@@ -122,7 +129,7 @@ public class PresSvrAdptr implements PresSvrAdptrIntf {
 			resCmd = hndlCmd(cmd);
 		}
 
-		return toString(resCmd);
+		return new Pair<String, DisconHdlrAbst>(toString(resCmd), discnHdlr);
 	}
 
 	/**
@@ -166,5 +173,19 @@ public class PresSvrAdptr implements PresSvrAdptrIntf {
 			ret = ResCmdXMLGenFailed.xml;
 		}
 		return ret;
+	}
+
+	protected DisconHdlrAbst getDisconHdlr(CmdAbst cmd) {
+		DisconHdlrAbst discnHdlr = null;
+		if (cmd instanceof ReqCmdFromAudIntf) {
+			ReqCmdFromAudIntf cmdFromAud = (ReqCmdFromAudIntf) cmd;
+			discnHdlr = new DisconHdlrAud(seshMgr, cmdFromAud.getSeshName(),
+					cmdFromAud.getAudName());
+		} else if (cmd instanceof ReqCmdFromPrestrIntf) {
+			ReqCmdFromPrestrIntf cmdFromPrestr = (ReqCmdFromPrestrIntf) cmd;
+			discnHdlr = new DisconHdlrPrestr(seshMgr,
+					cmdFromPrestr.getSeshName());
+		}
+		return discnHdlr;
 	}
 }

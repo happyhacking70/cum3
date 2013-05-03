@@ -28,7 +28,6 @@ import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrPrestrIntf;
  * <LI>All the detailed management is delegated to {@link SeshPresSvr}</LI>
  * </UL>
  * 
- * 
  * @author happyhacking70@gmail.com
  * 
  */
@@ -232,6 +231,31 @@ public class SeshMgrPresSvr implements SeshMgrPresSvrAudIntf,
 		SeshPresSvr sesh = getSesh(seshName);
 		ChnlRscIntf rsc = sesh.getRsc(chnlName, rscName);
 		return rsc;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrDisconIntf#audDisconned
+	 * (java.lang.String, java.lang.String)
+	 */
+	@Override
+	public void audDisconned(String seshName, String audName) {
+		// TODO Auto-generated method stub
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrDisconIntf#
+	 * prestrDisconned(java.lang.String)
+	 */
+	@Override
+	public void prestrDisconned(String seshName) {
+		// TODO Auto-generated method stub
+
 	}
 
 }

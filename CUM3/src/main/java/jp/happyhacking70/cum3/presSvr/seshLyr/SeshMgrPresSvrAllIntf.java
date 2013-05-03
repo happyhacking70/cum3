@@ -8,6 +8,6 @@ package jp.happyhacking70.cum3.presSvr.seshLyr;
  * 
  */
 public interface SeshMgrPresSvrAllIntf extends SeshMgrPresSvrAudIntf,
-		SeshMgrPresSvrPrestrIntf {
+		SeshMgrPresSvrPrestrIntf, SeshMgrPresSvrDisconIntf {
 
 }

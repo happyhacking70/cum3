@@ -80,7 +80,7 @@ abstract public class CmdTestAbst extends CumTestAbst {
 
 	/**
 	 * Test method for
-	 * {@link jp.happyhacking70.cum3.cmd.impl.req.ReqCmdClsChnl#ReqCmdClsChnl(org.w3c.dom.Document)}
+	 * {@link jp.happyhacking70.cum3.cmd.req.impl.ReqCmdClsChnl#ReqCmdClsChnl(org.w3c.dom.Document)}
 	 * .
 	 * 
 	 * @throws ParserConfigurationException

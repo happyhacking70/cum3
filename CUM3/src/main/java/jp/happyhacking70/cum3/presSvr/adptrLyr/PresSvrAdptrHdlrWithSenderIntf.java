@@ -4,7 +4,7 @@
 package jp.happyhacking70.cum3.presSvr.adptrLyr;
 
 import jp.happyhacking70.cum3.cmd.CmdAbst;
-import jp.happyhacking70.cum3.cmd.ResCmdIntf;
+import jp.happyhacking70.cum3.cmd.res.ResCmdIntf;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdXML;
 import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf;

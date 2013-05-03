@@ -7,8 +7,8 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 
-import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdLvSesh;
-import jp.happyhacking70.cum3.cmd.impl.res.ResCmdLvSesh;
+import jp.happyhacking70.cum3.cmd.req.impl.ReqCmdLvSesh;
+import jp.happyhacking70.cum3.cmd.res.impl.ResCmdLvSesh;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdXML;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudExists;

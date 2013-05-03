@@ -9,14 +9,14 @@ import java.util.concurrent.ConcurrentHashMap;
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
 import jp.happyhacking70.cum3.cmd.CmdChnlAbst;
 import jp.happyhacking70.cum3.cmd.XMLableCmdIntf;
-import jp.happyhacking70.cum3.cmd.impl.ntfy.NtfyCmdClsChnl;
-import jp.happyhacking70.cum3.cmd.impl.ntfy.NtfyCmdClsSesh;
-import jp.happyhacking70.cum3.cmd.impl.ntfy.NtfyCmdJoinChnl;
-import jp.happyhacking70.cum3.cmd.impl.ntfy.NtfyCmdJoinSesh;
-import jp.happyhacking70.cum3.cmd.impl.ntfy.NtfyCmdLvChnl;
-import jp.happyhacking70.cum3.cmd.impl.ntfy.NtfyCmdLvSesh;
-import jp.happyhacking70.cum3.cmd.impl.ntfy.NtfyCmdRegChnl;
-import jp.happyhacking70.cum3.cmd.impl.ntfy.NtfyCmdRjctChnl;
+import jp.happyhacking70.cum3.cmd.ntfy.impl.NtfyCmdClsChnl;
+import jp.happyhacking70.cum3.cmd.ntfy.impl.NtfyCmdClsSesh;
+import jp.happyhacking70.cum3.cmd.ntfy.impl.NtfyCmdJoinChnl;
+import jp.happyhacking70.cum3.cmd.ntfy.impl.NtfyCmdJoinSesh;
+import jp.happyhacking70.cum3.cmd.ntfy.impl.NtfyCmdLvChnl;
+import jp.happyhacking70.cum3.cmd.ntfy.impl.NtfyCmdLvSesh;
+import jp.happyhacking70.cum3.cmd.ntfy.impl.NtfyCmdRegChnl;
+import jp.happyhacking70.cum3.cmd.ntfy.impl.NtfyCmdRjctChnl;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudNotExist;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpChnlExists;
@@ -30,13 +30,15 @@ import jp.happyhacking70.cum3.presSvr.chnlLyr.ChnlPresSvr;
 import jp.happyhacking70.cum3.presSvr.chnlLyr.ChnlPresSvrPrestrIntf;
 import jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf;
 import jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvrAudIntf;
+import jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvrDisconIntf;
 import jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvrPrestrIntf;
 
 /**
  * @author happyhacking70@gmail.com
  * 
  */
-public class SeshPresSvr implements SeshPresSvrAudIntf, SeshPresSvrPrestrIntf {
+public class SeshPresSvr implements SeshPresSvrAudIntf, SeshPresSvrPrestrIntf,
+		SeshPresSvrDisconIntf {
 	protected String seshName;
 	protected CmdSenderIntf sender;
 	protected ConcurrentHashMap<String, ChnlPresSvr> chnls = new ConcurrentHashMap<String, ChnlPresSvr>();
@@ -394,6 +396,32 @@ public class SeshPresSvr implements SeshPresSvrAudIntf, SeshPresSvrPrestrIntf {
 	 */
 	private void sendCmdToPrestr(XMLableCmdIntf cmd) {
 		sender.sendCmd(cmd);
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvrDisconIntf#audDisconned
+	 * (java.lang.String)
+	 */
+	@Override
+	public void audDisconned(String audName) {
+		// TODO Auto-generated method stub
+
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * jp.happyhacking70.cum3.presSvr.seshLyr.SeshPresSvrDisconIntf#prestrDisconned
+	 * ()
+	 */
+	@Override
+	public void prestrDisconned() {
+		// TODO Auto-generated method stub
 
 	}
 

@@ -4,9 +4,9 @@
 package jp.happyhacking70.cum3.presSvr.adptrLyr.hdlr.impl;
 
 import jp.happyhacking70.cum3.cmd.CmdAbst;
-import jp.happyhacking70.cum3.cmd.ResCmdIntf;
-import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdJoinSesh;
-import jp.happyhacking70.cum3.cmd.impl.res.ResCmdJoinSesh;
+import jp.happyhacking70.cum3.cmd.req.impl.ReqCmdJoinSesh;
+import jp.happyhacking70.cum3.cmd.res.ResCmdIntf;
+import jp.happyhacking70.cum3.cmd.res.impl.ResCmdJoinSesh;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdXML;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudExists;
@@ -36,12 +36,15 @@ public class PresSvrAdptrHdlrJoinSesh implements PresSvrAdptrHdlrWithSenderIntf 
 			CumExcpIllegalCmdDoc {
 
 		ReqCmdJoinSesh reqCmd = (ReqCmdJoinSesh) cmd;
-		ResCmdJoinSesh resCmd = null;
+		ResCmdJoinSesh resCmd;
 
 		try {
 			seshMgr.joinSesh(reqCmd.getSeshName(), reqCmd.getAudName(), sender);
-			sender.sendCmd(new ResCmdJoinSesh(reqCmd.getSeshName(), reqCmd
-					.getAudName(), ResCmdJoinSesh.RsltTypes.Joined));
+			// sender.sendCmd(new ResCmdJoinSesh(reqCmd.getSeshName(), reqCmd
+			// .getAudName(), ResCmdJoinSesh.RsltTypes.Joined));
+
+			resCmd = new ResCmdJoinSesh(reqCmd.getSeshName(),
+					reqCmd.getAudName(), ResCmdJoinSesh.RsltTypes.Joined);
 
 		} catch (CumExcpAudExists e) {
 			resCmd = new ResCmdJoinSesh(reqCmd.getSeshName(),

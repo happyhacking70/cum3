@@ -8,8 +8,8 @@ import static org.junit.Assert.assertNull;
 
 import java.io.IOException;
 
-import jp.happyhacking70.cum3.cmd.impl.req.ReqCmdRegSesh;
-import jp.happyhacking70.cum3.cmd.impl.res.ResCmdRegSesh;
+import jp.happyhacking70.cum3.cmd.req.impl.ReqCmdRegSesh;
+import jp.happyhacking70.cum3.cmd.res.impl.ResCmdRegSesh;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
 import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdXML;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshExists;
@@ -46,12 +46,15 @@ public class PresSvrAdptrHdlrRegSeshTest extends CumTestAbst {
 	public void testHndlCmd() throws CumExcpIllegalCmdXML, CumExcpIllegalCmdDoc {
 		SeshMgrPresSvrAllIntf seshMgr = new SeshMgrPresSvr();
 		PresSvrAdptrHdlrRegSesh hdlr = new PresSvrAdptrHdlrRegSesh();
-
+		senderForPrestr.clearQueue();
 		ReqCmdRegSesh reqCmd = new ReqCmdRegSesh(seshName);
 		ResCmdRegSesh resCmd = null;
 		resCmd = (ResCmdRegSesh) hdlr.hndlCmd(reqCmd, senderForPrestr, seshMgr);
 
-		assertNull(resCmd);
+		assertNull(senderForPrestr.pollCmd());
+
+		assertEquals(seshName, resCmd.getSeshName());
+		assertEquals(ResCmdRegSesh.RsltTypes.Reged.name(), resCmd.getRslt());
 
 	}
 

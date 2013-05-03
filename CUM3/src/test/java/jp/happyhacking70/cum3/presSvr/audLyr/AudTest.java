@@ -5,7 +5,7 @@ package jp.happyhacking70.cum3.presSvr.audLyr;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import jp.happyhacking70.cum3.cmd.impl.ntfy.NtfyCmdRegChnl;
+import jp.happyhacking70.cum3.cmd.ntfy.impl.NtfyCmdRegChnl;
 import jp.happyhacking70.cum3.comLyr.DummySender;
 import jp.happyhacking70.cum3.comLyr.DummySrvAdm;
 import jp.happyhacking70.cum3.excp.impl.CumExcpXMLGenFailed;
