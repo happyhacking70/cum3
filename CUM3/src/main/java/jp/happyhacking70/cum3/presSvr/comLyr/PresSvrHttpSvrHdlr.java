@@ -7,6 +7,8 @@ import java.util.Map;
 
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
 import jp.happyhacking70.cum3.chnlLyr.rsc.factory.ChnlRscFactoryIntf;
+import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdDoc;
+import jp.happyhacking70.cum3.excp.impl.CumExcpIllegalCmdXML;
 import jp.happyhacking70.cum3.excp.impl.rsc.CumExcpRscInstantiateFailed;
 import jp.happyhacking70.cum3.excp.impl.rsc.CumExcpUnknowDataTypeForChnlRsc;
 import jp.happyhacking70.cum3.presSvr.adptrLyr.PresSvrAdptr;
@@ -65,7 +67,6 @@ public class PresSvrHttpSvrHdlr extends SimpleChannelUpstreamHandler {
 
 	@Override
 	public void messageReceived(ChannelHandlerContext ctx, MessageEvent e) {
-		System.out.println("MSg RECEIVED");
 		HttpRequest req = (HttpRequest) e.getMessage();
 		QueryStringDecoder qsdec = new QueryStringDecoder(req.getUri());
 		String path = qsdec.getPath();
@@ -82,10 +83,7 @@ public class PresSvrHttpSvrHdlr extends SimpleChannelUpstreamHandler {
 		} else {
 			xml = vals.get(0);
 
-			System.out.println("lets go");
-			System.out.println(path);
 			if (path.equals("/" + Pathes.regSesh.name())) {
-				System.out.println("regSesh");
 				hndlCmdAndKeep(xml);
 			} else if (path.equals("/" + Pathes.regChnl.name())) {
 				hndlRegChnl(xml, req);
@@ -124,6 +122,10 @@ public class PresSvrHttpSvrHdlr extends SimpleChannelUpstreamHandler {
 			chnl.disconnect();
 		} catch (IOException e) {
 			chnl.disconnect();
+		} catch (CumExcpIllegalCmdXML e) {
+			chnl.disconnect();
+		} catch (CumExcpIllegalCmdDoc e) {
+			chnl.disconnect();
 		}
 
 	}
@@ -146,18 +148,34 @@ public class PresSvrHttpSvrHdlr extends SimpleChannelUpstreamHandler {
 	}
 
 	protected void hndlCmdAndClose(String xml) {
-		Pair<String, DiscnHdlrAbst> p = adaptor.hndlCmd(xml);
-		returned = true;
-		discnHdlr = p.getValue1();
-		sendAndClose(p.getValue0());
+		Pair<String, DiscnHdlrAbst> p;
+		try {
+			p = adaptor.hndlCmd(xml);
+			returned = true;
+			discnHdlr = p.getValue1();
+			sendAndClose(p.getValue0());
+		} catch (CumExcpIllegalCmdXML e) {
+			chnl.disconnect();
+		} catch (CumExcpIllegalCmdDoc e) {
+			chnl.disconnect();
+		}
+
 	}
 
 	protected void hndlCmdAndKeep(String xml) {
 		cmdSender = new CmdSender();
-		Pair<String, DiscnHdlrAbst> p = adaptor.hndlCmd(xml, cmdSender);
-		returned = true;
-		discnHdlr = p.getValue1();
-		keepSending(p.getValue0());
+		Pair<String, DiscnHdlrAbst> p;
+		try {
+			p = adaptor.hndlCmd(xml, cmdSender);
+			returned = true;
+			discnHdlr = p.getValue1();
+			keepSending(p.getValue0());
+		} catch (CumExcpIllegalCmdXML e) {
+			chnl.disconnect();
+		} catch (CumExcpIllegalCmdDoc e) {
+			chnl.disconnect();
+		}
+
 	}
 
 	protected void sendAndClose(String resCmd) {
@@ -173,7 +191,7 @@ public class PresSvrHttpSvrHdlr extends SimpleChannelUpstreamHandler {
 		sendContentType();
 		chnl.write("\r\n");
 		chnl.write(initRes + "\r\n");
-		System.out.println(initRes);
+
 		while (true) {
 			String cmd = cmdSender.poll();
 			if (cmd != null) {

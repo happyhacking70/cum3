@@ -52,7 +52,8 @@ public class PresSvrAdptr implements PresSvrAdptrIntf {
 	 * happyhacking70.cum3.cmd.ReqCmdIntf)
 	 */
 	@Override
-	public Pair<String, DiscnHdlrAbst> hndlCmd(String xml) {
+	public Pair<String, DiscnHdlrAbst> hndlCmd(String xml)
+			throws CumExcpIllegalCmdXML, CumExcpIllegalCmdDoc {
 		ResCmdIntf resCmd;
 		CmdAbst cmd = getCmdIntsnace(xml);
 		DiscnHdlrAbst discnHdlr = getDisconHdlr(cmd);
@@ -74,7 +75,8 @@ public class PresSvrAdptr implements PresSvrAdptrIntf {
 	 * jp.happyhacking70.cum3.presSvr.comLyr.CmdSenderIntf)
 	 */
 	@Override
-	public Pair<String, DiscnHdlrAbst> hndlCmd(String xml, CmdSenderIntf sender) {
+	public Pair<String, DiscnHdlrAbst> hndlCmd(String xml, CmdSenderIntf sender)
+			throws CumExcpIllegalCmdXML, CumExcpIllegalCmdDoc {
 		ResCmdIntf resCmd;
 		CmdAbst cmd = getCmdIntsnace(xml);
 		DiscnHdlrAbst discnHdlr = getDisconHdlr(cmd);
@@ -111,7 +113,8 @@ public class PresSvrAdptr implements PresSvrAdptrIntf {
 	 */
 	@Override
 	public Pair<String, DiscnHdlrAbst> hndlCmd(String xml,
-			ArrayList<ChnlRscIntf> rsces) {
+			ArrayList<ChnlRscIntf> rsces) throws CumExcpIllegalCmdXML,
+			CumExcpIllegalCmdDoc {
 		CmdAbst cmd = getCmdIntsnace(xml);
 		DiscnHdlrAbst discnHdlr = getDisconHdlr(cmd);
 
@@ -153,15 +156,11 @@ public class PresSvrAdptr implements PresSvrAdptrIntf {
 		return resCmd;
 	}
 
-	protected CmdAbst getCmdIntsnace(String xml) {
+	protected CmdAbst getCmdIntsnace(String xml) throws CumExcpIllegalCmdXML,
+			CumExcpIllegalCmdDoc {
 		CmdAbst cmd;
-		try {
-			cmd = cmdFactory.getCmdInstance(xml);
-		} catch (CumExcpIllegalCmdXML e) {
-			cmd = resCmdIllegalXML;
-		} catch (CumExcpIllegalCmdDoc e) {
-			cmd = resCmdIllegalXML;
-		}
+		cmd = cmdFactory.getCmdInstance(xml);
+
 		return cmd;
 	}
 
