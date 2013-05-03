@@ -21,7 +21,6 @@ import jp.happyhacking70.cum3.cmd.ntfy.impl.NtfyCmdRegChnl;
 import jp.happyhacking70.cum3.cmd.req.impl.ReqCmdClsChnl;
 import jp.happyhacking70.cum3.cmd.req.impl.ReqCmdRegChnl;
 import jp.happyhacking70.cum3.comLyr.DummySender;
-import jp.happyhacking70.cum3.comLyr.DummySrvAdm;
 import jp.happyhacking70.cum3.excp.impl.CumExcpComError;
 import jp.happyhacking70.cum3.excp.impl.CumExcpXMLGenFailed;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpAudExists;
@@ -43,8 +42,8 @@ public class ChnlPreesSvrTest {
 	protected static final String seshName = "testSession";
 	protected static final String chnlName = "testChannel";
 	protected static final String audName = "testAudience";
-	protected DummySrvAdm svrAdm = new DummySrvAdm();
-	protected DummySender sender = new DummySender(svrAdm);
+
+	protected DummySender sender = new DummySender();
 	protected AudIntf aud = new Aud(audName, sender);
 
 	/**
@@ -200,7 +199,7 @@ public class ChnlPreesSvrTest {
 		ChnlPresSvr chnl = new ChnlPresSvr(seshName, chnlName, rsces);
 		chnl.joinChnl(aud);
 
-		DummySender senderFor2 = new DummySender(new DummySrvAdm());
+		DummySender senderFor2 = new DummySender();
 		chnl.joinChnl(new Aud("testAudience2", senderFor2));
 
 		ReqCmdRegChnl cmd = new ReqCmdRegChnl("testSession", "testChannel");

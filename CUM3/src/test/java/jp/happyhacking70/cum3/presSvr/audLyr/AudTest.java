@@ -7,7 +7,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import jp.happyhacking70.cum3.cmd.ntfy.impl.NtfyCmdRegChnl;
 import jp.happyhacking70.cum3.comLyr.DummySender;
-import jp.happyhacking70.cum3.comLyr.DummySrvAdm;
 import jp.happyhacking70.cum3.excp.impl.CumExcpXMLGenFailed;
 
 import org.junit.BeforeClass;
@@ -34,7 +33,7 @@ public class AudTest {
 	 */
 	@Test
 	public void testGetAudName() {
-		DummySender sender = new DummySender(new DummySrvAdm());
+		DummySender sender = new DummySender();
 		Aud aud = new Aud(audName, sender);
 
 		assertEquals(audName, aud.getAudName());
@@ -50,7 +49,7 @@ public class AudTest {
 	 */
 	@Test
 	public void testSendCmdOk() throws CumExcpXMLGenFailed {
-		DummySender sender = new DummySender(new DummySrvAdm());
+		DummySender sender = new DummySender();
 		Aud aud = new Aud(audName, sender);
 
 		NtfyCmdRegChnl cmd = new NtfyCmdRegChnl("testSession", "testChnl");

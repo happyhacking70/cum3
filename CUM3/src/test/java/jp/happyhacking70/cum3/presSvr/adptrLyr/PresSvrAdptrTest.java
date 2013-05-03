@@ -21,9 +21,9 @@ import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpRscNull;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshExists;
 import jp.happyhacking70.cum3.excp.impl.seshChnlAudLyr.CumExcpSeshNotExist;
-import jp.happyhacking70.cum3.presSvr.adptrLyr.disconHdlr.DisconHdlrAbst;
-import jp.happyhacking70.cum3.presSvr.adptrLyr.disconHdlr.DisconHdlrAud;
-import jp.happyhacking70.cum3.presSvr.adptrLyr.disconHdlr.DisconHdlrPrestr;
+import jp.happyhacking70.cum3.presSvr.adptrLyr.discnHdlr.DiscnHdlrAbst;
+import jp.happyhacking70.cum3.presSvr.adptrLyr.discnHdlr.DiscnHdlrAud;
+import jp.happyhacking70.cum3.presSvr.adptrLyr.discnHdlr.DiscnHdlrPrestr;
 import jp.happyhacking70.cum3.presSvr.seshLyr.impl.SeshMgrPresSvr;
 import jp.happyhacking70.cum3.test.CumTestAbst;
 
@@ -63,9 +63,9 @@ public class PresSvrAdptrTest extends CumTestAbst {
 
 		PresSvrAdptr adptr = new PresSvrAdptr(seshMgr);
 
-		Pair<String, DisconHdlrAbst> p = adptr.hndlCmd(xml);
+		Pair<String, DiscnHdlrAbst> p = adptr.hndlCmd(xml);
 
-		assertEquals(DisconHdlrPrestr.class, p.getValue1().getClass());
+		assertEquals(DiscnHdlrPrestr.class, p.getValue1().getClass());
 		assertEquals(
 				new ResCmdClsSesh(seshName, ResCmdClsSesh.RsltTypes.Clsed)
 						.toXmlStr(),
@@ -85,9 +85,9 @@ public class PresSvrAdptrTest extends CumTestAbst {
 
 		PresSvrAdptr adptr = new PresSvrAdptr(seshMgr);
 
-		Pair<String, DisconHdlrAbst> p = adptr.hndlCmd(xml);
+		Pair<String, DiscnHdlrAbst> p = adptr.hndlCmd(xml);
 
-		assertEquals(DisconHdlrAud.class, p.getValue1().getClass());
+		assertEquals(DiscnHdlrAud.class, p.getValue1().getClass());
 		assertEquals(new ResCmdJoinChnl(seshName, chnlName, audName,
 				ResCmdJoinChnl.RsltTypes.Joined.name()).toXmlStr(),
 				p.getValue0());
@@ -102,7 +102,7 @@ public class PresSvrAdptrTest extends CumTestAbst {
 		seshMgr.regSesh(seshName, senderForPrestr);
 
 		PresSvrAdptr adptr = new PresSvrAdptr(seshMgr);
-		Pair<String, DisconHdlrAbst> p = adptr.hndlCmd(xml);
+		Pair<String, DiscnHdlrAbst> p = adptr.hndlCmd(xml);
 		assertEquals(new ResCmdIllegalXML().toXmlStr(), p.getValue0());
 		assertNull(p.getValue1());
 
@@ -118,7 +118,7 @@ public class PresSvrAdptrTest extends CumTestAbst {
 		seshMgr.regSesh(seshName, senderForPrestr);
 
 		PresSvrAdptr adptr = new PresSvrAdptr(seshMgr);
-		Pair<String, DisconHdlrAbst> p = adptr.hndlCmd(xml);
+		Pair<String, DiscnHdlrAbst> p = adptr.hndlCmd(xml);
 		assertEquals(new ResCmdUnknowCmd().toXmlStr(), p.getValue0());
 		assertNull(p.getValue1());
 
@@ -137,9 +137,9 @@ public class PresSvrAdptrTest extends CumTestAbst {
 		SeshMgrPresSvr seshMgr = new SeshMgrPresSvr();
 
 		PresSvrAdptr adptr = new PresSvrAdptr(seshMgr);
-		Pair<String, DisconHdlrAbst> p = adptr.hndlCmd(xml, senderForPrestr);
+		Pair<String, DiscnHdlrAbst> p = adptr.hndlCmd(xml, senderForPrestr);
 		assertNull(senderForPrestr.pollCmd());
-		assertEquals(DisconHdlrPrestr.class, p.getValue1().getClass());
+		assertEquals(DiscnHdlrPrestr.class, p.getValue1().getClass());
 		assertEquals(
 				new ResCmdRegSesh(seshName, ResCmdRegSesh.RsltTypes.Reged)
 						.toXmlStr(),
@@ -162,10 +162,10 @@ public class PresSvrAdptrTest extends CumTestAbst {
 		seshMgr.regSesh(seshName, senderForPrestr);
 
 		PresSvrAdptr adptr = new PresSvrAdptr(seshMgr);
-		Pair<String, DisconHdlrAbst> p = adptr.hndlCmd(xml, rscesArray);
+		Pair<String, DiscnHdlrAbst> p = adptr.hndlCmd(xml, rscesArray);
 
 		assertEquals(new ResCmdRegChnl(seshName, chnlName, rscesArray,
 				ResCmdRegChnl.RsltTypes.Reged).toXmlStr(), p.getValue0());
-		assertEquals(DisconHdlrPrestr.class, p.getValue1().getClass());
+		assertEquals(DiscnHdlrPrestr.class, p.getValue1().getClass());
 	}
 }

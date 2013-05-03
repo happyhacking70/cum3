@@ -1,7 +1,7 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.presSvr.adptrLyr.disconHdlr;
+package jp.happyhacking70.cum3.presSvr.adptrLyr.discnHdlr;
 
 import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrDisconIntf;
 
@@ -9,13 +9,13 @@ import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrDisconIntf;
  * @author happyhacking70@gmail.com
  * 
  */
-public class DisconHdlrPrestr extends DisconHdlrAbst {
+public class DiscnHdlrPrestr extends DiscnHdlrAbst {
 	protected String seshName;
 
 	/**
 	 * @param presSvr
 	 */
-	public DisconHdlrPrestr(SeshMgrPresSvrDisconIntf seshMgr, String seshName) {
+	public DiscnHdlrPrestr(SeshMgrPresSvrDisconIntf seshMgr, String seshName) {
 		super(seshMgr);
 		this.seshName = seshName;
 	}
@@ -27,7 +27,7 @@ public class DisconHdlrPrestr extends DisconHdlrAbst {
 	 * notifyDiscon()
 	 */
 	@Override
-	void notifyDiscon() {
+	public void notifyDiscon() {
 		seshMgr.prestrDisconned(seshName);
 	}
 

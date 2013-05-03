@@ -1,7 +1,7 @@
 /**
  * 
  */
-package jp.happyhacking70.cum3.presSvr.adptrLyr.disconHdlr;
+package jp.happyhacking70.cum3.presSvr.adptrLyr.discnHdlr;
 
 import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrDisconIntf;
 
@@ -9,13 +9,13 @@ import jp.happyhacking70.cum3.presSvr.seshLyr.SeshMgrPresSvrDisconIntf;
  * @author happyhacking70@gmail.com
  * 
  */
-abstract public class DisconHdlrAbst {
+abstract public class DiscnHdlrAbst {
 	SeshMgrPresSvrDisconIntf seshMgr;
 
-	public DisconHdlrAbst(SeshMgrPresSvrDisconIntf seshMgr) {
+	public DiscnHdlrAbst(SeshMgrPresSvrDisconIntf seshMgr) {
 		super();
 		this.seshMgr = seshMgr;
 	}
 
-	abstract void notifyDiscon();
+	abstract public void notifyDiscon();
 }

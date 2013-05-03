@@ -3,6 +3,8 @@
  */
 package jp.happyhacking70.cum3.presSvr.comLyr;
 
+import java.util.concurrent.ConcurrentLinkedQueue;
+
 import jp.happyhacking70.cum3.cmd.XMLableCmdIntf;
 import jp.happyhacking70.cum3.excp.impl.CumExcpXMLGenFailed;
 
@@ -10,17 +12,9 @@ import jp.happyhacking70.cum3.excp.impl.CumExcpXMLGenFailed;
  * @author happyhacking70@gmail.com
  * 
  */
-abstract public class CmdSenderAbst implements CmdSenderIntf {
+public class CmdSender implements CmdSenderIntf {
 
-	protected SvrAdmIntf svrAdm;
-
-	/**
-	 * @param svrAdm
-	 */
-	public CmdSenderAbst(SvrAdmIntf svrAdm) {
-		super();
-		this.svrAdm = svrAdm;
-	}
+	protected ConcurrentLinkedQueue<String> cmdQueue = new ConcurrentLinkedQueue<String>();
 
 	/*
 	 * (non-Javadoc)
@@ -35,17 +29,14 @@ abstract public class CmdSenderAbst implements CmdSenderIntf {
 		try {
 			xmledCmd = cmd.toXmlStr();
 		} catch (CumExcpXMLGenFailed e) {
-			svrAdm.xmlGenErrDetected(cmd);
+			e.printStackTrace();
 			return;
 		}
 
-		sendCmd(xmledCmd);
+		cmdQueue.add(xmledCmd);
 	}
 
-	/**
-	 * send command
-	 * 
-	 * @param xmledCmd
-	 */
-	abstract protected void sendCmd(String xmledCmd);
+	public String poll() {
+		return cmdQueue.poll();
+	}
 }

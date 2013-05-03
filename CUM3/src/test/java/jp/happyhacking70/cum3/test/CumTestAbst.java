@@ -13,7 +13,6 @@ import javax.imageio.ImageIO;
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscImg;
 import jp.happyhacking70.cum3.chnlLyr.rsc.ChnlRscIntf;
 import jp.happyhacking70.cum3.comLyr.DummySender;
-import jp.happyhacking70.cum3.comLyr.DummySrvAdm;
 
 /**
  * @author happyhacking70@gmail.com
@@ -37,10 +36,9 @@ public abstract class CumTestAbst {
 
 	protected ArrayList<ChnlRscIntf> rscesArray = new ArrayList<ChnlRscIntf>();
 
-	protected static final DummySrvAdm srvAdm = new DummySrvAdm();
-	protected static final DummySender senderForPrestr = new DummySender(srvAdm);
-	protected static final DummySender senderForAudA = new DummySender(srvAdm);
-	protected static final DummySender senderForAudB = new DummySender(srvAdm);
+	protected static final DummySender senderForPrestr = new DummySender();
+	protected static final DummySender senderForAudA = new DummySender();
+	protected static final DummySender senderForAudB = new DummySender();
 
 	public CumTestAbst() throws IOException {
 		super();
